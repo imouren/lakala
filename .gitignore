@@ -1,0 +1,31 @@
+# python bytecode
+*.py[cod]
+settings_local.py
+manage_local.py
+
+# Vim swap files
+*.swp
+
+# Sphinx files
+docs/_build/
+
+# Log files
+*.log
+
+# Coverage files
+.coverage
+
+# Tmp file
+*~
+
+# Local configure file for lzc
+lzc*
+
+# other files
+desktop.ini
+*.cfg
+.idea
+*.rdb
+
+# data
+data
