@@ -1,0 +1,23 @@
+{% extends "lkl/base.html" %}
+{% load staticfiles %}
+
+{% block header_title %}
+<title>首页</title>
+{% endblock %}
+
+
+{% block container  %}
+<div>
+{% if request.user.is_authenticated %}
+    欢迎
+    {% if request.user.userprofile %}
+    {{ request.user.userprofile.name }}
+    {% else %}
+    {{ request.user.username }}
+    {% endif %}
+{% else %}
+欢迎游客！
+{% endif %}
+
+</div>
+{% endblock %}

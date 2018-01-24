@@ -1,0 +1,5 @@
+django==1.11
+werobot
+django-suit
+django_easy_select2
+django-simple-captcha

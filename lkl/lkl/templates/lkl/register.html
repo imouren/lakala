@@ -1,0 +1,162 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+{% block container %}
+<form method="post" action="{% url 'user_register' %}">
+    {% csrf_token %}
+    <div class="weui-cells weui-cells_form">
+
+        <div class="weui-cell {%if errors.username %}weui-cell_warn{% endif %}">
+            <div class="weui-cell__hd">
+                <label class="weui-label">手机</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="username" name="username" type="number" pattern="[0-9]*" placeholder="请输入手机号">
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-warn">{{errors.username.0}}</i>
+            </div>
+        </div>
+
+        <div class="weui-cell {%if errors.name %}weui-cell_warn{% endif %}">
+            <div class="weui-cell__hd">
+                <label class="weui-label">姓名</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="name" name="name" type="text" placeholder="真实姓名">
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-warn">{{errors.name.0}}</i>
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">性别</label>
+            </div>
+            <div class="weui-cell__bd">
+                <select class="weui-select" name="sex">
+                    <option selected="" value="M">男</option>
+                    <option value="F">女</option>
+                    <option value="O">其他</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="weui-cell {%if errors.password %}weui-cell_warn{% endif %}">
+            <div class="weui-cell__hd">
+                <label for="" class="weui-label">密码</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="password" name="password" type="password" placeholder="请输入密码">
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-warn">{{errors.password.0}}</i>
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label for="" class="weui-label">再次密码</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="password2" name="password2" type="password" placeholder="请输入密码">
+            </div>
+        </div>
+
+        <div class="weui-cell weui-cell_vcode {% if errors.captcha %}weui-cell_warn{% endif %}">
+            <div class="weui-cell__hd">
+                <label class="weui-label">验证码</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" name="captcha_1" type="text" placeholder="请输入验证码">
+                <input id="hashkey" id="captcha" name="captcha_0" type="hidden" value="{{ hashkey }}">
+            </div>
+            <div class="weui-cell__ft">
+                <img class="weui-vcode-img js-captcha-refresh" src="{{ img_url }}" />
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-warn">{{errors.captcha.0}}</i>
+            </div>
+        </div>
+
+        <div class="weui-cell {%if errors.invite_code %}weui-cell_warn{% endif %}">
+            <div class="weui-cell__hd">
+                <label for="" class="weui-label">邀请码</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="invite_code" name="invite_code" type="text" placeholder="请输入邀请码">
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-warn">{{errors.invite_code.0}}</i>
+            </div>
+        </div>
+
+        <div class="weui-btn-area">
+            <button class="weui-btn weui-btn_primary" id="submit" type="submit">注册</button>
+        </div>
+
+    </div>
+
+</form>
+
+<div class="weui-footer">
+    <p class="weui-footer__text">已经有账号？</p>
+    <p class="weui-footer__links">
+        <a href="{% url 'user_login' %}" class="weui-footer__link">登陆</a>
+    </p>
+</div>
+
+{% endblock %}
+
+
+{% block footer_js_extra %}
+
+<script>
+    // 表单提交
+    $("#submitx").click(function() {
+        var hz_reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
+        var username = $('#username').val();
+        var name = $('#name').val();
+        var password = $('#password').val();
+        var password2 = $('#password2').val();
+        var captcha = $('#captcha').val();
+        var invite_code = $('#invite_code').val();
+        if(!username || !/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/.test(username)) {
+            $.toptip('请输入正确手机号');
+            return false;
+        }
+        else if(!name || !hz_reg.test(name) || name.length < 2) {
+            $.toptip('请输入真实姓名');
+            return false;
+        }
+        else if(!password || !password2 || password != password2) {
+            $.toptip('两次密码输入不一致');
+            return false;
+        }
+        else if(!captcha || captcha.length != 4) {
+            $.toptip('请输入验证码');
+            return false;
+        }
+        else if(!invite_code || invite_code.length != 32) {
+            $.toptip('请输入邀请码');
+            return false;
+        }
+        else $.toptip('正在提交...', 'success');
+    });
+    // 验证码
+    $('.js-captcha-refresh').click(function() {
+
+        $.getJSON("{% url 'captcha-refresh' %}", {}, function(data) {
+            $('.js-captcha-refresh').attr("src", data.image_url);
+            $('#hashkey').val(data.key);
+        });
+
+        return false;
+    });
+
+    // 错误提示
+    {% if error %}
+    $.toptip('{{ error.0 }}', 'error');
+    {% endif %}
+</script>
+{% endblock %}

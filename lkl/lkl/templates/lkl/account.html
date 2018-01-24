@@ -1,0 +1,64 @@
+{% extends "lkl/base.html" %}
+{% load staticfiles %}
+
+{% block header_title  %}
+    <title>用户页</title>
+{% endblock %}
+
+{% block container  %}
+<div>
+    Account Page
+    <a href="{% url 'user_logout' %}">退出</a>
+</div>
+
+<div class="weui-grids">
+    <a href="/user/" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+            <img src="http://m.shensuantang.com/Public/sstm/imagesm/mh/dianhua.png" alt="">
+        </div>
+        <p class="weui-grid__label">
+            我的机器
+        </p>
+    </a>
+    <a href="" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+            <img src="http://m.shensuantang.com/Public/sstm/imagesm/mh/gongsi.png" alt="">
+        </div>
+        <p class="weui-grid__label">
+            绑定新机器
+        </p>
+    </a>
+    <a href="" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+            <img src="http://m.shensuantang.com/Public/sstm/imagesm/mh/dianhua.png" alt="">
+        </div>
+        <p class="weui-grid__label">
+            我的邀请码
+        </p>
+    </a>
+    <a href="" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+            <img src="http://m.shensuantang.com/Public/sstm/imagesm/mh/biming.png" alt="">
+        </div>
+        <p class="weui-grid__label">
+            我的地址
+        </p>
+    </a>
+    <a href="" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+            <img src="http://m.shensuantang.com/Public/sstm/imagesm/mh/gongsi.png" alt="">
+        </div>
+        <p class="weui-grid__label">
+            绑定新机器
+        </p>
+    </a>
+    <a href="" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+            <img src="http://m.shensuantang.com/Public/sstm/imagesm/mh/gongsi.png" alt="">
+        </div>
+        <p class="weui-grid__label">
+            绑定新机器
+        </p>
+    </a>
+</div>
+{% endblock %}
