@@ -15,5 +15,6 @@ function safe_run()
 
 }
 
+source /root/.bash_profile
 echo `date`
 time safe_run $*
