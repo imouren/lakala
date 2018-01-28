@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import string
 import random
+from decimal import Decimal
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, LKLTrade01
 
 
 def get_user_by_code(code, is_phone):
@@ -48,3 +49,19 @@ def generate_code(n=6):
         return generate_code(n)
     else:
         return code
+
+
+def get_trade_by_terminal(terminal):
+    data = {}
+    objs = LKLTrade01.objects.filter(termNo=terminal)
+    for obj in objs:
+        if obj.transType == u"刷卡":
+            month = obj.trade_date[:6]
+            if month in data:
+                data[month] += Decimal(obj.feeAmt)
+            else:
+                data[month] = Decimal(0)
+    trade_data = [(k, str(v)) for k, v in data.iteritems()]
+    trade_data.sort()
+    trade_data.append((u"小计", str(sum(data.values()))))
+    return trade_data

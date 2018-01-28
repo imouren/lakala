@@ -11,6 +11,7 @@ from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from .forms import LoginForm, RegisterForm
 from .models import UserProfile
+from . import utils
 
 
 def home(request):
@@ -116,4 +117,8 @@ def register(request):
 @login_required
 def search_terminal(request):
     data = {}
-    return render(request, "lkl/news.html", data)
+    if request.method == 'POST':
+        q = request.POST.get("q")
+        trade_data = utils.get_trade_by_terminal(q)
+        data["trade"] = trade_data
+    return render(request, "lkl/search_terminal.html", data)
