@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
-from optparse import make_option
-from lkl import utils, config
 from PIL import Image
 from io import BytesIO
 import requests
 from pytesseract import image_to_string
-
 from django.core.management.base import BaseCommand
+from lkl import utils, config
+from user.models import LKLTrade01
+
+import warnings
+warnings.filterwarnings("ignore")
 
 URL = "https://mposa.lakala.com/queryTrade"
 LOGIN_URL = "https://mposa.lakala.com/login"
@@ -28,18 +30,19 @@ class Command(BaseCommand):
     """
     同步视频对应主题到redis
     """
-    option_list = BaseCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--start',
             action='store',
             dest='start',
-            help=''),
-        make_option(
+            help=''
+        )
+        parser.add_argument(
             '--end',
             action='store',
             dest='end',
-            help=''),
-    )
+            help=''
+        )
 
     def handle(self, start, end, *args, **options):
         try:
@@ -57,15 +60,17 @@ class Command(BaseCommand):
             "userPwd": config.LKL_PWD,
             "code": code
         }
-        res = requests.post(LOGIN_URL, data, headers=HEADERS)
-        sid = res.json().get("sessionId")
+        res = requests.post(LOGIN_URL, data, headers=HEADERS, verify=False)
+        sid = res.json().get("retData", {}).get("sessionId")
         cookies = res.cookies
-
-        for i in (diff.days + 1):
-            adate = start_date + timedelta(i)
-            adate_str = utils.datetime_to_string(adate)
-            print adate_str
-            get_one_day_data(adate_str, sid, cookies)
+        if sid:
+            for i in range(diff.days + 1):
+                adate = start_date + timedelta(i)
+                adate_str = utils.datetime_to_string(adate)
+                print adate_str
+                get_one_day_data(adate_str, sid, cookies)
+        else:
+            print res.json()["retMsg"]
         print "ok"
 
 
@@ -85,7 +90,7 @@ def get_one_day_data(date_str, sid, cookies):
             "termNo": "",
             "sessionId": sid
         }
-        res = requests.post(URL, data, headers=HEADERS, cookies=cookies)
+        res = requests.post(URL, data, headers=HEADERS, cookies=cookies, verify=False)
         result = res.json()
         if result["retCode"] != "SUCCESS":
             print result
@@ -95,11 +100,38 @@ def get_one_day_data(date_str, sid, cookies):
             break
         else:
             rows = ret["rows"]
-            write_to_db(rows)
+            write_to_db(date_str, rows)
+            page += 1
 
 
-def write_to_db(data):
-    print data
+def write_to_db(date_str, data):
+    # 原有数据
+    tids = [trade["transId"] for trade in data]
+    used_tids = set(LKLTrade01.objects.filter(transId__in=tids).values_list("transId", flat=True))
+    # 插入db
+    alist = []
+    for trade in data:
+        if trade["transId"] not in used_tids:
+            obj = LKLTrade01(
+                merchantCode=trade["merchantCode"],
+                maintainOrg=trade["maintainOrg"],
+                transId=trade["transId"],
+                cardType=trade["cardType"],
+                transCode=trade["transCode"],
+                termNo=trade["termNo"],
+                payAmt=trade["payAmt"],
+                cardNo=trade["cardNo"],
+                feeAmt=trade["feeAmt"],
+                sid=trade["sid"],
+                merchantName=trade["merchantName"],
+                transType=trade["transType"],
+                signimage=trade["signimage"],
+                transAmt=trade["transAmt"],
+                trade_date=date_str,
+            )
+            alist.append(obj)
+    if alist:
+        LKLTrade01.objects.bulk_create(alist)
 
 
 def init_table(threshold=250):
@@ -113,7 +145,7 @@ def init_table(threshold=250):
 
 
 def get_code_value(img_url=IMG_URL):
-    response = requests.get(img_url)
+    response = requests.get(img_url, verify=False, headers=HEADERS)
     im = Image.open(BytesIO(response.content))
     im = im.convert('L')
     binary_image = im.point(init_table(250), '1')

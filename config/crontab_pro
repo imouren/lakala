@@ -1,2 +1,7 @@
 # db config
-*/5 * * * * /projects/lakala/config/run_command_pro.sh your_script >> /data/script/run.log 2>&1
+5 * * * * /projects/lakala/config/run_command_pro.sh sync_trade01 >> /data/script/run.log 2>&1
+
+
+
+# run once
+# /projects/lakala/config/run_command_pro.sh sync_trade01 --start=20180101 --end=20180128

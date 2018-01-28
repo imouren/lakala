@@ -14,3 +14,16 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.UserProfile, UserProfileAdmin)
+
+
+class LKLTrade01ileAdmin(admin.ModelAdmin):
+    list_display = [
+        "merchantCode", "maintainOrg", "transId",
+        "cardType", "transCode", "termNo", "payAmt",
+        "cardNo", "feeAmt", "sid", "merchantName",
+        "transType", "transAmt", "trade_date"]
+    fields = list_display
+    search_fields = ["termNo", "merchantCode", "transId"]
+
+
+admin.site.register(models.LKLTrade01, LKLTrade01ileAdmin)

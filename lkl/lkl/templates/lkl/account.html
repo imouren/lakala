@@ -7,9 +7,8 @@
 
 {% block container  %}
 <div class="weui-topbar">
-    <h1 class="weui-topbar-title">请假</h1>
+    <h1 class="weui-topbar-title">用户页</h1>
     <a href="/user/"  class="weui-topbar-back"><i class="iconfont icon-xiangzuo"></i></a>
-    <a href="javascript:;" class="weui-topbar-more" id="submitA" onclick="addLeave()">提交</a>
 </div>
 
 
@@ -32,7 +31,7 @@
             <img src="http://m.shensuantang.com/Public/sstm/imagesm/mh/gongsi.png" alt="">
         </div>
         <p class="weui-grid__label">
-            我的刷卡
+            绑定机器
         </p>
     </a>
     <a href="" class="weui-grid js_grid">
@@ -51,12 +50,12 @@
             我的地址
         </p>
     </a>
-    <a href="" class="weui-grid js_grid">
+    <a href="{% url 'search_terminal' %}" class="weui-grid js_grid">
         <div class="weui-grid__icon">
             <img src="http://m.shensuantang.com/Public/sstm/imagesm/mh/gongsi.png" alt="">
         </div>
         <p class="weui-grid__label">
-            安全
+            业绩查询
         </p>
     </a>
     <a href="" class="weui-grid js_grid">

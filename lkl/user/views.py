@@ -111,3 +111,9 @@ def register(request):
     img_url = captcha_image_url(hashkey)
     data.update({"img_url": img_url, "hashkey": hashkey})
     return render(request, "lkl/register.html", data)
+
+
+@login_required
+def search_terminal(request):
+    data = {}
+    return render(request, "lkl/news.html", data)
