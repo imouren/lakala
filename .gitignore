@@ -33,3 +33,4 @@ desktop.ini
 
 # data
 data
+*.sqlite3
