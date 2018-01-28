@@ -1,3 +1,6 @@
+# base
+*/1 * * * * /usr/local/qcloud/stargate/admin/start.sh > /dev/null 2>&1 &
+*/20 * * * * /usr/sbin/ntpdate ntpupdate.tencentyun.com >/dev/null &
 # db config
 5 * * * * /projects/lakala/config/run_command_pro.sh sync_trade01 >> /data/script/run.log 2>&1
 
