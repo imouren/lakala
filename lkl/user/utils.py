@@ -60,7 +60,7 @@ def get_trade_by_terminal(terminal):
             if month in data:
                 data[month] += Decimal(obj.feeAmt)
             else:
-                data[month] = Decimal(0)
+                data[month] = Decimal(obj.feeAmt)
     trade_data = [(k, str(v)) for k, v in data.iteritems()]
     trade_data.sort()
     trade_data.append((u"小计", str(sum(data.values()))))
