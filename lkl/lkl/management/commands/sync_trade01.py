@@ -96,12 +96,11 @@ def get_one_day_data(date_str, sid, cookies):
             print result
             break
         ret = result["retData"]["content"]["resultModel"]
-        if ret["nextPage"] == page or ret["lastPage"] == page:
+        rows = ret["rows"]
+        write_to_db(date_str, rows)
+        if len(rows) < 10:
             break
-        else:
-            rows = ret["rows"]
-            write_to_db(date_str, rows)
-            page += 1
+        page += 1
 
 
 def write_to_db(date_str, data):
