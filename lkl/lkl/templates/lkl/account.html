@@ -34,7 +34,7 @@
             绑定机器
         </p>
     </a>
-    <a href="" class="weui-grid js_grid">
+    <a href="javascript:;" class="weui-grid js_grid" id="invite_code">
         <div class="weui-grid__icon">
             <img src="http://m.shensuantang.com/Public/sstm/imagesm/mh/dianhua.png" alt="">
         </div>
@@ -67,4 +67,12 @@
         </p>
     </a>
 </div>
+{% endblock %}
+
+{% block footer_js_extra %}
+<script>
+    $(document).on("click", "#invite_code", function() {
+        $.alert("您的邀请码是{{request.user.userprofile.code}}！", "邀请码");
+    });
+</script>
 {% endblock %}
