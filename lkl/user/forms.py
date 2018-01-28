@@ -64,7 +64,7 @@ class RegisterForm(forms.Form):
         if lens not in (6, 32, 11):
             msg = u"邀请码格式不对"
             raise forms.ValidationError(msg)
-        is_phone = lens in (6, 32)
+        is_phone = lens == 11
         self.father_user = utils.get_user_by_code(invite_code, is_phone)
         if not self.father_user:
             msg = u"邀请码不存在"
