@@ -3,3 +3,5 @@ werobot
 django-suit
 django_easy_select2
 django-simple-captcha
+selenium
+pytesseract

@@ -1,0 +1,2 @@
+# db config
+*/5 * * * * /projects/lakala/config/run_command_pro.sh your_script >> /data/script/run.log 2>&1

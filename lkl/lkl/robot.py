@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+from lkl import config
 import werobot
 
-robot = werobot.WeRoBot(token='')
+robot = werobot.WeRoBot(token=config.TOKEN)
 
-robot.config["APP_ID"] = ""
-robot.config["APP_SECRET"] = ""
+robot.config["APP_ID"] = config.APP_ID
+robot.config["APP_SECRET"] = config.APP_SECRET
 
 
 @robot.handler

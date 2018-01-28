@@ -60,10 +60,12 @@ class RegisterForm(forms.Form):
     def clean_invite_code(self):
         invite_code = self.cleaned_data["invite_code"]
         invite_code = invite_code.strip()
-        if len(invite_code) != 32:
+        lens = len(invite_code)
+        if lens not in (6, 32, 11):
             msg = u"邀请码格式不对"
             raise forms.ValidationError(msg)
-        self.father_user = utils.get_user_by_code(invite_code)
+        is_phone = lens in (6, 32)
+        self.father_user = utils.get_user_by_phone(invite_code, is_phone)
         if not self.father_user:
             msg = u"邀请码不存在"
             raise forms.ValidationError(msg)

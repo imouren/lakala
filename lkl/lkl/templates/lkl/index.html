@@ -7,17 +7,44 @@
 
 
 {% block container  %}
-<div>
+<h3>
+尊敬的贵宾
 {% if request.user.is_authenticated %}
-    欢迎
     {% if request.user.userprofile %}
     {{ request.user.userprofile.name }}
     {% else %}
     {{ request.user.username }}
     {% endif %}
-{% else %}
-欢迎游客！
 {% endif %}
+您好！
+</h3>
 
-</div>
+
+<article class="weui-article">
+    <h1>顺势而为 乘势而上</h1>
+    <section>
+        <h2 class="title">关于我们</h2>
+        <section>
+            <h3>1.我们的资质</h3>
+            <p>
+                正规授权公司。官网可查。
+                顶级分润，与您共享。
+            </p>
+        </section>
+        <section>
+            <h3>2.我们的优势</h3>
+            <p>
+                传统模式，推广累，维护类，短暂的收益。
+            </p>
+            <p>
+                通过我们，0投资，不压钱，不压货。起步0.55%手续费。
+                推广简单，病毒传播，持久盈利。账户可成长。
+                扔掉你的高费率的机器吧，舍弃原来的模式吧。
+            </p>
+        </section>
+    </section>
+</article>
+
+
+
 {% endblock %}
