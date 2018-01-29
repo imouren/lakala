@@ -13,7 +13,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     search_fields = ["name", "phone"]
 
     def fatherx(self, obj):
-        if obj.userprofile:
+        if obj.father and obj.father.userprofile:
             return obj.userprofile.name
         else:
             return u"五彩神石"
