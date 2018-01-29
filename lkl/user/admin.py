@@ -8,9 +8,17 @@ from . import models
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "father", "phone", "name", "sex", "is_vip", "code", "create_time"]
+    list_display = ["user", "fatherx", "phone", "name", "sex", "is_vip", "code", "create_time"]
     fields = ["user", "phone", "name", "sex", "is_vip", "father"]
     search_fields = ["name", "phone"]
+
+    def fatherx(self, obj):
+        if obj.userprofile:
+            return obj.userprofile.name
+        else:
+            return u"五彩神石"
+    fatherx.allow_tags = True
+    fatherx.short_description = u'导师'
 
 
 admin.site.register(models.UserProfile, UserProfileAdmin)
