@@ -72,7 +72,7 @@ def get_trade_by_terminal2(terminal):
     data = defaultdict(list)
     objs = LKLTrade01.objects.filter(termNo=terminal)
     for obj in objs:
-        if obj.transType == u"刷卡":
+        if obj.transType == u"刷卡" and obj.cardType == u"贷记卡":
             month = obj.trade_date[:6]
             data[month].append([Decimal(obj.transAmt), Decimal(obj.feeAmt)])
     trade_data = []
