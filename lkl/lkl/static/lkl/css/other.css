@@ -66,13 +66,13 @@ span {color: #999999;}
 .tab_btngroup a:first-child{border: 0px;}
 /**/
 footer{padding:10px;text-align:center;color:#999;margin:10px 0 0px 0;font-size:12px}
-.weui_badge{ font-size: 10px;border-radius:12px; min-width: 12px; height: 12px; padding:3px ; text-align: center; line-height:15px;display:inline-block; vertical-align: middle; text-align: center; background-color: #ccc;} 
+.weui_badge{ font-size: 10px;border-radius:12px; min-width: 12px; height: 12px; padding:3px ; text-align: center; line-height:15px;display:inline-block; vertical-align: middle; text-align: center; background-color: #ccc;}
 .weui_badge_danger{ background-color: #ff0000; color: #fff;}
 .weui_uploader_file{ position: relative;}
-.weui_uploader_file .weui_uploader_filetitle{width:100%; overflow: hidden; background-color:rgba(0,0,0,0.8); text-align: center; color: #fff; bottom: 0px; font-size: 10px; position:absolute;} 
+.weui_uploader_file .weui_uploader_filetitle{width:100%; overflow: hidden; background-color:rgba(0,0,0,0.8); text-align: center; color: #fff; bottom: 0px; font-size: 10px; position:absolute;}
 
 /**/
-.weui_grid4{width:25%} 
+.weui_grid4{width:25%}
 /**/
 
 /*替换原*/
@@ -108,7 +108,7 @@ footer{padding:10px;text-align:center;color:#999;margin:10px 0 0px 0;font-size:1
 .worklist_panel .morectrl{display:flex;}
 .worklist_panel .morectrl  a{ padding: 0px 5px;margin-right: 10px; color: #999; font-size: 13px; line-height:1.2 ; border-left: 1px solid #e5e5e5; flex: 1; }
 .worklist_panel .morectrl  a:first-child{border: 0px;}
-/*易执行*/
+
 .help_btn{padding: 0px;margin: 0px;}
 .help_btn li{list-style: none;display:block;float: left; width: 33.3333%;}
 .help_btn li a{display:block; color:#333333;}
@@ -157,7 +157,7 @@ footer{padding:10px;text-align:center;color:#999;margin:10px 0 0px 0;font-size:1
 .weui_workflow .weui_cell_bd:before{ border-top: 10px solid transparent;border-right: 10px solid #FFF;border-bottom: 10PX solid transparent;content:"";display:block;position:absolute;left:-10px;top:15px;}
 .weui_workflow .weui_cell_hd:after{border-top: 10px solid transparent;border-right: 10px solid #d9d9d9;border-bottom: 10PX solid transparent;content:"";display:block;position:absolute;right:-15px;top:10px;}
 /*底部菜单*/
-.weui_bar_item_on .icon-gongzuo:before{content: "\e608";} 
+.weui_bar_item_on .icon-gongzuo:before{content: "\e608";}
 .weui_bar_item_on .icon-xiaoxi:before{content: "\e621";}
 .weui_bar_item_on .icon-lianxiren:before{content: "\e64b";}
 .weui_bar_item_on .icon-wode:before{content:"\e62c";}
@@ -165,8 +165,7 @@ footer{padding:10px;text-align:center;color:#999;margin:10px 0 0px 0;font-size:1
 
 
 /*
-    2016-11-1 by:xq
-    打卡页
+打卡页
 */
 .currentMap{height:110px;width:100%;}
 .currentMap_big{height:200px;width:100%;}
