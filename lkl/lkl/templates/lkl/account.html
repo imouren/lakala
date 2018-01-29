@@ -78,7 +78,7 @@
 {% block footer_js_extra %}
 <script>
     $(document).on("click", "#invite_code", function() {
-        $.alert("您的邀请码是{{request.user.userprofile.code}}！", "邀请码");
+        $.alert("您的邀请码是{{request.user.userprofile.code}}", "邀请码");
     });
 </script>
 {% endblock %}

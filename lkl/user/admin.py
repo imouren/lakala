@@ -8,7 +8,7 @@ from . import models
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "phone", "name", "sex", "is_vip", "code", "create_time"]
+    list_display = ["user", "father", "phone", "name", "sex", "is_vip", "code", "create_time"]
     fields = ["user", "phone", "name", "sex", "is_vip", "father"]
     search_fields = ["name", "phone"]
 

@@ -119,6 +119,6 @@ def search_terminal(request):
     data = {}
     if request.method == 'POST':
         q = request.POST.get("q")
-        trade_data = utils.get_trade_by_terminal(q)
+        trade_data = utils.get_trade_by_terminal2(q)
         data["trade"] = trade_data
     return render(request, "lkl/search_terminal.html", data)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import string
 import random
+from collections import defaultdict
 from decimal import Decimal
 from django.contrib.auth.models import User
 from .models import UserProfile, LKLTrade01
@@ -64,4 +65,26 @@ def get_trade_by_terminal(terminal):
     trade_data = [(k, str(v)) for k, v in data.iteritems()]
     trade_data.sort()
     trade_data.append((u"小计", str(sum(data.values()))))
+    return trade_data
+
+
+def get_trade_by_terminal2(terminal):
+    data = defaultdict(list)
+    objs = LKLTrade01.objects.filter(termNo=terminal)
+    for obj in objs:
+        if obj.transType == u"刷卡":
+            month = obj.trade_date[:6]
+            data[month].append([Decimal(obj.transAmt), Decimal(obj.feeAmt)])
+    trade_data = []
+    trans_total = Decimal(0)
+    fee_total = Decimal(0)
+    for m in data:
+        trans, fee = zip(*data[m])
+        trans_sum = sum(trans)
+        fee_sum = sum(fee)
+        trade_data.append([m, str(trans_sum), str(fee_sum)])
+        trans_total += trans_sum
+        fee_total += fee_sum
+    trade_data.sort()
+    trade_data.append([u"小计", str(trans_total), str(fee_total)])
     return trade_data
