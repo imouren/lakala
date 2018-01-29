@@ -11,7 +11,7 @@
     {% csrf_token %}
         <div class="weui-search-bar__box">
             <i class="weui-icon-search"></i>
-            <input type="search" class="weui-search-bar__input" id="searchInput" name="q" placeholder="搜索" required="">
+            <input type="search" class="weui-search-bar__input" id="searchInput" name="q" placeholder="搜索" required="" value="{% if request.POST.q %} {{request.POST.q}}{% else %}CBC3A3B21134{%endif%}">
             <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
         </div>
         <label class="weui-search-bar__label" id="searchText">
