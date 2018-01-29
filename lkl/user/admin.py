@@ -14,7 +14,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 
     def fatherx(self, obj):
         if obj.father and obj.father.userprofile:
-            return obj.userprofile.name
+            return obj.father.userprofile.name
         else:
             return u"五彩神石"
     fatherx.allow_tags = True
