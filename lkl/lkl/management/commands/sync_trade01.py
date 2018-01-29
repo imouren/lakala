@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import sys
+import warnings
 from datetime import datetime, timedelta
 from PIL import Image
 from io import BytesIO
@@ -8,7 +10,8 @@ from django.core.management.base import BaseCommand
 from lkl import utils, config
 from user.models import LKLTrade01
 
-import warnings
+reload(sys)
+sys.setdefaultencoding('utf-8')
 warnings.filterwarnings("ignore")
 
 URL = "https://mposa.lakala.com/queryTrade"
