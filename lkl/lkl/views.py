@@ -7,4 +7,4 @@ def home(request):
     """
     网站首页
     """
-    return redirect("user_home")
+    return HttpResponse(u"欢迎你来到我的生活！")
