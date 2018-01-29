@@ -21,6 +21,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_view_permission',
     'suit',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,6 +32,15 @@ INSTALLED_APPS = [
     'captcha',
     'user',
     'lkl'
+]
+
+ADMIN_VIEW_PERMISSION_MODELS = [
+    'auth.User',
+    'user.UserProfile',
+    'user.UserAddress',
+    'user.UserPos',
+    'user.UserTrade',
+    'user.LKLTrade01',
 ]
 
 MIDDLEWARE = [
