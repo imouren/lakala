@@ -12,3 +12,4 @@ django-simple-captcha
 selenium
 pytesseract
 django-admin-view-permission
+qcloudsms_py
