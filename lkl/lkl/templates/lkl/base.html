@@ -18,12 +18,20 @@
     <!-- load css -->
     {% block header_css %}
     <link rel="stylesheet" href="{% static "/lkl/css/weui.min.css" %}">
+    <link rel="stylesheet" href="{% static "/lkl/css/other.css" %}">
     <link rel="stylesheet" href="{% static "/lkl/css/jquery-weui.min.css" %}">
-    <link rel="stylesheet" href="{% static "/lkl/iconfont/iconfont.css"  %}">
     {% endblock %}
     <style type="text/css">
     {% block header_css_extra %}
     {% endblock %}
+    </style>
+    <style type="text/css">
+    .icon {
+       width: 1em; height: 1em;
+       vertical-align: -0.15em;
+       fill: cornflowerblue;
+       overflow: hidden;
+    }
     </style>
 </head>
 {% endblock %}
@@ -47,6 +55,7 @@
 <script src="{% static "/lkl/js/jquery.min.js" %}"></script>
 <script src="{% static "/lkl/js/jquery-weui.min.js" %}"></script>
 <script src="{% static "/lkl/js/fastclick.js" %}"></script>
+<script src="{% static "/lkl/iconfont/iconfont.js" %}"></script>
 <script>
   $(function() {
     FastClick.attach(document.body);
