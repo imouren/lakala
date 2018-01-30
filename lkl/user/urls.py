@@ -10,4 +10,7 @@ urlpatterns = [
     url(r'^register/$', views.register, name="user_register"),
     url(r'^logout/$', views.logout, name="user_logout"),
     url(r'^search_terminal/$', views.search_terminal, name="search_terminal"),
+    url(r'^bind_pos/$', views.bind_pos, name="bind_pos"),
+    url(r'^pos_list/$', views.pos_list, name="pos_list"),
+    url(r'^friend_list/$', views.friend_list, name="friend_list"),
 ]

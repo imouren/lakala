@@ -94,3 +94,21 @@ class RegisterForm(forms.Form):
 
     def get_father_user(self):
         return self.father_user
+
+
+class UserPosForm(forms.Form):
+    code = forms.CharField(max_length=50)
+    captcha = CaptchaField()
+
+    def clean_code(self):
+        super(UserPosForm, self).clean()
+        code = self.cleaned_data.get('code')
+
+        if len(code) != 16:
+            msg = u"终端号不正确"
+            raise forms.ValidationError(msg)
+
+        if utils.exists_pos_code(code):
+            msg = u"该终端号已经被绑定过了"
+            raise forms.ValidationError(msg)
+        return self.cleaned_data

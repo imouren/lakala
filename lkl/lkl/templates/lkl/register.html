@@ -68,8 +68,8 @@
                 <label class="weui-label">验证码</label>
             </div>
             <div class="weui-cell__bd">
-                <input class="weui-input" name="captcha_1" type="text" placeholder="请输入验证码">
-                <input id="hashkey" id="captcha" name="captcha_0" type="hidden" value="{{ hashkey }}">
+                <input id="captcha" class="weui-input" name="captcha_1" type="text" placeholder="请输入验证码">
+                <input id="hashkey" name="captcha_0" type="hidden" value="{{ hashkey }}">
             </div>
             <div class="weui-cell__ft">
                 <img class="weui-vcode-img js-captcha-refresh" src="{{ img_url }}" />

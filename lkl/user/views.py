@@ -9,8 +9,8 @@ from django.contrib.auth import views as django_views
 from django.contrib.auth.decorators import login_required
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
-from .forms import LoginForm, RegisterForm
-from .models import UserProfile
+from .forms import LoginForm, RegisterForm, UserPosForm
+from .models import UserProfile, UserPos
 from . import utils
 
 
@@ -92,7 +92,6 @@ def register(request):
     if request.user.is_authenticated:
         return redirect("user_account")
     if request.method == 'POST':
-        print request.POST
         form = RegisterForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -105,7 +104,6 @@ def register(request):
             auth.login(request, user)
             return redirect("user_account")
         else:
-            print form.errors
             error = form.errors.get("__all__")
             data.update({"error": error, "errors": form.errors})
     hashkey = CaptchaStore.generate_key()
@@ -128,7 +126,31 @@ def search_terminal(request):
 def bind_pos(request):
     data = {}
     if request.method == 'POST':
-        code = request.POST.get("code")
-        trade_data = utils.get_trade_by_terminal2(q)
-        data["trade"] = trade_data
+        form = UserPosForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data.get('code')
+            UserPos.objects.create(user=request.user, code=code)
+            return redirect("pos_list")
+        else:
+            error = form.errors.get("__all__")
+            data.update({"error": error, "errors": form.errors})
+    hashkey = CaptchaStore.generate_key()
+    img_url = captcha_image_url(hashkey)
+    data.update({"img_url": img_url, "hashkey": hashkey})
     return render(request, "lkl/bind_pos.html", data)
+
+
+@login_required
+def pos_list(request):
+    data = {}
+    poses = utils.get_user_poses(request.user)
+    data = {"poses": poses}
+    return render(request, "lkl/pos_list.html", data)
+
+
+@login_required
+def friend_list(request):
+    data = {}
+    objs = request.user.children
+    data = {"objs": objs}
+    return render(request, "lkl/friend_list.html", data)
