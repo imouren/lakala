@@ -31,7 +31,7 @@ class LKLTrade01ileAdmin(admin.ModelAdmin):
         "cardNo", "feeAmt", "sid", "merchantName",
         "transType", "transAmt", "trade_date"]
     fields = list_display
-    search_fields = ["termNo", "merchantCode", "transId"]
+    search_fields = ["termNo", "merchantCode", "transId", "trade_date"]
 
 
 admin.site.register(models.LKLTrade01, LKLTrade01ileAdmin)
