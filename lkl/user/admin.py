@@ -8,7 +8,7 @@ from . import models
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "fatherx", "phone", "name", "sex", "is_vip", "code", "create_time"]
+    list_display = ["user", "name", "fatherx", "phone", "sex", "is_vip", "code", "create_time"]
     fields = ["user", "phone", "name", "sex", "is_vip", "father"]
     search_fields = ["name", "phone"]
 
@@ -51,4 +51,3 @@ class UserPosAdmin(admin.ModelAdmin):
     userx.short_description = u'用户'
 
 admin.site.register(models.UserPos, UserPosAdmin)
-
