@@ -32,6 +32,9 @@
        fill: cornflowerblue;
        overflow: hidden;
     }
+    .weui-tabbar__item.weui-bar__item--on .weui-tabbar__label {
+        color: cornflowerblue;
+    }
     </style>
 </head>
 {% endblock %}
@@ -57,8 +60,39 @@
 <script src="{% static "/lkl/js/fastclick.js" %}"></script>
 <script src="{% static "/lkl/iconfont/iconfont.js" %}"></script>
 <script>
+    function GetUrlRelativePath()
+　　{
+　　　　var url = document.location.toString();
+　　　　var arrUrl = url.split("//");
+
+　　　　var start = arrUrl[1].indexOf("/");
+　　　　var relUrl = arrUrl[1].substring(start);
+
+　　　　if(relUrl.indexOf("?") != -1){
+　　　　　　relUrl = relUrl.split("?")[0];
+　　　　}
+　　　　return relUrl;
+　　}
   $(function() {
     FastClick.attach(document.body);
+  });
+  $(function() {
+    // $.alert(window.location.href);
+    // $.alert('{% url "user_home" %}');
+    // $.alert(GetUrlRelativePath());
+    var cls = "weui-bar__item--on";
+    var url = GetUrlRelativePath();
+    var user_home = "{% url 'user_home' %}";
+    var user_news = "{% url 'user_news' %}";
+    if(url == user_home){
+　　　　$("#user_home").addClass(cls);
+　　}
+    else if(url == user_news){
+　　　　$("#user_news").addClass(cls);
+　　}
+    else {
+        $("#user_account").addClass(cls);
+    }
   });
 </script>
 {% endblock %}

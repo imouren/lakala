@@ -1,19 +1,19 @@
 <!--底部固定导航 开始-->
 <div class="weui-tabbar">
-    <a href="/user/" class="weui-tabbar__item ">
+    <a href="{% url 'user_home' %}" class="weui-tabbar__item " id="user_home">
         <div class="weui-tabbar__icon">
         <i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home"></use></svg></i>
         </div>
         <p class="weui-tabbar__label">首 页</p>
     </a>
-    <a href="/user/news/" class="weui-tabbar__item ">
+    <a href="{% url 'user_news' %}" class="weui-tabbar__item " id="user_news">
         <div class="weui-tabbar__icon">
         <i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-liebiao"></use></svg></i>
         </div>
         <p class="weui-tabbar__label">资 讯</p>
     </a>
 
-    <a href="/user/account/" class="weui-tabbar__item ">
+    <a href="{% url 'user_account' %}" class="weui-tabbar__item " id="user_account">
         <div class="weui-tabbar__icon">
             <i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-user1"></use></svg></i>
         </div>
