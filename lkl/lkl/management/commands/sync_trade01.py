@@ -54,7 +54,8 @@ class Command(BaseCommand):
             if end_date < start_date:
                 end_date = start_date
         except Exception:
-            start_date = end_date = datetime.now()
+            end_date = datetime.now()
+            start_date = end_date - timedelta(1)
         diff = end_date - start_date
         # 登陆操作
         code = get_code_value()

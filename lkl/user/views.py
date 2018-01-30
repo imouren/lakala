@@ -122,3 +122,13 @@ def search_terminal(request):
         trade_data = utils.get_trade_by_terminal2(q)
         data["trade"] = trade_data
     return render(request, "lkl/search_terminal.html", data)
+
+
+@login_required
+def bind_pos(request):
+    data = {}
+    if request.method == 'POST':
+        code = request.POST.get("code")
+        trade_data = utils.get_trade_by_terminal2(q)
+        data["trade"] = trade_data
+    return render(request, "lkl/bind_pos.html", data)
