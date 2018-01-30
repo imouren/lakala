@@ -14,11 +14,22 @@
 <div class="bd mt40 ">
 
     <div class="weui-cells">
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            姓名
+          </div>
+          <div class="weui-cell__bd">
+            注册时间
+          </div>
+        </div>
     {% for obj in objs.all %}
 
         <div class="weui-cell">
           <div class="weui-cell__bd">
             {{obj.name}}
+          </div>
+          <div class="weui-cell__bd">
+            {{obj.create_time}}
           </div>
         </div>
 
