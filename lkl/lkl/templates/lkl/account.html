@@ -89,7 +89,7 @@
 {% block footer_js_extra %}
 <script>
     $(document).on("click", "#invite_code", function() {
-        $.toast("我从未见过有如此厚颜无耻之人！", "text");
+        $.toptip('您的邀请码是...', 'success');
         $.alert("您的邀请码是{{request.user.userprofile.code}}", "邀请码");
     });
     $(document).on("click", "#bind_pos", function() {
