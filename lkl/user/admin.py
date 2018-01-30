@@ -31,6 +31,7 @@ class LKLTrade01ileAdmin(admin.ModelAdmin):
         "cardNo", "feeAmt", "sid", "merchantName",
         "transType", "transAmt", "trade_date"]
     fields = list_display
+    list_filter = ["cardType", "transType"]
     search_fields = ["termNo", "merchantCode", "transId", "trade_date"]
 
 
