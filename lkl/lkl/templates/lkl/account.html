@@ -65,7 +65,7 @@
             我的终端
         </p>
     </a>
-    <a href="{% url 'bind_pos' %}" class="weui-grid js_grid">
+    <a href="javascript:;" class="weui-grid js_grid" id="bind_pos">
         <div class="weui-grid__icon">
             <img src="http://m.shensuantang.com/Public/sstm/imagesm/mh/gongsi.png" alt="">
         </div>
@@ -90,6 +90,16 @@
 <script>
     $(document).on("click", "#invite_code", function() {
         $.alert("您的邀请码是{{request.user.userprofile.code}}", "邀请码");
+    });
+    $(document).on("click", "#bind_pos", function() {
+        $.confirm("请务必填写自己的终端号，后续会严格校验。如果恶意绑定，后果自负！", "警告",
+        function() {
+            $(location).attr('href', '{% url "bind_pos" %}');
+        },
+        function() {
+            $.toast("我从来没有见过如此厚颜无耻之人！", "text");
+        },
+        );
     });
 </script>
 {% endblock %}
