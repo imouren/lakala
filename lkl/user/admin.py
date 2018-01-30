@@ -13,7 +13,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     search_fields = ["name", "phone"]
 
     def fatherx(self, obj):
-        if obj.father and obj.father.userprofile:
+        if obj.father and hasattr(obj.user, "userprofile"):
             return obj.father.userprofile.name
         else:
             return u"五彩神石"
@@ -36,3 +36,19 @@ class LKLTrade01ileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.LKLTrade01, LKLTrade01ileAdmin)
+
+
+class UserPosAdmin(admin.ModelAdmin):
+    list_display = ["userx", "code"]
+    fields = list_display
+
+    def userx(self, obj):
+        if obj.user and hasattr(obj.user, "userprofile"):
+            return obj.user.userprofile.name
+        else:
+            return obj.user
+    userx.allow_tags = True
+    userx.short_description = u'用户'
+
+admin.site.register(models.UserPos, UserPosAdmin)
+
