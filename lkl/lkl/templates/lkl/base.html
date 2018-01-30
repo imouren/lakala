@@ -17,13 +17,27 @@
     <meta name="format-detection" content="telephone=no">
     <!-- load css -->
     {% block header_css %}
-    <link rel="stylesheet" href="{% static "/lkl/css/other.css" %}">
     <link rel="stylesheet" href="{% static "/lkl/css/weui.min.css" %}">
+    <link rel="stylesheet" href="{% static "/lkl/css/other.css" %}">
     <link rel="stylesheet" href="{% static "/lkl/css/jquery-weui.min.css" %}">
     {% endblock %}
     <style type="text/css">
     {% block header_css_extra %}
     {% endblock %}
+    </style>
+    <style type="text/css">
+    .icon {
+       width: 1em; height: 1em;
+       vertical-align: -0.15em;
+       fill: cornflowerblue;
+       overflow: hidden;
+    }
+    .weui-tabbar__item.weui-bar__item--on .weui-tabbar__label {
+        color: cornflowerblue;
+    }
+    .weui-tabbar {
+        position: fixed;
+    }
     </style>
 </head>
 {% endblock %}
