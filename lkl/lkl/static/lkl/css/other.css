@@ -223,3 +223,16 @@ footer{padding:10px;text-align:center;color:#999;margin:10px 0 0px 0;font-size:1
 .btn_blockGroup .weui_btn{display:block;}
 
 
+/*补充样式*/
+.icon {
+   width: 1em; height: 1em;
+   vertical-align: -0.15em;
+   fill: cornflowerblue;
+   overflow: hidden;
+}
+.weui-tabbar__item.weui-bar__item--on .weui-tabbar__label {
+    color: cornflowerblue;
+}
+.weui-tabbar {
+    position: fixed;
+}
