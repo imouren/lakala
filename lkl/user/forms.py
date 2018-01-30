@@ -101,8 +101,7 @@ class UserPosForm(forms.Form):
     captcha = CaptchaField()
 
     def clean_code(self):
-        super(UserPosForm, self).clean()
-        code = self.cleaned_data.get('code')
+        code = self.cleaned_data["code"]
 
         if len(code) != 16:
             msg = u"终端号不正确"
@@ -111,4 +110,4 @@ class UserPosForm(forms.Form):
         if utils.exists_pos_code(code):
             msg = u"该终端号已经被绑定过了"
             raise forms.ValidationError(msg)
-        return self.cleaned_data
+        return code

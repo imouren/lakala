@@ -126,8 +126,10 @@ def search_terminal(request):
 def bind_pos(request):
     data = {}
     if request.method == 'POST':
+        print request.POST
         form = UserPosForm(request.POST)
         if form.is_valid():
+            print form.cleaned_data
             code = form.cleaned_data.get('code')
             UserPos.objects.create(user=request.user, code=code)
             return redirect("pos_list")
@@ -142,7 +144,6 @@ def bind_pos(request):
 
 @login_required
 def pos_list(request):
-    data = {}
     poses = utils.get_user_poses(request.user)
     data = {"poses": poses}
     return render(request, "lkl/pos_list.html", data)
@@ -150,7 +151,6 @@ def pos_list(request):
 
 @login_required
 def friend_list(request):
-    data = {}
     objs = request.user.children
     data = {"objs": objs}
     return render(request, "lkl/friend_list.html", data)
