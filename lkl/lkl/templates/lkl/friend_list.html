@@ -7,34 +7,59 @@
 {% block container %}
 
 <div class="weui-topbar">
-    <h1 class="weui-topbar-title">我的朋友</h1>
+    <h1 class="weui-topbar-title">我的小伙伴</h1>
     <a href="{% url 'user_account' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
 </div>
 
 <div class="bd mt40 mb40">
 
-    <div class="weui-cells">
-        <div class="weui-cell">
-          <div class="weui-cell__bd">
-            姓名
-          </div>
-          <div class="weui-cell__bd">
-            注册时间
-          </div>
-        </div>
-    {% for obj in objs.all %}
+<div class="weui-tab">
+<div class="weui-navbar">
+    <a class="weui-navbar__item weui-bar__item--on" href="#tab1">
+          海内存知己
+    </a>
+    <a class="weui-navbar__item" href="#tab2">
+          天涯若比邻
+    </a>
+</div>
 
-        <div class="weui-cell">
-          <div class="weui-cell__bd">
-            {{obj.name}}
-          </div>
-          <div class="weui-cell__bd">
-            {{obj.create_time}}
-          </div>
-        </div>
+<div class="weui-tab__bd">
+    <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+        <div class="weui-cells">
 
-    {% endfor %}
+        {% for obj in freinds_01 %}
+
+            <div class="weui-cell">
+              <div class="weui-cell__bd">
+                {{obj.name}}
+              </div>
+              <div class="weui-cell__bd">
+                {{obj.create_time}}
+              </div>
+            </div>
+
+        {% endfor %}
+        </div>
     </div>
+    <div id="tab2" class="weui-tab__bd-item ">
+        <div class="weui-cells">
+
+        {% for obj in freinds_02 %}
+
+            <div class="weui-cell">
+              <div class="weui-cell__bd">
+                {{obj.name}}
+              </div>
+              <div class="weui-cell__bd">
+                {{obj.create_time}}
+              </div>
+            </div>
+
+        {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
 
 </div>
 

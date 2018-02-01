@@ -152,6 +152,11 @@ def pos_list(request):
 
 @login_required
 def friend_list(request):
-    objs = request.user.children
-    data = {"objs": objs}
+    freinds_01 = list(request.user.children.all())
+    freinds_01.sort(key=lambda x: x.create_time)
+    freinds_02 = []
+    for obj in freinds_01:
+        friends = list(obj.user.children.all())
+        freinds_02.extend(friends)
+    data = {"freinds_01": freinds_01, "freinds_02": freinds_02}
     return render(request, "lkl/friend_list.html", data)
