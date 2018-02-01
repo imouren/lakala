@@ -20,6 +20,14 @@
           <div class="weui-cell__bd">
             {{pos}}
           </div>
+          <form id="{{pos}}" method="post" action="{% url 'search_terminal' %}">
+          {% csrf_token %}
+          <div class="weui-cell__bd">
+            <a href="javascript:;" onclick="$('#{{pos}}').submit();">查看</a>
+            <input name="q" type="hidden" value="{{pos}}">
+            <input name="s" type="hidden" value="0">
+          </div>
+          </form>
         </div>
 
     {% endfor %}
