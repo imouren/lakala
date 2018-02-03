@@ -21,6 +21,7 @@ class UserProfile(models.Model):
     is_vip = models.BooleanField(u"是否VIP", default=False)
     code = models.CharField(u"邀请码", max_length=36, unique=True)
     father = models.ForeignKey(User, verbose_name=u"上家", related_name="children", null=True, blank=True)
+    max_num = models.IntegerField(u"机器上限", default=1)
     update_time = models.DateTimeField(u"创建时间", auto_now=True)
     create_time = models.DateTimeField(u"更新时间", auto_now_add=True)
 
@@ -53,8 +54,8 @@ class UserAddress(models.Model):
     post_code = models.CharField(u"邮编", max_length=20, blank=True)
     is_default = models.BooleanField(u"是否默认地址", default=False)
     is_disabled = models.BooleanField(u"是否禁用", default=False)
-    update_time = models.DateTimeField(u"创建时间", auto_now=True)
-    create_time = models.DateTimeField(u"更新时间", auto_now_add=True)
+    update_time = models.DateTimeField(u"更新时间", auto_now=True)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     class Meta:
         db_table = "user_address"
@@ -99,6 +100,43 @@ class UserTrade(models.Model):
 
     def __str__(self):
         return "%s:%s" % (self.trade_type, self.rmb)
+
+
+@python_2_unicode_compatible
+class UserFenRun(models.Model):
+    POINT_CHOICE = [
+        ("5", u"5"),
+        ("6", u"6"),
+        ("7", u"7"),
+        ("8", u"8"),
+        ("9", u"9"),
+    ]
+    RMB_CHOICE = [
+        ("0.0", u"0.0"),
+        ("0.1", u"0.1"),
+        ("0.2", u"0.2"),
+        ("0.3", u"0.3"),
+        ("0.4", u"0.4"),
+        ("0.5", u"0.5"),
+        ("0.6", u"0.6"),
+        ("0.7", u"0.7"),
+        ("0.8", u"0.8"),
+        ("0.9", u"0.9"),
+        ("1.0", u"1.0"),
+    ]
+    user = models.OneToOneField(User, verbose_name=u"用户")
+    point = models.CharField(u"提点", choices=POINT_CHOICE, max_length=50)
+    rmb = models.CharField(u"现金", choices=RMB_CHOICE, max_length=50)
+    message = models.TextField(u"说明", blank=True)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    update_time = models.DateTimeField(u"更新时间", auto_now=True)
+
+    class Meta:
+        db_table = "user_fenrun"
+        verbose_name = verbose_name_plural = u"用户分润"
+
+    def __str__(self):
+        return "%s:%s" % (self.point, self.rmb)
 
 
 @python_2_unicode_compatible

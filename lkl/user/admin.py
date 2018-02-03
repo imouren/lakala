@@ -5,12 +5,29 @@ from django.template.loader import render_to_string
 from easy_select2 import select2_modelform
 from suit.admin import SortableTabularInline
 from . import models
+from . import forms as fms
+
+
+def is_superuser(request):
+    if request.user.is_active and request.user.is_superuser:
+        return True
+    else:
+        return False
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "name", "fatherx", "phone", "sex", "is_vip", "code", "create_time"]
-    fields = ["user", "phone", "name", "sex", "is_vip", "father"]
+    list_display = ["user", "name", "fatherx", "phone", "sex", "is_vip", "code", "max_num", "create_time"]
+    fields = ["user", "phone", "name", "sex", "is_vip", "father", "max_num"]
     search_fields = ["name", "phone"]
+    all_fields = [f.name for f in models.UserProfile._meta.get_fields()]
+    all_fields.remove("max_num")
+    readonly_fields = all_fields
+
+    def get_readonly_fields(self, request, obj=None):
+        if is_superuser(request):
+            return []
+        else:
+            return super(UserProfileAdmin, self).get_readonly_fields(request, obj)
 
     def fatherx(self, obj):
         if obj.father and hasattr(obj.user, "userprofile"):
@@ -50,4 +67,15 @@ class UserPosAdmin(admin.ModelAdmin):
     userx.allow_tags = True
     userx.short_description = u'用户'
 
+
 admin.site.register(models.UserPos, UserPosAdmin)
+
+
+class UserFenRunAdmin(admin.ModelAdmin):
+    form = fms.UserFenRunFrom
+    list_display = ["user", "point", "rmb", "message", "create_time", "update_time"]
+    fields = ["user", "point", "rmb", "message"]
+    list_filter = ["point", "rmb"]
+
+
+admin.site.register(models.UserFenRun, UserFenRunAdmin)

@@ -7,6 +7,7 @@ from django.urls import reverse
 from captcha.fields import CaptchaField
 from django.contrib import auth
 from . import utils
+from . import models
 
 
 class LoginForm(forms.Form):
@@ -100,6 +101,11 @@ class UserPosForm(forms.Form):
     code = forms.CharField(max_length=50)
     captcha = CaptchaField()
 
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop("request")
+        self.user = request.user
+        super(UserPosForm, self).__init__(*args, **kwargs)
+
     def clean_code(self):
         code = self.cleaned_data["code"]
 
@@ -111,3 +117,62 @@ class UserPosForm(forms.Form):
             msg = u"该终端号已经被绑定过了"
             raise forms.ValidationError(msg)
         return code
+
+    def clean(self):
+        cleaned_data = super(UserPosForm, self).clean()
+
+        if hasattr(self.user, "userprofile"):
+            max_num = self.user.userprofile.max_num
+        else:
+            max_num = 0
+        current_num = utils.get_user_poses(self.user)
+        if current_num >= max_num:
+            msg = u"最多可绑%s机器" % max_num
+            raise forms.ValidationError(msg)
+        return cleaned_data
+
+
+class UserFenRunFrom(forms.ModelForm):
+    class Meta:
+        model = models.UserFenRun
+        fields = ["user", "point", "rmb", "message"]
+
+    def clean_point(self):
+        point = self.cleaned_data["point"]
+        user = self.cleaned_data["user"]
+        try:
+            father = user.userprofile.father
+        except Exception, e:
+            print e
+            father = None
+        if father is None:
+            father_point = "9"
+        else:
+            if hasattr(father, "userfenrun"):
+                father_point = father.userfenrun.point
+            else:
+                father_point = "5"
+        if float(point) > float(father_point):
+            msg = u"提点不能高于上家"
+            raise forms.ValidationError(msg)
+        return point
+
+    def clean_rmb(self):
+        rmb = self.cleaned_data["rmb"]
+        user = self.cleaned_data["user"]
+        try:
+            father = user.userprofile.father
+        except Exception, e:
+            print e
+            father = None
+        if father is None:
+            father_rmb = "1.0"
+        else:
+            if hasattr(father, "userfenrun"):
+                father_rmb = father.userfenrun.rmb
+            else:
+                father_rmb = "0.0"
+        if float(rmb) > float(father_rmb):
+            msg = u"现金不能高于上家"
+            raise forms.ValidationError(msg)
+        return rmb

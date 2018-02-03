@@ -128,7 +128,7 @@ def search_terminal(request):
 def bind_pos(request):
     data = {}
     if request.method == 'POST':
-        form = UserPosForm(request.POST)
+        form = UserPosForm(request.POST, request=request)
         if form.is_valid():
             print form.cleaned_data
             code = form.cleaned_data.get('code')
