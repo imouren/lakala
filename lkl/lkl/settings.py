@@ -41,6 +41,7 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     'user.UserPos',
     'user.UserTrade',
     'user.LKLTrade01',
+    'user.UserFenRun',
 ]
 
 MIDDLEWARE = [
