@@ -23,6 +23,7 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     'admin_view_permission',
     'suit',
+    'easy_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

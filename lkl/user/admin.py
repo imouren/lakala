@@ -58,6 +58,7 @@ admin.site.register(models.LKLTrade01, LKLTrade01ileAdmin)
 class UserPosAdmin(admin.ModelAdmin):
     list_display = ["userx", "code"]
     fields = list_display
+    search_fields = ["user__username", "code"]
 
     def userx(self, obj):
         if obj.user and hasattr(obj.user, "userprofile"):
@@ -76,6 +77,7 @@ class UserFenRunAdmin(admin.ModelAdmin):
     list_display = ["user", "point", "rmb", "message", "create_time", "update_time"]
     fields = ["user", "point", "rmb", "message"]
     list_filter = ["point", "rmb"]
+    search_fields = ["user__username"]
 
 
 admin.site.register(models.UserFenRun, UserFenRunAdmin)
