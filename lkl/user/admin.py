@@ -57,7 +57,7 @@ admin.site.register(models.LKLTrade01, LKLTrade01ileAdmin)
 
 class UserPosAdmin(admin.ModelAdmin):
     list_display = ["user", "userx", "code", "create_time"]
-    fields = list_display
+    fields = ["user", "code"]
     search_fields = ["user__username", "code"]
 
     def userx(self, obj):
@@ -66,7 +66,7 @@ class UserPosAdmin(admin.ModelAdmin):
         else:
             return obj.user
     userx.allow_tags = True
-    userx.short_description = u'用户'
+    userx.short_description = u'用户姓名'
 
 
 admin.site.register(models.UserPos, UserPosAdmin)
