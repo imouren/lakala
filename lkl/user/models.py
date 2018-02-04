@@ -71,6 +71,7 @@ class UserPos(models.Model):
     code = models.CharField(u"终端号", max_length=50)
     first_bound = models.BooleanField(u"是否第一次绑定", default=False)
     is_activate = models.BooleanField(u"是否激活", default=False)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     class Meta:
         db_table = "user_pos"
@@ -132,7 +133,7 @@ class UserFenRun(models.Model):
     ]
     user = models.OneToOneField(User, verbose_name=u"用户")
     point = models.CharField(u"提点", choices=POINT_CHOICE, max_length=50)
-    rmb = models.CharField(u"现金", choices=RMB_CHOICE, max_length=50)
+    rmb = models.CharField(u"秒到", choices=RMB_CHOICE, max_length=50)
     message = models.TextField(u"说明", blank=True)
     create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
     update_time = models.DateTimeField(u"更新时间", auto_now=True)
