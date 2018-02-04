@@ -127,7 +127,7 @@ class UserPosForm(forms.Form):
         else:
             max_num = 0
         current_num = utils.get_user_poses(self.user)
-        if current_num >= max_num:
+        if len(current_num) >= max_num:
             msg = u"最多可绑%s机器" % max_num
             raise forms.ValidationError(msg)
         return cleaned_data
