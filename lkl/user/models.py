@@ -106,10 +106,16 @@ class UserTrade(models.Model):
 class UserFenRun(models.Model):
     POINT_CHOICE = [
         ("5", u"5"),
+        ("5.5", u"5.5"),
         ("6", u"6"),
+        ("6.5", u"6.5"),
         ("7", u"7"),
+        ("7.5", u"7.5"),
         ("8", u"8"),
+        ("8.5", u"8.5"),
         ("9", u"9"),
+        ("9.5", u"9.5"),
+        ("10.0", u"10.0")
     ]
     RMB_CHOICE = [
         ("0.0", u"0.0"),

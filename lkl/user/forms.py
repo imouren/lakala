@@ -146,7 +146,7 @@ class UserFenRunFrom(forms.ModelForm):
             print e
             father = None
         if father is None:
-            father_point = "9"
+            father_point = "10.0"
         else:
             if hasattr(father, "userfenrun"):
                 father_point = father.userfenrun.point
