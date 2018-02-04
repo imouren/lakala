@@ -73,6 +73,10 @@ class UserPos(models.Model):
     is_activate = models.BooleanField(u"是否激活", default=False)
     create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        self.code = self.code.upper()
+        return super(UserPos, self).save(*args, **kwargs)
+
     class Meta:
         db_table = "user_pos"
         verbose_name = verbose_name_plural = u"用户POS机"
