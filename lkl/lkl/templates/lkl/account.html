@@ -87,9 +87,15 @@
 {% endblock %}
 
 {% block footer_js_extra %}
+<script src="{% static "/lkl/js/clipboard.min.js" %}"></script>
 <script>
+    var clipboard = new Clipboard('#invite_code', {
+        text: function() {
+            return '{{request.user.userprofile.code}}';
+        }
+    });
     $("#invite_code").on("click",function() {
-        $.alert("您的邀请码是{{request.user.userprofile.code}}", "邀请码");
+        $.alert("您的邀请码是{{request.user.userprofile.code}}", "已复制邀请码");
     });
     $("#bind_pos").on("click", function() {
         $.confirm("请务必填写自己的终端号，后续会严格校验。如果恶意绑定，后果自负！", "警告",

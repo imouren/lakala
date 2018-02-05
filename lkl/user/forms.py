@@ -134,6 +134,9 @@ class UserPosForm(forms.Form):
 
 
 class UserFenRunFrom(forms.ModelForm):
+    """
+    for admin
+    """
     class Meta:
         model = models.UserFenRun
         fields = ["user", "point", "rmb", "message"]
