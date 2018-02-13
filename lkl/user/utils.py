@@ -111,6 +111,49 @@ def get_d1_by_terminal(terminal):
     return trade_data
 
 
+def get_d1_by_terminal_together(terminal):
+    """
+    新老网站的数据汇总到一起
+    """
+    data = defaultdict(list)
+    # 老系统数据
+    dict_old = {}
+    objs = LKLD1.objects.filter(terminal=terminal)
+    for obj in objs:
+        if obj.card_type == u"贷记卡":
+            month_str = obj.pay_date[:7]
+            month = "".join(month_str.split("-"))
+            tmp = [month, Decimal(obj.draw_rmb), Decimal(obj.fee_rmb)]
+            dict_old[obj.trans_id] = tmp
+    # 新系统数据
+    dict_new = {}
+    objs = LKLTrade01.objects.filter(termNo=terminal)
+    for obj in objs:
+        if obj.transType == u"刷卡" and obj.cardType == u"贷记卡":
+            month = obj.trade_date[:6]
+            tmp = [month, Decimal(obj.transAmt), Decimal(obj.feeAmt)]
+            dict_new[obj.transId] = tmp
+    # 汇总一起
+    dict_old.update(dict_new)
+    for tid, tmp in dict_old.iteritems():
+        month, rmb, fee = tmp
+        data[month].append([rmb, fee])
+
+    trade_data = []
+    trans_total = Decimal(0)
+    fee_total = Decimal(0)
+    for m in data:
+        trans, fee = zip(*data[m])
+        trans_sum = sum(trans)
+        fee_sum = sum(fee)
+        trade_data.append([m, str(trans_sum), str(fee_sum)])
+        trans_total += trans_sum
+        fee_total += fee_sum
+    trade_data.sort()
+    trade_data.append([u"小计", str(trans_total), str(fee_total)])
+    return trade_data
+
+
 def exists_pos_code(code):
     objs = UserPos.objects.filter(code=code)
     if objs:
