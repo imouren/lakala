@@ -157,6 +157,7 @@ SUIT_CONFIG = {
         {'app': 'auth', 'icon': 'icon-lock', 'models': ('user', 'group')},
         {'app': 'user', 'icon': 'icon-leaf', 'models': ('UserProfile', 'UserAddress', 'UserPos', 'UserTrade', "UserFenRun")},
         {'label': u'刷卡数据', 'icon': 'icon-star', 'app': 'user', 'models': ('LKLTrade01', )},
+        {'label': u'刷卡数据(老系统)', 'icon': 'icon-star', 'app': 'user', 'models': ('LKLTerminal', 'LKLD0', 'LKLD1')},
         {'label': u'拉卡拉', 'icon': 'icon-star', 'url': 'https://mposa.lakala.com/', 'blank': True},
     ),
 

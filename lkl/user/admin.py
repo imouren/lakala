@@ -81,3 +81,26 @@ class UserFenRunAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.UserFenRun, UserFenRunAdmin)
+
+
+class LKLTerminalAdmin(admin.ModelAdmin):
+    list_display = ["merchant_code", "merchant_name", "maintain", "terminal", "category", "terminal_type", "open_date", "close_date", "is_give", "is_ok", "ok_date"]
+    fields = list_display
+    list_filter = ["is_ok", "is_ok"]
+    search_fields = ["terminal"]
+
+
+class LKLD0Admin(admin.ModelAdmin):
+    list_display = ["merchant_code", "merchant_name", "maintain", "maintain_code", "trans_id", "category", "draw_date", "draw_rmb", "fee_rmb", "real_rmb", "trans_type", "trans_status"]
+    fields = list_display
+
+
+class LKLD1Admin(admin.ModelAdmin):
+    list_display = ["agent", "merchant_code", "merchant_name", "maintain", "maintain_code", "trans_id", "terminal_num", "draw_date", "draw_rmb", "fee_rmb", "card_type", "pay_date", "pos_type", "terminal"]
+    fields = list_display
+    search_fields = ["terminal"]
+
+
+admin.site.register(models.LKLTerminal, LKLTerminalAdmin)
+admin.site.register(models.LKLD0, LKLD0Admin)
+admin.site.register(models.LKLD1, LKLD1Admin)

@@ -3,9 +3,12 @@
 */20 * * * * /usr/sbin/ntpdate ntpupdate.tencentyun.com >/dev/null &
 # db config
 5 * * * * /projects/lakala/config/run_command_pro.sh sync_trade01 >> /data/script/run.log 2>&1
-
+5 * * * * /projects/lakala/config/run_command_pro.sh sync_slkl --table=all >> /data/script/run.log 2>&1
 
 
 # run once
 # /projects/lakala/config/run_command_pro.sh sync_trade01 --start=20180101 --end=20180128
+# /projects/lakala/config/run_command_pro.sh sync_slkl --start=20180101 --end=20180213 --table=d0
+# /projects/lakala/config/run_command_pro.sh sync_slkl --start=20180101 --end=20180213 --table=d1
+# /projects/lakala/config/run_command_pro.sh sync_slkl --start=20180101 --end=20180213 --table=terminal
 

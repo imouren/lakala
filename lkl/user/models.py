@@ -152,6 +152,9 @@ class UserFenRun(models.Model):
 
 @python_2_unicode_compatible
 class LKLTrade01(models.Model):
+    """
+    数据来源mposa.lakala.com
+    """
     merchantCode = models.CharField(u"商户编码", max_length=64)
     maintainOrg = models.CharField(u"代理商", max_length=64)
     transId = models.CharField(u"流水号", max_length=64, unique=True)
@@ -174,3 +177,82 @@ class LKLTrade01(models.Model):
 
     def __str__(self):
         return self.transId
+
+
+@python_2_unicode_compatible
+class LKLTerminal(models.Model):
+    """
+    数据来源s.lakala.com
+    """
+    merchant_code = models.CharField(u"商户号", max_length=64)
+    merchant_name = models.CharField(u"商户注册名称", max_length=64)
+    maintain = models.CharField(u"维护方", max_length=64)
+    terminal = models.CharField(u"终端号", max_length=64, unique=True)
+    category = models.CharField(u"产品分类", max_length=64)
+    terminal_type = models.CharField(u"机具型号", max_length=64)
+    open_date = models.CharField(u"开通时间", max_length=64)
+    close_date = models.CharField(u"关闭时间", max_length=64)
+    is_give = models.CharField(u"是否赠送", max_length=64)
+    is_ok = models.CharField(u"是否达标", max_length=64)
+    ok_date = models.CharField(u"达标时间", max_length=64)
+
+    class Meta:
+        db_table = "lkl_terminal"
+        verbose_name = verbose_name_plural = u"终端管理"
+
+    def __str__(self):
+        return self.terminal
+
+
+@python_2_unicode_compatible
+class LKLD0(models.Model):
+    """
+    数据来源s.lakala.com
+    """
+    merchant_code = models.CharField(u"商户号", max_length=64)
+    merchant_name = models.CharField(u"商户注册名称", max_length=64)
+    maintain = models.CharField(u"签约机构", max_length=64)
+    maintain_code = models.CharField(u"签约机构号", max_length=64)
+    trans_id = models.CharField(u"流水号", max_length=64, unique=True)
+    category = models.CharField(u"分类", max_length=64)
+    draw_date = models.CharField(u"提款日期", max_length=64)
+    draw_rmb = models.CharField(u"提款金额", max_length=64)
+    fee_rmb = models.CharField(u"提款手续费", max_length=64)
+    real_rmb = models.CharField(u"实际扣款", max_length=64)
+    trans_type = models.CharField(u"交易类型", max_length=64)
+    trans_status = models.CharField(u"交易状态", max_length=64)
+
+    class Meta:
+        db_table = "lkl_d0"
+        verbose_name = verbose_name_plural = u"代理商MPOS个人D0"
+
+    def __str__(self):
+        return self.trans_id
+
+
+@python_2_unicode_compatible
+class LKLD1(models.Model):
+    """
+    数据来源s.lakala.com
+    """
+    agent = models.CharField(u"当前帐号下级代理商", max_length=64)
+    trans_id = models.CharField(u"流水号", max_length=64, unique=True)
+    maintain = models.CharField(u"签约机构", max_length=64)
+    maintain_code = models.CharField(u"签约机构号", max_length=64)
+    merchant_code = models.CharField(u"商户号", max_length=64)
+    merchant_name = models.CharField(u"商户注册名称", max_length=64)
+    terminal_num = models.CharField(u"终端号", max_length=64)
+    draw_date = models.CharField(u"提款日期", max_length=64)
+    draw_rmb = models.CharField(u"提款金额", max_length=64)
+    fee_rmb = models.CharField(u"商户手续费", max_length=64)
+    card_type = models.CharField(u"卡类型", max_length=64)
+    pay_date = models.CharField(u"支付时间", max_length=64)
+    pos_type = models.CharField(u"卡应用类型", max_length=64)
+    terminal = models.CharField(u"PSAM卡号", max_length=64)
+
+    class Meta:
+        db_table = "lkl_d1"
+        verbose_name = verbose_name_plural = u"MPOS个人交易明细"
+
+    def __str__(self):
+        return self.trans_id
