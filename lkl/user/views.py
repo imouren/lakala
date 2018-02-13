@@ -118,7 +118,7 @@ def search_terminal(request):
     if request.method == 'POST':
         q = request.POST.get("q")
         s = request.POST.get("s")  # 是否显示搜索框
-        trade_data = utils.get_trade_by_terminal2(q)
+        trade_data = utils.get_d1_by_terminal(q)
         data["trade"] = trade_data
         data["s"] = s
     return render(request, "lkl/search_terminal.html", data)
