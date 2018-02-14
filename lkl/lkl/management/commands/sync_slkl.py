@@ -58,9 +58,10 @@ class Command(BaseCommand):
     def handle(self, start, end, table, *args, **options):
         if start is None or end is None:
             end_date = datetime.now()
-            start_date = end_date - timedelta(7)
+            start_date = end_date - timedelta(3)
             start = utils.datetime_to_string(start_date, format_str="%Y-%m-%d")
             end = utils.datetime_to_string(end_date, format_str="%Y-%m-%d")
+        print "sync slkl", start, end, table
         cookies = get_cookies()
         start1 = "".join(start.split("-"))
         end1 = "".join(end.split("-"))
