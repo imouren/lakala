@@ -8,3 +8,10 @@ def home(request):
     网站首页
     """
     return HttpResponse(u"欢迎你来到我的生活！")
+
+
+def wx_js(request):
+    """
+    JS接口安全域名
+    """
+    return HttpResponse("kn6YuZIRpnYWeVCO")
