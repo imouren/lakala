@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 from django.shortcuts import render
 from django.contrib import auth
 from django.contrib.auth.models import User
@@ -12,6 +13,8 @@ from captcha.helpers import captcha_image_url
 from .forms import LoginForm, RegisterForm, UserPosForm
 from .models import UserProfile, UserPos
 from . import utils
+
+logger = logging.getLogger('statistics')
 
 
 def home(request):
@@ -160,3 +163,8 @@ def friend_list(request):
         freinds_02.extend(friends)
     data = {"freinds_01": freinds_01, "freinds_02": freinds_02}
     return render(request, "lkl/friend_list.html", data)
+
+
+def wx_redirect(request):
+    logger.info(request.GET)
+    return HttpResponse("ok")

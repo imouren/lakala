@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^bind_pos/$', views.bind_pos, name="bind_pos"),
     url(r'^pos_list/$', views.pos_list, name="pos_list"),
     url(r'^friend_list/$', views.friend_list, name="friend_list"),
+    # wx
+    url(r'^wx_redirect/$', views.wx_redirect, name="wx_redirect"),
 ]

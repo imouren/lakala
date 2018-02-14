@@ -127,6 +127,83 @@ USE_L10N = True
 
 USE_TZ = False
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(pathname)s:%(lineno)d:: %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'statistics': {
+            'format': '%(asctime)s | %(levelname)s | %(message)s'
+        },
+        'standard': {
+            'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(levelname)s] - %(message)s'
+        },
+        'record': {
+            'format': '%(message)s'
+        },
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': "/var/log/lakala/debug.log",
+            'level': 'ERROR',
+        },
+        'statistics_handler': {
+            'class': 'logging.FileHandler',
+            'formatter': 'statistics',
+            'filename': "/var/log/lakala/statistics.log",
+            'level': 'DEBUG',
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file'],
+            'propagate': True,
+            'level': 'ERROR',
+        },
+        'django': {
+            'handlers': ['file'],
+            'propagate': True,
+            'level': 'ERROR',
+        },
+        'django.request': {
+            'handlers': ['mail_admins', "file"],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'statistics': {
+            'handlers': ['statistics_handler'],
+            'propagate': True,
+            'level': 'DEBUG',
+        }
+    }
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
