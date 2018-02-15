@@ -133,6 +133,18 @@ class UserPosForm(forms.Form):
         return cleaned_data
 
 
+class UserPosAdminForm(forms.ModelForm):
+    """
+    for admin
+    """
+    class Meta:
+        model = models.UserPos
+        fields = ["user", "code"]
+        widgets = {
+            'user': apply_select2(forms.Select)
+        }
+
+
 class UserFenRunFrom(forms.ModelForm):
     """
     for admin
