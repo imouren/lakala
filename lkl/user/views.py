@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
+import requests
+from urllib import quote_plus
 from django.shortcuts import render
 from django.contrib import auth
 from django.contrib.auth.models import User
@@ -13,6 +15,7 @@ from captcha.helpers import captcha_image_url
 from .forms import LoginForm, RegisterForm, UserPosForm
 from .models import UserProfile, UserPos
 from . import utils
+from lkl import config
 
 logger = logging.getLogger('statistics')
 
@@ -165,6 +168,25 @@ def friend_list(request):
     return render(request, "lkl/friend_list.html", data)
 
 
+@login_required
+def bind_wx(request):
+    # 获取
+    # 重新授权或者第一次授权
+    user = request.user
+    base_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={}&redirect_uri={}&response_type=code&scope=snsapi_userinfo&state={}#wechat_redirect"
+    rurl = quote_plus(config.WX_REDIRECT_URL)
+    url = base_url.format(config.APP_ID, rurl, user.username)
+    return redirect(url)
+
+
 def wx_redirect(request):
     logger.info(request.GET)
+    code = request.GET.get("code")
+    username = request.GET.get("state")
+    url_base = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={}&secret={}&code={}&grant_type=authorization_code"
+    url = url_base.format(config.APP_ID, config.APP_SECRET, code)
+    res = requests.get(url).json()
+    # 保存 openid access_token refresh_token 的到期时间
+    # 保存openid 和 username对应关系 绑定时间
+    # 获取用户信息，并保存数据库
     return HttpResponse("ok")
