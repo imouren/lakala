@@ -15,7 +15,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 warnings.filterwarnings("ignore")
 
-URL = "https://nb.lakala.com:8080/lakala-report-agent/index.jsp?token=THZFSDQ3VXE2VXdpVzJDSzYyRHE3UUl2c3kzNXBJSmtjUkFpV2dkR1N2eHlMRWMvVlJYTE1HMUQ0djJTdGRnYUg1dHRhRmkyUVIydHFUaDkvMWcyeEE9PQ=="
+URL = config.SLKL_TOKEN
 HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "Accept-Encoding": "gzip, deflate, sdch",
@@ -102,7 +102,8 @@ def get_terminal_data(cookies, start, end):
     代理商查询--公共查询--MPOS代理商终端管理
     """
     print "get_terminal_data..."
-    url_base = "https://nb.lakala.com:8080/lakala-report-agent/nebula/report_view!result.action?orgId=584798&reportId=RPT_8120&panel_panel1=block&beginOpenDate={}&endOpenDate={}&organTypeName=%E7%89%9B%E4%BF%8A%E5%8A%9B13311368820&checkOrgId=584798&ischildren=1&status=-1&isgive=-1&psam_no=&sdbDate=&edbDate=&random={}"
+    # url_base = "https://nb.lakala.com:8080/lakala-report-agent/nebula/report_view!result.action?orgId=584798&reportId=RPT_8120&panel_panel1=block&beginOpenDate={}&endOpenDate={}&organTypeName=%E7%89%9B%E4%BF%8A%E5%8A%9B13311368820&checkOrgId=584798&ischildren=1&status=-1&isgive=-1&psam_no=&sdbDate=&edbDate=&random={}"
+    url_base = "https://nb.lakala.com:8080/lakala-report-agent/nebula/report_view!result.action?orgId=532730&reportId=RPT_8120&panel_panel1=block&beginOpenDate={}&endOpenDate={}&organTypeName=%E5%AE%8F%E6%98%8C%E5%A4%A7%E4%BB%A3%E7%90%86-K&checkOrgId=532730&ischildren=1&status=-1&isgive=-1&psam_no=&sdbDate=&edbDate=&random={}"
     all_data = []
     page = 1
     while True:
@@ -168,7 +169,8 @@ def get_d0_data(cookies, start, end):
     综合查询--代理商MPOS个人D0
     """
     print "get_d0_data..."
-    url_base = "https://nb.lakala.com:8080/lakala-report-agent/nebula/report_view!result.action?orgId=584798&reportId=RPT_40022&panel_panel1=block&startDate={}&endDate={}&merchant_code=&discount_standard=-1&mcc_class=-1&organTypeName=%E7%89%9B%E4%BF%8A%E5%8A%9B13311368820&checkOrgId=584798&random={}"
+    # url_base = "https://nb.lakala.com:8080/lakala-report-agent/nebula/report_view!result.action?orgId=584798&reportId=RPT_40022&panel_panel1=block&startDate={}&endDate={}&merchant_code=&discount_standard=-1&mcc_class=-1&organTypeName=%E7%89%9B%E4%BF%8A%E5%8A%9B13311368820&checkOrgId=584798&random={}"
+    url_base = "https://nb.lakala.com:8080/lakala-report-agent/nebula/report_view!result.action?orgId=532730&reportId=RPT_40022&panel_panel1=block&startDate={}&endDate={}&merchant_code=&discount_standard=-1&mcc_class=-1&organTypeName=%E5%AE%8F%E6%98%8C%E5%A4%A7%E4%BB%A3%E7%90%86-K&checkOrgId=532730&random={}"
     all_data = []
     page = 1
     while True:
@@ -235,7 +237,8 @@ def get_d1_data(cookies, adate):
     代理商查询--日报--MPOS个人交易明细
     """
     print "get_d1_data..."
-    url_base = "https://nb.lakala.com:8080/lakala-report-agent/nebula/report_view!result.action?orgId=584798&reportId=RPT_8103&panel_panel1=block&agentDate={}&checkOrgId=584798&organTypeName=%E7%89%9B%E4%BF%8A%E5%8A%9B13311368820&queryChildren=1&random={}"
+    # url_base = "https://nb.lakala.com:8080/lakala-report-agent/nebula/report_view!result.action?orgId=584798&reportId=RPT_8103&panel_panel1=block&agentDate={}&checkOrgId=584798&organTypeName=%E7%89%9B%E4%BF%8A%E5%8A%9B13311368820&queryChildren=1&random={}"
+    url_base = "https://nb.lakala.com:8080/lakala-report-agent/nebula/report_view!result.action?orgId=532730&reportId=RPT_8103&panel_panel1=block&agentDate={}&checkOrgId=532730&organTypeName=%E5%AE%8F%E6%98%8C%E5%A4%A7%E4%BB%A3%E7%90%86-K&queryChildren=1&random={}"
     all_data = []
     page = 1
     while True:
