@@ -158,12 +158,13 @@ class UserPosAdminForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(UserPosAdminForm, self).clean()
+        user = self.cleaned_data.get('user')
 
-        if hasattr(self.user, "userprofile"):
-            max_num = self.user.userprofile.max_num
+        if hasattr(user, "userprofile"):
+            max_num = user.userprofile.max_num
         else:
             max_num = 0
-        current_num = utils.get_user_poses(self.user)
+        current_num = utils.get_user_poses(user)
         if len(current_num) >= max_num:
             msg = u"最多可绑%s机器" % max_num
             raise forms.ValidationError(msg)
