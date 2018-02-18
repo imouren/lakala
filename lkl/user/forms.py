@@ -157,7 +157,7 @@ class UserPosAdminForm(forms.ModelForm):
         return code
 
     def clean(self):
-        cleaned_data = super(UserPosForm, self).clean()
+        cleaned_data = super(UserPosAdminForm, self).clean()
 
         if hasattr(self.user, "userprofile"):
             max_num = self.user.userprofile.max_num
