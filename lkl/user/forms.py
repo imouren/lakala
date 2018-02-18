@@ -144,6 +144,31 @@ class UserPosAdminForm(forms.ModelForm):
             'user': apply_select2(forms.Select)
         }
 
+    def clean_code(self):
+        code = self.cleaned_data["code"]
+
+        if len(code) != 16:
+            msg = u"终端号不正确"
+            raise forms.ValidationError(msg)
+
+        if utils.exists_pos_code(code):
+            msg = u"该终端号已经被绑定过了"
+            raise forms.ValidationError(msg)
+        return code
+
+    def clean(self):
+        cleaned_data = super(UserPosForm, self).clean()
+
+        if hasattr(self.user, "userprofile"):
+            max_num = self.user.userprofile.max_num
+        else:
+            max_num = 0
+        current_num = utils.get_user_poses(self.user)
+        if len(current_num) >= max_num:
+            msg = u"最多可绑%s机器" % max_num
+            raise forms.ValidationError(msg)
+        return cleaned_data
+
 
 class UserFenRunFrom(forms.ModelForm):
     """

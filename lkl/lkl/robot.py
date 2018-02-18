@@ -6,6 +6,7 @@ robot = werobot.WeRoBot(token=config.TOKEN)
 
 robot.config["APP_ID"] = config.APP_ID
 robot.config["APP_SECRET"] = config.APP_SECRET
+robot.config['ENCODING_AES_KEY'] = config.ENCODING_AES_KEY
 
 
 @robot.handler
