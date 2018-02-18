@@ -15,6 +15,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 warnings.filterwarnings("ignore")
 
+TIMEOUT = 120  # 超时时间
 URL = config.SLKL_TOKEN
 HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
@@ -112,7 +113,11 @@ def get_terminal_data(cookies, start, end):
             url = url + "&RPT_2120.pageSize=10&RPT_2120.pageNo=%s" % page
         print "page:%s" % page
         print url
-        r = requests.get(url, headers=HEADERS, cookies=cookies, verify=False)
+        try:
+            r = requests.get(url, headers=HEADERS, cookies=cookies, verify=False, timeout=TIMEOUT)
+        except:
+            print "timeout..."
+            continue
         html = r.content.decode("utf-8")
         soup = BeautifulSoup(html)
         data = []
@@ -179,7 +184,11 @@ def get_d0_data(cookies, start, end):
             url = url + "&RPT_40021.pageSize=10&RPT_40021.pageNo=%s" % page
         print "page:%s" % page
         print url
-        r = requests.get(url, headers=HEADERS, cookies=cookies, verify=False)
+        try:
+            r = requests.get(url, headers=HEADERS, cookies=cookies, verify=False, timeout=TIMEOUT)
+        except:
+            print "timeout ..."
+            continue
         html = r.content.decode("utf-8")
         soup = BeautifulSoup(html)
         data = []
@@ -247,7 +256,11 @@ def get_d1_data(cookies, adate):
             url = url + "&RPT_8103.pageSize=10&RPT_8103.pageNo=%s" % page
         print "date: %s page:%s" % (adate, page)
         print url
-        r = requests.get(url, headers=HEADERS, cookies=cookies, verify=False)
+        try:
+            r = requests.get(url, headers=HEADERS, cookies=cookies, verify=False, timeout=TIMEOUT)
+        except:
+            print "timeout ..."
+            continue
         html = r.content.decode("utf-8")
         soup = BeautifulSoup(html)
         data = []
