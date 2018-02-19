@@ -70,7 +70,7 @@ class UserPosAdmin(admin.ModelAdmin):
     userx.short_description = u'用户姓名'
 
     def pos_d1(self, obj):
-        return '<a href="/admin/user/lkld1/?q=%s" target="_blank">查看</a>' % obj.code
+        return u'<a href="/admin/user/lkld1/?q=%s" target="_blank">查看</a>' % obj.code
     pos_d1.allow_tags = True
     pos_d1.short_description = u'D1交易'
 
