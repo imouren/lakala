@@ -134,6 +134,11 @@ class UserFenRun(models.Model):
         ("0.8", u"0.8"),
         ("0.9", u"0.9"),
         ("1.0", u"1.0"),
+        ("1.1", u"1.1"),
+        ("1.2", u"1.2"),
+        ("1.3", u"1.3"),
+        ("1.4", u"1.4"),
+        ("1.5", u"1.5"),
     ]
     user = models.OneToOneField(User, verbose_name=u"用户")
     point = models.CharField(u"提点", choices=POINT_CHOICE, max_length=50)

@@ -213,7 +213,7 @@ class UserFenRunFrom(forms.ModelForm):
             print e
             father = None
         if father is None:
-            father_rmb = "1.0"
+            father_rmb = "1.5"
         else:
             if hasattr(father, "userfenrun"):
                 father_rmb = father.userfenrun.rmb
