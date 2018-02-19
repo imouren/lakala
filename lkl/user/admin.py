@@ -57,7 +57,7 @@ admin.site.register(models.LKLTrade01, LKLTrade01ileAdmin)
 
 class UserPosAdmin(admin.ModelAdmin):
     form = fms.UserPosAdminForm
-    list_display = ["user", "userx", "code", "create_time"]
+    list_display = ["user", "userx", "code", "pos_d1", "create_time"]
     fields = ["user", "code"]
     search_fields = ["user__username", "code"]
 
