@@ -92,8 +92,8 @@ admin.site.register(models.UserFenRun, UserFenRunAdmin)
 class LKLTerminalAdmin(admin.ModelAdmin):
     list_display = ["merchant_code", "merchant_name", "maintain", "terminal", "category", "terminal_type", "open_date", "close_date", "is_give", "is_ok", "ok_date"]
     fields = list_display
-    list_filter = ["is_ok", "is_ok"]
-    search_fields = ["terminal"]
+    list_filter = ["is_give", "is_ok"]
+    search_fields = ["terminal", "merchant_code"]
 
 
 class LKLD0Admin(admin.ModelAdmin):
@@ -111,3 +111,36 @@ class LKLD1Admin(admin.ModelAdmin):
 admin.site.register(models.LKLTerminal, LKLTerminalAdmin)
 admin.site.register(models.LKLD0, LKLD0Admin)
 admin.site.register(models.LKLD1, LKLD1Admin)
+
+
+class UserRMBAdmin(admin.ModelAdmin):
+    list_display = ["user", "rmb", "create_time", "update_time"]
+    fields = ["user", "rmb"]
+    search_fields = ["user__username"]
+
+
+class ProfitD1Admin(admin.ModelAdmin):
+    list_display = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "card_type", "pay_date", "terminal", "status", "create_time", "pay_time"]
+    fields = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "card_type", "pay_date", "terminal", "status", "pay_time"]
+    search_fields = ["user__username", "terminal", "merchant_code"]
+    list_filter = ["status"]
+
+
+class ProfitD0Admin(admin.ModelAdmin):
+    list_display = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "real_rmb", "trans_type", "trans_status", "status", "create_time", "pay_time"]
+    fields = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "real_rmb", "trans_type", "trans_status", "status", "pay_time"]
+    search_fields = ["user__username", "merchant_code"]
+    list_filter = ["status"]
+
+
+class TiXianOrderAdmin(admin.ModelAdmin):
+    list_display = ["order_id", "user", "rmb", "fee", "status", "create_time", "pay_time"]
+    fields = ["user", "rmb", "fee", "status", "order_id", "pay_time"]
+    search_fields = ["user__username"]
+    list_filter = ["status"]
+
+
+admin.site.register(models.UserRMB, UserRMBAdmin)
+admin.site.register(models.ProfitD1, ProfitD1Admin)
+admin.site.register(models.ProfitD0, ProfitD0Admin)
+admin.site.register(models.TiXianOrder, TiXianOrderAdmin)
