@@ -99,12 +99,13 @@ class LKLTerminalAdmin(admin.ModelAdmin):
 class LKLD0Admin(admin.ModelAdmin):
     list_display = ["merchant_code", "merchant_name", "maintain", "maintain_code", "trans_id", "category", "draw_date", "draw_rmb", "fee_rmb", "real_rmb", "trans_type", "trans_status"]
     fields = list_display
+    search_fields = ["merchant_code"]
 
 
 class LKLD1Admin(admin.ModelAdmin):
     list_display = ["agent", "merchant_code", "merchant_name", "maintain", "maintain_code", "trans_id", "terminal_num", "draw_date", "draw_rmb", "fee_rmb", "card_type", "pay_date", "pos_type", "terminal"]
     fields = list_display
-    search_fields = ["terminal"]
+    search_fields = ["terminal", "merchant_code"]
 
 
 admin.site.register(models.LKLTerminal, LKLTerminalAdmin)
