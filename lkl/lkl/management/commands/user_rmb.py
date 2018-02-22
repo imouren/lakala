@@ -44,7 +44,7 @@ class Command(BaseCommand):
 
     def handle(self, start, end, table, *args, **options):
         if start is None or end is None:
-            end_datetime = datetime.now() - timedelta(3)
+            end_datetime = datetime.now() - timedelta(4)
             start_datetime = end_datetime - timedelta(3)
         else:
             start_datetime = utils.string_to_datetime(start, format_str="%Y-%m-%d")
@@ -91,8 +91,8 @@ def process_d0_rmb(obj, default_user):
         user_point = user.userfenrun.point
         user_rmb = user.userfenrun.rmb
     else:
-        user_point = "5"
-        user_rmb = "0.0"
+        print "no user fenrun!"
+        return
     profit = models.ProfitD0.objects.create(
         user=user,
         trans_id=obj.trans_id,
@@ -128,8 +128,8 @@ def process_d1_rmb(obj, default_user):
         user_point = user.userfenrun.point
         user_rmb = user.userfenrun.rmb
     else:
-        user_point = "5"
-        user_rmb = "0.0"
+        print "no user fenrun!"
+        return
     armb = Decimal(user_point) / Decimal("60") * Decimal(obj.fee_rmb)
     xrmb = armb.quantize(Decimal('1.00'), ROUND_DOWN)
     profit = models.ProfitD1.objects.create(
