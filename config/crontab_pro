@@ -4,6 +4,7 @@
 # db config
 5 * * * * /projects/lakala/config/run_command_pro.sh sync_trade01 >> /data/script/run.log 2>&1
 5 * * * * /projects/lakala/config/run_command_pro.sh sync_slkl --table=all >> /data/script/run.log 2>&1
+5 */3 * * * /projects/lakala/config/run_command_pro.sh user_rmb --table=all >> /data/script/run.log 2>&1
 
 
 # run once
@@ -11,4 +12,6 @@
 # /projects/lakala/config/run_command_pro.sh sync_slkl --start=20180101 --end=20180213 --table=d0
 # /projects/lakala/config/run_command_pro.sh sync_slkl --start=20180101 --end=20180213 --table=d1
 # /projects/lakala/config/run_command_pro.sh sync_slkl --start=20180101 --end=20180213 --table=terminal
+# /projects/lakala/config/run_command_pro.sh user_rmb --start=2018-02-01 --end=2018-02-18 --table=d0
+# /projects/lakala/config/run_command_pro.sh user_rmb --start=2018-02-01 --end=2018-02-18 --table=d1
 
