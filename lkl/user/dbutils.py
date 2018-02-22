@@ -29,7 +29,7 @@ def get_user_by_terminal(terminal):
     通过终端号获取用户
     """
     try:
-        obj = models.UserPos.get(code=terminal)
+        obj = models.UserPos.objects.get(code=terminal)
         user = obj.user
     except Exception:
         user = None
