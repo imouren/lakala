@@ -62,7 +62,7 @@ class Command(BaseCommand):
             for obj in objs:
                 if obj.trans_id in used_trans_ids:
                     continue
-                adatetime = utils.datetime_to_string(obj.draw_date, format_str="%Y%m%d %H:%M:%S")
+                adatetime = utils.string_to_datetime(obj.draw_date, format_str="%Y%m%d %H:%M:%S")
                 adate = adatetime.date()
                 if start_date <= adate <= end_date:
                     process_d0_rmb(obj, default_user)
@@ -73,7 +73,7 @@ class Command(BaseCommand):
             for obj in objs:
                 if obj.trans_id in used_trans_ids:
                     continue
-                adatetime = utils.datetime_to_string(obj.pay_date, format_str="%Y-%m-%d %H:%M:%S.0")
+                adatetime = utils.string_to_datetime(obj.pay_date, format_str="%Y-%m-%d %H:%M:%S.0")
                 adate = adatetime.date()
                 if start_date <= adate <= end_date:
                     process_d1_rmb(obj, default_user)
