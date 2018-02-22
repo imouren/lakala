@@ -95,6 +95,9 @@ def get_d1_by_terminal(terminal):
     for obj in objs:
         if obj.card_type == u"贷记卡":
             month = obj.pay_date[:7]
+            # 100以下交易不计算
+            if Decimal(obj.draw_rmb) < 100:
+                continue
             data[month].append([Decimal(obj.draw_rmb), Decimal(obj.fee_rmb)])
     trade_data = []
     trans_total = Decimal(0)
@@ -123,6 +126,9 @@ def get_d1_by_terminal_together(terminal):
         if obj.card_type == u"贷记卡":
             month_str = obj.pay_date[:7]
             month = "".join(month_str.split("-"))
+            # 100以下交易不计算
+            if Decimal(obj.draw_rmb) < 100:
+                continue
             tmp = [month, Decimal(obj.draw_rmb), Decimal(obj.fee_rmb)]
             dict_old[obj.trans_id] = tmp
     # 新系统数据
@@ -131,6 +137,9 @@ def get_d1_by_terminal_together(terminal):
     for obj in objs:
         if obj.transType == u"刷卡" and obj.cardType == u"贷记卡":
             month = obj.trade_date[:6]
+            # 100以下交易不计算
+            if Decimal(obj.transAmt) < 100:
+                continue
             tmp = [month, Decimal(obj.transAmt), Decimal(obj.feeAmt)]
             dict_new[obj.transId] = tmp
     # 汇总一起
