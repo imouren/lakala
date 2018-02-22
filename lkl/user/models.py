@@ -292,7 +292,7 @@ class ProfitD1(models.Model):
     """
     用户D1获利表
     """
-    user = models.OneToOneField(User, verbose_name=u"用户")
+    user = models.ForeignKey(User, verbose_name=u"用户")
     trans_id = models.CharField(u"流水号", max_length=64, unique=True)
     fenrun_point = models.CharField(u"提点", max_length=50)
     fenrun_rmb = models.CharField(u"秒到", max_length=50)
@@ -322,7 +322,7 @@ class ProfitD0(models.Model):
     """
     用户D0获利表
     """
-    user = models.OneToOneField(User, verbose_name=u"用户")
+    user = models.ForeignKey(User, verbose_name=u"用户")
     trans_id = models.CharField(u"流水号", max_length=64, unique=True)
     fenrun_point = models.CharField(u"提点", max_length=50)
     fenrun_rmb = models.CharField(u"秒到", max_length=50)
