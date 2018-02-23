@@ -5,7 +5,7 @@
 5 * * * * /projects/lakala/config/run_command_pro.sh sync_trade01 >> /data/script/run.log 2>&1
 5 * * * * /projects/lakala/config/run_command_pro.sh sync_slkl --table=all >> /data/script/run.log 2>&1
 5 */3 * * * /projects/lakala/config/run_command_pro.sh user_rmb --table=all >> /data/script/run.log 2>&1
-
+15 2 * * * /projects/lakala/config/run_command_pro.sh user_rmb --start=2018-02-01 --table=all >> /data/script/run.log 2>&1
 
 # run once
 # /projects/lakala/config/run_command_pro.sh sync_trade01 --start=20180101 --end=20180128

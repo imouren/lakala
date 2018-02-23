@@ -43,12 +43,14 @@ class Command(BaseCommand):
         )
 
     def handle(self, start, end, table, *args, **options):
-        if start is None or end is None:
+        if end is None:
             end_datetime = datetime.now() - timedelta(4)
+        else:
+            end_datetime = utils.string_to_datetime(end, format_str="%Y-%m-%d")
+        if start is None:
             start_datetime = end_datetime - timedelta(3)
         else:
             start_datetime = utils.string_to_datetime(start, format_str="%Y-%m-%d")
-            end_datetime = utils.string_to_datetime(end, format_str="%Y-%m-%d")
         start_date = start_datetime.date()
         end_date = end_datetime.date()
         # start = utils.datetime_to_string(start_date, format_str="%Y-%m-%d")
