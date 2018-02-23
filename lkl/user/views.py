@@ -119,6 +119,15 @@ def register(request):
 
 
 @login_required
+def info(request):
+    """
+    我的信息
+    """
+    data = {}
+    return render(request, "lkl/user_info.html", data)
+
+
+@login_required
 def search_terminal(request):
     data = {}
     if request.method == 'POST':
