@@ -76,7 +76,7 @@ def get_user_mcode(user):
     objs = models.LKLTerminal.objects.filter(terminal__in=pos_list)
     for obj in objs:
         mcode_dict[obj.merchant_code].append(obj.terminal)
-    for mcode, poses in mcode_list.iteritems():
+    for mcode, poses in mcode_dict.iteritems():
         if len(poses) == 1:
             mcode_list.append(mcode)
         else:
