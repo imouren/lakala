@@ -135,7 +135,8 @@ def info(request):
     else:
         d0_num = 0
     d1_totoal = dbutils.get_user_d1_total(user)
-    data = {"fenrun": fenrun, "d0_num": d0_num, "d1_total": d1_totoal}
+    rmb, child_rmb = dbutils.get_userrmb_num(user)
+    data = {"fenrun": fenrun, "d0_num": d0_num, "d1_total": d1_totoal, "rmb": "%.2f" % (rmb / 100.0), "child_rmb": "%.2f" % (child_rmb / 100.0)}
     return render(request, "lkl/user_info.html", data)
 
 
