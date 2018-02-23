@@ -14,7 +14,7 @@ from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from .forms import LoginForm, RegisterForm, UserPosForm
 from .models import UserProfile, UserPos
-from . import utils
+from . import utils, dbutils
 from lkl import config
 
 logger = logging.getLogger('statistics')
@@ -123,7 +123,19 @@ def info(request):
     """
     我的信息
     """
-    data = {}
+    user = request.user
+    # 分润
+    if hasattr(user, "userfenrun"):
+        fenrun = {"point": float(user.userfenrun.point), "rmb": float(user.userfenrun.rmb)}
+    else:
+        fenrun = None
+    # 刷卡总额和秒到笔数
+    if fenrun:
+        d0_num = dbutils.get_user_d0_num(user)
+    else:
+        d0_num = 0
+    d1_totoal = dbutils.get_user_d1_total(user)
+    data = {"fenrun": fenrun, "d0_num": d0_num, "d1_total": d1_totoal}
     return render(request, "lkl/user_info.html", data)
 
 
@@ -133,7 +145,7 @@ def search_terminal(request):
     if request.method == 'POST':
         q = request.POST.get("q")
         s = request.POST.get("s")  # 是否显示搜索框
-        trade_data = utils.get_d1_by_terminal_together(q)
+        trade_data = utils.get_d1_by_terminal(q)
         data["trade"] = trade_data
         data["s"] = s
     return render(request, "lkl/search_terminal.html", data)

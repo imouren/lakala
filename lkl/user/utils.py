@@ -95,6 +95,8 @@ def get_d1_by_terminal(terminal):
     for obj in objs:
         if obj.card_type == u"贷记卡":
             month = obj.pay_date[:7]
+            if month == "2018-01":
+                continue
             # 100以下交易不计算
             if Decimal(obj.draw_rmb) < 100:
                 continue

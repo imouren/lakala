@@ -276,7 +276,7 @@ class UserRMB(models.Model):
     """
     user = models.OneToOneField(User)
     rmb = models.IntegerField(u"金额(分)")
-    child_rmb = models.IntegerField(u"推荐金额(分)")
+    child_rmb = models.IntegerField(u"推荐金额(分)", default=0)
     create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
     update_time = models.DateTimeField(u"更新时间", auto_now=True)
 
