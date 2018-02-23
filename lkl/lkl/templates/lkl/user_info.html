@@ -90,8 +90,8 @@
     {% endif %}
     {% if alipay %}
     <div class="weui-form-preview__ft">
-        <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">返利余额提现</button>
-        <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">推荐余额提现</button>
+        <button id="tixian_rmb" type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">返利余额提现</button>
+        <button id="tixian_child_rmb" type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">推荐余额提现</button>
     </div>
     {% endif %}
 </div>
@@ -101,6 +101,13 @@
 {% endblock %}
 
 {% block footer_js_extra %}
-
+<script>
+    $("#tixian_rmb").click(function() {
+        $.toptip('功能实现中，请耐心等待');
+    });
+    $("#tixian_child_rmb").click(function() {
+        $.toptip('功能实现中，请耐心等待');
+    });
+</script>
 
 {% endblock %}
