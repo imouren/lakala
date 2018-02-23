@@ -86,7 +86,14 @@ class UserFenRunAdmin(admin.ModelAdmin):
     search_fields = ["user__username"]
 
 
+class UserAlipayAdmin(admin.ModelAdmin):
+    list_display = ["user", "account", "name", "create_time", "update_time"]
+    fields = ["user", "account", "name"]
+    search_fields = ["user__username"]
+
+
 admin.site.register(models.UserFenRun, UserFenRunAdmin)
+admin.site.register(models.UserAlipay, UserAlipayAdmin)
 
 
 class LKLTerminalAdmin(admin.ModelAdmin):

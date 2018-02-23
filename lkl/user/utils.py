@@ -4,7 +4,7 @@ import random
 from collections import defaultdict
 from decimal import Decimal
 from django.contrib.auth.models import User
-from .models import UserProfile, LKLTrade01, UserPos, LKLD1
+from .models import UserProfile, LKLTrade01, UserPos, LKLD1, UserAlipay
 
 
 def get_user_by_code(code, is_phone):
@@ -167,6 +167,14 @@ def get_d1_by_terminal_together(terminal):
 
 def exists_pos_code(code):
     objs = UserPos.objects.filter(code=code)
+    if objs:
+        return True
+    else:
+        return False
+
+
+def exists_alipay(account):
+    objs = UserAlipay.objects.filter(account=account)
     if objs:
         return True
     else:

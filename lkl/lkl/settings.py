@@ -50,6 +50,7 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     'user.ProfitD1',
     'user.ProfitD0',
     'user.TiXianOrder',
+    'user.UserAlipay'
 ]
 
 MIDDLEWARE = [
@@ -235,7 +236,7 @@ SUIT_CONFIG = {
     'MENU': (
         # 'sites',
         {'app': 'auth', 'icon': 'icon-lock', 'models': ('user', 'group')},
-        {'app': 'user', 'icon': 'icon-leaf', 'models': ('UserProfile', 'UserAddress', 'UserPos', 'UserTrade', "UserFenRun")},
+        {'app': 'user', 'icon': 'icon-leaf', 'models': ('UserProfile', 'UserAddress', 'UserPos', 'UserTrade', "UserFenRun", "UserAlipay")},
         {'label': u'刷卡数据', 'icon': 'icon-star', 'app': 'user', 'models': ('LKLTrade01', )},
         {'label': u'刷卡数据(老系统)', 'icon': 'icon-star', 'app': 'user', 'models': ('LKLTerminal', 'LKLD0', 'LKLD1')},
         {'label': u'用户分红', 'icon': 'icon-star', 'app': 'user', 'models': ('UserRMB', 'ProfitD1', 'ProfitD0', 'TiXianOrder')},

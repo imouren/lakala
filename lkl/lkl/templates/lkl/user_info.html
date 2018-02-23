@@ -72,23 +72,28 @@
             {{ child_rmb }}
         </span>
     </div>
+    {% if alipay %}
     <div class="weui-form-preview__bd">
         <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">支付宝账户</label>
-            <span class="weui-form-preview__value"></span>
+            <span class="weui-form-preview__value">{{ alipay.account }}</span>
         </div>
         <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">支付宝实名</label>
-            <span class="weui-form-preview__value"></span>
+            <span class="weui-form-preview__value">{{ alipay.name }}</span>
         </div>
     </div>
+    {% else %}
     <div class="weui-form-preview__ft">
-        <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">绑定支付宝</button>
+        <a type="button" class="weui-form-preview__btn weui-form-preview__btn_primary" href="/user/alipay/">绑定支付宝</a>
     </div>
+    {% endif %}
+    {% if alipay %}
     <div class="weui-form-preview__ft">
         <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">返利余额提现</button>
         <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">推荐余额提现</button>
     </div>
+    {% endif %}
 </div>
 
 </div>

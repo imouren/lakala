@@ -12,8 +12,8 @@ from django.contrib.auth import views as django_views
 from django.contrib.auth.decorators import login_required
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
-from .forms import LoginForm, RegisterForm, UserPosForm
-from .models import UserProfile, UserPos
+from .forms import LoginForm, RegisterForm, UserPosForm, UserAlipayForm
+from .models import UserProfile, UserPos, UserAlipay
 from . import utils, dbutils
 from lkl import config
 
@@ -129,6 +129,11 @@ def info(request):
         fenrun = {"point": float(user.userfenrun.point), "rmb": float(user.userfenrun.rmb)}
     else:
         fenrun = None
+    # 支付宝信息
+    if hasattr(user, "useralipay_set"):
+        alipay = user.useralipay_set.values("account", "name")[0]
+    else:
+        alipay = None
     # 刷卡总额和秒到笔数
     if fenrun:
         d0_num = dbutils.get_user_d0_num(user)
@@ -136,8 +141,38 @@ def info(request):
         d0_num = 0
     d1_totoal = dbutils.get_user_d1_total(user)
     rmb, child_rmb = dbutils.get_userrmb_num(user)
-    data = {"fenrun": fenrun, "d0_num": d0_num, "d1_total": d1_totoal, "rmb": "%.2f" % (rmb / 100.0), "child_rmb": "%.2f" % (child_rmb / 100.0)}
+    data = {
+        "fenrun": fenrun,
+        "d0_num": d0_num,
+        "d1_total": d1_totoal,
+        "rmb": "%.2f" % (rmb / 100.0),
+        "child_rmb": "%.2f" % (child_rmb / 100.0),
+        "alipay": alipay
+    }
     return render(request, "lkl/user_info.html", data)
+
+
+@login_required
+def alipay(request):
+    # 已经绑定过
+    objs = request.user.useralipay_set.values()
+    if len(objs) > 0:
+        return redirect("user_info")
+    data = {}
+    if request.method == 'POST':
+        form = UserAlipayForm(request.POST, request=request)
+        if form.is_valid():
+            account = form.cleaned_data.get('account')
+            name = form.cleaned_data.get('name')
+            UserAlipay.objects.create(user=request.user, account=account, name=name)
+            return redirect("user_info")
+        else:
+            error = form.errors.get("__all__")
+            data.update({"error": error, "errors": form.errors})
+    hashkey = CaptchaStore.generate_key()
+    img_url = captcha_image_url(hashkey)
+    data.update({"img_url": img_url, "hashkey": hashkey})
+    return render(request, "lkl/user_alipay.html", data)
 
 
 @login_required
@@ -158,7 +193,6 @@ def bind_pos(request):
     if request.method == 'POST':
         form = UserPosForm(request.POST, request=request)
         if form.is_valid():
-            print form.cleaned_data
             code = form.cleaned_data.get('code')
             UserPos.objects.create(user=request.user, code=code)
             return redirect("pos_list")

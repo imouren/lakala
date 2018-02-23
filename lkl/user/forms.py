@@ -133,6 +133,33 @@ class UserPosForm(forms.Form):
         return cleaned_data
 
 
+class UserAlipayForm(forms.Form):
+    account = forms.CharField(max_length=50)
+    name = forms.CharField(max_length=50)
+    captcha = CaptchaField()
+
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop("request")
+        self.user = request.user
+        super(UserAlipayForm, self).__init__(*args, **kwargs)
+
+    def clean_account(self):
+        account = self.cleaned_data["account"]
+
+        if utils.exists_alipay(account):
+            msg = u"该支付宝已经被绑定过了"
+            raise forms.ValidationError(msg)
+        return account
+
+    def clean(self):
+        cleaned_data = super(UserAlipayForm, self).clean()
+
+        if hasattr(self.user, "useralipay"):
+            msg = u"已绑定过"
+            raise forms.ValidationError(msg)
+        return cleaned_data
+
+
 class UserPosAdminForm(forms.ModelForm):
     """
     for admin

@@ -73,7 +73,7 @@ class UserAddress(models.Model):
 
 @python_2_unicode_compatible
 class UserPos(models.Model):
-    user = models.ForeignKey(User, verbose_name=u"用户")
+    user = models.OneToOneField(User, verbose_name=u"用户")
     code = models.CharField(u"终端号", max_length=50, unique=True)
     first_bound = models.BooleanField(u"是否第一次绑定", default=False)
     is_activate = models.BooleanField(u"是否激活", default=False)
@@ -89,6 +89,22 @@ class UserPos(models.Model):
 
     def __str__(self):
         return self.code
+
+
+@python_2_unicode_compatible
+class UserAlipay(models.Model):
+    user = models.ForeignKey(User, verbose_name=u"用户")
+    account = models.CharField(u"支付宝账户", max_length=50, unique=True)
+    name = models.CharField(u"支付宝实名", max_length=50)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    update_time = models.DateTimeField(u"更新时间", auto_now=True)
+
+    class Meta:
+        db_table = "user_alipay"
+        verbose_name = verbose_name_plural = u"用户支付宝"
+
+    def __str__(self):
+        return self.account
 
 
 @python_2_unicode_compatible
