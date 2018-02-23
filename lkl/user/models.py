@@ -73,7 +73,7 @@ class UserAddress(models.Model):
 
 @python_2_unicode_compatible
 class UserPos(models.Model):
-    user = models.OneToOneField(User, verbose_name=u"用户")
+    user = models.ForeignKey(User, verbose_name=u"用户")
     code = models.CharField(u"终端号", max_length=50, unique=True)
     first_bound = models.BooleanField(u"是否第一次绑定", default=False)
     is_activate = models.BooleanField(u"是否激活", default=False)
