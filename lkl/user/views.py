@@ -130,8 +130,9 @@ def info(request):
     else:
         fenrun = None
     # 支付宝信息
-    if hasattr(user, "useralipay_set"):
-        alipay = user.useralipay_set.values("account", "name")[0]
+    alipays = user.useralipay_set.values("account", "name")
+    if alipays:
+        alipay = alipays[0]
     else:
         alipay = None
     # 刷卡总额和秒到笔数
