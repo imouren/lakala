@@ -153,8 +153,8 @@ class UserAlipayForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(UserAlipayForm, self).clean()
-
-        if hasattr(self.user, "useralipay"):
+        objs = self.user.useralipay_set.values()
+        if len(objs) > 0:
             msg = u"已绑定过"
             raise forms.ValidationError(msg)
         return cleaned_data
