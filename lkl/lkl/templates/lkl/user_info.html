@@ -65,19 +65,11 @@
     <div class="weui-form-preview__hd">
         <label class="weui-form-preview__label">刷卡返利余额</label>
         <span class="weui-form-preview__value">
-        {% if request.user.userrmb %}
-            {{ request.user.userrmb.rmb }}
-        {% else %}
-            0
-        {% endif %}
+            {{ rmb }}
         </span>
         <label class="weui-form-preview__label">推荐奖励余额</label>
         <span class="weui-form-preview__value">
-        {% if request.user.userrmb %}
-            {{ request.user.userrmb.child_rmb }}
-        {% else %}
-            0
-        {% endif %}
+            {{ child_rmb }}
         </span>
     </div>
     <div class="weui-form-preview__bd">
