@@ -246,6 +246,11 @@ def tixian_rmb(request):
     data["user_account"] = u"支付宝：%s__%s" % (alipay["account"], alipay["name"])
 
     if request.method == 'POST':
+        # 禁止提现用户
+        if user.username in config.DISABLE_TIXIN:
+            error = [u"您是合伙人，不允许平台提现"]
+            data.update({"error": error})
+            return render(request, "lkl/tixian_rmb.html", data)
         # 操作频繁
         key = 'lkl_tixian_locked_%s' % (user.id)
         locked = rclient.get(key)
