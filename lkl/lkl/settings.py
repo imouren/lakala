@@ -21,6 +21,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'lkl',
     'admin_view_permission',
     'suit',
     'easy_select2',
@@ -32,7 +33,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'captcha',
     'user',
-    'lkl'
 ]
 
 ADMIN_VIEW_PERMISSION_MODELS = [
