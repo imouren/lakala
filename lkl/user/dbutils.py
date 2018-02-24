@@ -111,7 +111,7 @@ def get_user_d1_total(user):
     end_datetime = datetime.now() - timedelta(4)
     trans_total = Decimal(0)
     freeze_total = Decimal(0)
-    end_month = "{}-{:02}".fromat(end_datetime.year, end_datetime.month)
+    end_month = "{}-{:02}".format(end_datetime.year, end_datetime.month)
     pos_list = get_user_pos(user)
     objs = models.LKLD1.objects.filter(terminal__in=pos_list)
     for obj in objs:
