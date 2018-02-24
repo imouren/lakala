@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 from django.contrib import admin
 from django import forms
 from django.template.loader import render_to_string
@@ -149,11 +150,27 @@ class ProfitD0Admin(admin.ModelAdmin):
 
 
 class TiXianOrderAdmin(admin.ModelAdmin):
-    list_display = ["order_id", "user", "user_account", "rmb", "fee", "pay_rmb", "status", "order_type", "create_time", "pay_time", "finish_time"]
+    list_display = ["user", "user_account", "rmb", "fee", "pay_rmb", "status", "order_type", "create_time", "pay_time", "finish_time"]
     fields = ["user", "rmb", "fee", "user_account", "status", "order_type", "pay_time", "finish_time"]
     search_fields = ["user__username"]
     list_filter = ["status"]
+    actions = ['make_finished']
 
+    def get_actions(self, request):
+        actions = super(TiXianOrderAdmin, self).get_actions(request)
+        is_keep = request.user.is_superuser or request.user.username in ["13311368820"]
+        if not is_keep:
+            if 'make_finished' in actions:
+                del actions['make_finished']
+        return actions
+
+    def make_finished(self, request, queryset):
+        for obj in queryset:
+            if obj.status == "PD":
+                obj.status = 'SU'
+                obj.finish_time = datetime.now()
+                obj.save()
+    make_finished.short_description = u"打款完成"
 
 admin.site.register(models.UserRMB, UserRMBAdmin)
 admin.site.register(models.ProfitD1, ProfitD1Admin)
