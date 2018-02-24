@@ -145,10 +145,12 @@ def info(request):
         d0_num = 0
     d1_totoal = dbutils.get_user_d1_total(user)
     rmb, child_rmb = dbutils.get_userrmb_num(user)
+    txz_rmb = dbutils.get_user_txz_rmb(user)
     data = {
         "fenrun": fenrun,
         "d0_num": d0_num,
         "d1_total": d1_totoal,
+        "txz_rmb": "%.2f" % (txz_rmb / 100.0),
         "rmb": "%.2f" % (rmb / 100.0),
         "child_rmb": "%.2f" % (child_rmb / 100.0),
         "alipay": alipay

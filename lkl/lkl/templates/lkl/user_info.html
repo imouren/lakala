@@ -54,6 +54,7 @@
             <span class="weui-form-preview__value">{{ d0_num }}</span>
         </div>
         {% endif %}
+
     </div>
     <div class="weui-form-preview__ft">
     <span class="weui-form-preview__btn weui-form-preview__btn_default">数据从2018年2月1日开始统计，累积到三天前的交易。</span>
@@ -83,6 +84,12 @@
         <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">支付宝实名</label>
             <span class="weui-form-preview__value">{{ alipay.name }}</span>
+        </div>
+    </div>
+    <div class="weui-form-preview__hd">
+        <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">提现中金额</label>
+            <span class="weui-form-preview__value">{{ txz_rmb }}</span>
         </div>
     </div>
     {% else %}

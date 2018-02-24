@@ -115,6 +115,14 @@ def get_user_d1_total(user):
     return str(trans_total)
 
 
+def get_user_txz_rmb(user):
+    total = 0
+    objs = models.TiXianOrder.objects.filter(user=user).filter(status="PD")
+    for obj in objs:
+        total += obj.rmb
+    return total
+
+
 def can_tixian(user):
     end = int(time.time())
     with transaction.atomic():
