@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import time
+from datetime import datetime, timedelta
 from collections import defaultdict
 from decimal import Decimal
 from django.db import transaction
@@ -91,16 +92,26 @@ def get_user_d0_num(user):
     """
     获取用户D0笔数
     """
+    freeze_n = 0
+    end_datetime = datetime.now() - timedelta(4)
+    end_month = "{}{:02}".fromat(end_datetime.year, end_datetime.month)
     mcode_list = get_user_mcode(user)
     objs = models.LKLD0.objects.filter(merchant_code__in=mcode_list).filter(fee_rmb="2").filter(trans_type=u"正交易").filter(trans_status=u"成功")
-    return len(objs)
+    for obj in objs:
+        month = obj.draw_date[:6]
+        if month >= end_month:
+            freeze_n += 1
+    return len(objs), freeze_n
 
 
 def get_user_d1_total(user):
     """
     获取用户D1刷卡总额
     """
+    end_datetime = datetime.now() - timedelta(4)
     trans_total = Decimal(0)
+    freeze_total = Decimal(0)
+    end_month = "{}-{:02}".fromat(end_datetime.year, end_datetime.month)
     pos_list = get_user_pos(user)
     objs = models.LKLD1.objects.filter(terminal__in=pos_list)
     for obj in objs:
@@ -112,7 +123,9 @@ def get_user_d1_total(user):
             if Decimal(obj.draw_rmb) < 100:
                 continue
             trans_total += Decimal(obj.draw_rmb)
-    return str(trans_total)
+            if month >= end_month:
+                freeze_total += Decimal(obj.draw_rmb)
+    return str(trans_total), str(freeze_total)
 
 
 def get_user_txz_rmb(user):

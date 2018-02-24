@@ -48,10 +48,18 @@
             <label class="weui-form-preview__label">刷卡总额</label>
             <span class="weui-form-preview__value">{{ d1_total }}</span>
         </div>
+        <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">未结算金额</label>
+            <span class="weui-form-preview__value">{{ d1_freeze_total }}</span>
+        </div>
         {% if fenrun.rmb > 0 %}
         <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">秒到笔数</label>
+            <label class="weui-form-preview__label">秒到总笔数</label>
             <span class="weui-form-preview__value">{{ d0_num }}</span>
+        </div>
+        <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">未结算笔数</label>
+            <span class="weui-form-preview__value">{{ d0_freeze_num }}</span>
         </div>
         {% endif %}
 

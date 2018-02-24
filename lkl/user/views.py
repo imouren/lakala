@@ -140,16 +140,19 @@ def info(request):
         alipay = None
     # 刷卡总额和秒到笔数
     if fenrun:
-        d0_num = dbutils.get_user_d0_num(user)
+        d0_num, freeze_num = dbutils.get_user_d0_num(user)
     else:
         d0_num = 0
-    d1_totoal = dbutils.get_user_d1_total(user)
+        freeze_num = 0
+    d1_totoal, freeze_total = dbutils.get_user_d1_total(user)
     rmb, child_rmb = dbutils.get_userrmb_num(user)
     txz_rmb = dbutils.get_user_txz_rmb(user)
     data = {
         "fenrun": fenrun,
         "d0_num": d0_num,
+        "d0_freeze_num": freeze_num,
         "d1_total": d1_totoal,
+        "d1_freeze_total": freeze_total,
         "txz_rmb": "%.2f" % (txz_rmb / 100.0),
         "rmb": "%.2f" % (rmb / 100.0),
         "child_rmb": "%.2f" % (child_rmb / 100.0),
