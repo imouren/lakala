@@ -129,8 +129,8 @@ admin.site.register(models.LKLD1, LKLD1Admin)
 
 
 class UserRMBAdmin(admin.ModelAdmin):
-    list_display = ["user", "rmb", "create_time", "update_time"]
-    fields = ["user", "rmb"]
+    list_display = ["user", "rmb", "child_rmb", "create_time", "update_time"]
+    fields = ["user", "rmb", "child_rmb"]
     search_fields = ["user__username"]
 
 
