@@ -16,7 +16,7 @@ def is_superuser(request):
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "name", "fatherx", "phone", "sex", "is_vip", "code", "max_num", "create_time"]
+    list_display = ["user", "name", "fatherx", "phone", "sex", "fenrun", "code", "max_num", "create_time"]
     fields = ["user", "phone", "name", "sex", "is_vip", "father", "max_num"]
     search_fields = ["name", "phone"]
     all_fields = [f.name for f in models.UserProfile._meta.get_fields()]
@@ -36,6 +36,14 @@ class UserProfileAdmin(admin.ModelAdmin):
             return u"五彩神石"
     fatherx.allow_tags = True
     fatherx.short_description = u'导师'
+
+    def fenrun(self, obj):
+        if hasattr(obj.user, "userfenrun"):
+            return "%s__%s" % (obj.user.userfenrun.point, obj.user.userfenrun.rmb)
+        else:
+            return u"未设置"
+    fenrun.allow_tags = True
+    fenrun.short_description = u'分润'
 
 
 admin.site.register(models.UserProfile, UserProfileAdmin)
