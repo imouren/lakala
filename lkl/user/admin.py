@@ -156,6 +156,15 @@ class TiXianOrderAdmin(admin.ModelAdmin):
     list_filter = ["status"]
     actions = ['make_finished']
 
+    all_fields = [f.name for f in models.TiXianOrder._meta.get_fields()]
+    readonly_fields = all_fields
+
+    def get_readonly_fields(self, request, obj=None):
+        if is_superuser(request):
+            return []
+        else:
+            return super(TiXianOrderAdmin, self).get_readonly_fields(request, obj)
+
     def get_actions(self, request):
         actions = super(TiXianOrderAdmin, self).get_actions(request)
         is_keep = request.user.is_superuser or request.user.username in ["13311368820"]
