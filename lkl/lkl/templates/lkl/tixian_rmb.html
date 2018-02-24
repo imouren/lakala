@@ -18,7 +18,7 @@
 <form method="post" action="{% url 'tixian_rmb' %}">
     {% csrf_token %}
     <div class="weui-cells weui-cells_form">
-
+        <div class="weui-cells__title">手续费10%，拉卡拉和微信支付收取。（暂时人工支付宝提现）后续微信自动到账。</div>
         <div class="weui-cell {%if errors.rmb %}weui-cell_warn{% endif %}">
             <div class="weui-cell__hd">
                 <label class="weui-label">提现金额</label>
