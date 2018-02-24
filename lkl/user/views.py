@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+import json
 import logging
 import requests
+from datetime import datetime
 from urllib import quote_plus
 from django.shortcuts import render
 from django.contrib import auth
@@ -12,10 +14,11 @@ from django.contrib.auth import views as django_views
 from django.contrib.auth.decorators import login_required
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
-from .forms import LoginForm, RegisterForm, UserPosForm, UserAlipayForm
+from .forms import LoginForm, RegisterForm, UserPosForm, UserAlipayForm, TixianRMBForm
 from .models import UserProfile, UserPos, UserAlipay
 from . import utils, dbutils
 from lkl import config
+from .utils import rclient
 
 logger = logging.getLogger('statistics')
 
@@ -223,6 +226,65 @@ def friend_list(request):
         freinds_02.extend(friends)
     data = {"freinds_01": freinds_01, "freinds_02": freinds_02}
     return render(request, "lkl/friend_list.html", data)
+
+
+@login_required
+def tixian_rmb(request):
+    data = {"order_type": "RMB"}
+    hashkey = CaptchaStore.generate_key()
+    img_url = captcha_image_url(hashkey)
+    data.update({"img_url": img_url, "hashkey": hashkey})
+    user = request.user
+    # 支付宝账户
+    alipays = user.useralipay_set.values("account", "name")
+    if alipays:
+        alipay = alipays[0]
+    else:
+        alipay = None
+    if alipay is None:
+        return redirect("user_alipay")
+    data["user_account"] = u"支付宝：%s__%s" % (alipay["account"], alipay["name"])
+
+    if request.method == 'POST':
+        # 操作频繁
+        key = 'lkl_tixian_locked_%s' % (user.id)
+        locked = rclient.get(key)
+        if locked:
+            error = [u"操作太频繁"]
+            data.update({"error": error})
+            return render(request, "lkl/tixian_rmb.html", data)
+        else:
+            rclient.set(key, True)
+            rclient.expire(key, 10)
+        # 未结算订单
+        if not dbutils.can_tixian(user):
+            error = [u"提现间隔大于1分钟且无提现中订单"]
+            data.update({"error": error})
+            return render(request, "lkl/tixian_rmb.html", data)
+        # 正式流程
+        data.update(request.POST.dict())
+        form = TixianRMBForm(data)
+        if form.is_valid():
+            tx = form.save(commit=False)
+            # 判断钱够不够
+            my_rmb, _ = dbutils.get_userrmb_num(user)
+            if my_rmb < tx.rmb:
+                error = [u"余额不足"]
+                data.update({"error": error})
+            else:
+                tx.user = user
+                tx.fee = int(tx.rmb * 0.1)
+                tx.save()
+                # 扣钱
+                dbutils.sub_userrmb_rmb(user, tx.rmb)
+                tx.pay_time = datetime.now()
+                tx.status = "PD"
+                tx.save()
+                return redirect("user_info")
+        else:
+            error = form.errors.get("__all__")
+            data.update({"error": error, "errors": form.errors})
+    return render(request, "lkl/tixian_rmb.html", data)
 
 
 @login_required

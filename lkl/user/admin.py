@@ -149,8 +149,8 @@ class ProfitD0Admin(admin.ModelAdmin):
 
 
 class TiXianOrderAdmin(admin.ModelAdmin):
-    list_display = ["order_id", "user", "rmb", "fee", "status", "create_time", "pay_time"]
-    fields = ["user", "rmb", "fee", "status", "order_id", "pay_time"]
+    list_display = ["order_id", "user", "user_account", "rmb", "fee", "pay_rmb", "status", "order_type", "create_time", "pay_time", "finish_time"]
+    fields = ["user", "rmb", "fee", "user_account", "status", "order_type", "pay_time", "finish_time"]
     search_fields = ["user__username"]
     list_filter = ["status"]
 

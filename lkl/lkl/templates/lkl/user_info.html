@@ -112,7 +112,7 @@
             $.toptip("满100才能提现，加油！");
         }
         else {
-            $.toptip('功能实现中，请耐心等待');
+            $(location).attr('href', '{% url "tixian_rmb" %}');
         }
     });
     $("#tixian_child_rmb").click(function() {

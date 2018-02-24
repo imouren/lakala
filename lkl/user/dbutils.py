@@ -4,6 +4,7 @@ from collections import defaultdict
 from decimal import Decimal
 from django.db import transaction
 from . import models
+from . import utils
 
 
 def add_userrmb_rmb(user, rmb, is_child=False):
@@ -112,3 +113,26 @@ def get_user_d1_total(user):
                 continue
             trans_total += Decimal(obj.draw_rmb)
     return str(trans_total)
+
+
+def can_tixian(user):
+    end = int(time.time())
+    with transaction.atomic():
+        objs = models.TiXianOrder.objects.select_for_update().filter(user=user).order_by("-create_time")
+        if objs:
+            obj = objs[0]
+            status_wait = [o.status for o in objs if o.status != "SU"]
+        else:
+            obj = None
+            status_wait = []
+    if not obj:
+        tx = True
+    elif len(status_wait) > 0:
+        return False
+    else:
+        start = utils.datetime_to_timestamp(obj.create_time)
+        if end - start > 60:
+            tx = True
+        else:
+            tx = False
+    return tx

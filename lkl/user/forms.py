@@ -7,7 +7,7 @@ from django.urls import reverse
 from easy_select2 import select2_modelform, apply_select2
 from captcha.fields import CaptchaField
 from django.contrib import auth
-from . import utils
+from . import utils, dbutils
 from . import models
 
 
@@ -250,3 +250,19 @@ class UserFenRunFrom(forms.ModelForm):
             msg = u"现金不能高于上家"
             raise forms.ValidationError(msg)
         return rmb
+
+
+class TixianRMBForm(forms.ModelForm):
+    captcha = CaptchaField()
+
+    class Meta:
+        model = models.TiXianOrder
+        fields = ["rmb", "user_account", "order_type"]
+
+    def clean_rmb(self):
+        rmb = self.cleaned_data["rmb"]
+        if rmb < 100 or rmb % 100 != 0:
+            msg = u"金额为100的整数倍"
+            raise forms.ValidationError(msg)
+        fen = rmb * 100
+        return fen

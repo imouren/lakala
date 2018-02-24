@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
+import redis
 import string
 import random
+import time
 from collections import defaultdict
 from decimal import Decimal
 from django.contrib.auth.models import User
 from .models import UserProfile, LKLTrade01, UserPos, LKLD1, UserAlipay
+from lkl import config
+
+
+rclient = redis.Redis(**config.REDIS_DATA)
 
 
 def get_user_by_code(code, is_phone):
@@ -185,3 +191,9 @@ def get_user_poses(user):
     objs = UserPos.objects.filter(user=user)
     poses = [obj.code for obj in objs]
     return poses
+
+
+## 工具类
+
+def datetime_to_timestamp(adatetime):
+    return time.mktime(adatetime.timetuple())
