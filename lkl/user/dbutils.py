@@ -94,12 +94,12 @@ def get_user_d0_num(user):
     """
     freeze_n = 0
     end_datetime = datetime.now() - timedelta(4)
-    end_month = "{}{:02}".format(end_datetime.year, end_datetime.month)
+    end_day = "{}{:02}{:02}".format(end_datetime.year, end_datetime.month, end_datetime.day)
     mcode_list = get_user_mcode(user)
     objs = models.LKLD0.objects.filter(merchant_code__in=mcode_list).filter(fee_rmb="2").filter(trans_type=u"正交易").filter(trans_status=u"成功")
     for obj in objs:
-        month = obj.draw_date[:6]
-        if month >= end_month:
+        day = obj.draw_date[:8]
+        if day >= end_day:
             freeze_n += 1
     return len(objs), freeze_n
 
@@ -111,19 +111,20 @@ def get_user_d1_total(user):
     end_datetime = datetime.now() - timedelta(4)
     trans_total = Decimal(0)
     freeze_total = Decimal(0)
-    end_month = "{}-{:02}".format(end_datetime.year, end_datetime.month)
+    end_day = "{}-{:02}-{:02}".format(end_datetime.year, end_datetime.month, end_datetime.day)
     pos_list = get_user_pos(user)
     objs = models.LKLD1.objects.filter(terminal__in=pos_list)
     for obj in objs:
         if obj.card_type == u"贷记卡":
             month = obj.pay_date[:7]
+            day = obj.pay_date[:10]
             if month == "2018-01":
                 continue
             # 100以下交易不计算
             if Decimal(obj.draw_rmb) < 100:
                 continue
             trans_total += Decimal(obj.draw_rmb)
-            if month >= end_month:
+            if day >= end_day:
                 freeze_total += Decimal(obj.draw_rmb)
     return str(trans_total), str(freeze_total)
 
