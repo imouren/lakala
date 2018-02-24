@@ -130,9 +130,17 @@ admin.site.register(models.LKLD1, LKLD1Admin)
 
 
 class UserRMBAdmin(admin.ModelAdmin):
-    list_display = ["user", "rmb", "child_rmb", "create_time", "update_time"]
+    list_display = ["user", "userx", "rmb", "child_rmb", "create_time", "update_time"]
     fields = ["user", "rmb", "child_rmb"]
     search_fields = ["user__username"]
+
+    def userx(self, obj):
+        if obj.user and hasattr(obj.user, "userprofile"):
+            return obj.user.userprofile.name
+        else:
+            return obj.user
+    userx.allow_tags = True
+    userx.short_description = u'用户姓名'
 
 
 class ProfitD1Admin(admin.ModelAdmin):
@@ -180,6 +188,7 @@ class TiXianOrderAdmin(admin.ModelAdmin):
                 obj.finish_time = datetime.now()
                 obj.save()
     make_finished.short_description = u"打款完成"
+
 
 admin.site.register(models.UserRMB, UserRMBAdmin)
 admin.site.register(models.ProfitD1, ProfitD1Admin)
