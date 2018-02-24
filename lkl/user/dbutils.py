@@ -94,7 +94,7 @@ def get_user_d0_num(user):
     """
     freeze_n = 0
     end_datetime = datetime.now() - timedelta(4)
-    end_month = "{}{:02}".fromat(end_datetime.year, end_datetime.month)
+    end_month = "{}{:02}".format(end_datetime.year, end_datetime.month)
     mcode_list = get_user_mcode(user)
     objs = models.LKLD0.objects.filter(merchant_code__in=mcode_list).filter(fee_rmb="2").filter(trans_type=u"正交易").filter(trans_status=u"成功")
     for obj in objs:
