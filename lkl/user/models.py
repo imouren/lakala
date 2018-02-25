@@ -299,6 +299,7 @@ class UserRMB(models.Model):
     class Meta:
         db_table = "user_rmb"
         verbose_name = verbose_name_plural = u"用户金钱表"
+        ordering = ["-rmb", "-child_rmb"]
 
     def __str__(self):
         return str(self.rmb)
