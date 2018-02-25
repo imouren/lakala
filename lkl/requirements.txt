@@ -13,3 +13,4 @@ selenium
 pytesseract
 django-admin-view-permission
 qcloudsms_py
+raven

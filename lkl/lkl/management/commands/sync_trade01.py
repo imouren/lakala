@@ -9,6 +9,7 @@ from pytesseract import image_to_string
 from django.core.management.base import BaseCommand
 from lkl import utils, config
 from user.models import LKLTrade01
+from user.utils import wrapper_raven
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -47,6 +48,7 @@ class Command(BaseCommand):
             help=''
         )
 
+    @wrapper_raven
     def handle(self, start, end, *args, **options):
         try:
             start_date = utils.string_to_datetime(start)

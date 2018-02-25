@@ -6,6 +6,7 @@ import time
 from collections import defaultdict
 from decimal import Decimal
 from django.contrib.auth.models import User
+from django.conf import settings
 from .models import UserProfile, LKLTrade01, UserPos, LKLD1, UserAlipay
 from lkl import config
 
@@ -197,3 +198,22 @@ def get_user_poses(user):
 
 def datetime_to_timestamp(adatetime):
     return time.mktime(adatetime.timetuple())
+
+
+def wrapper_raven(fun):
+    """
+    Wrapper for raven to trace manager commands
+    """
+    from raven import Client
+    try:
+        client = Client(settings.RAVEN_CONFIG["dsn"])
+    except:
+        client = Client()
+
+    def wrap(cls, *args, **kwargs):
+        try:
+            return fun(cls, *args, **kwargs)
+        except Exception, e:
+            print e
+            client.captureException()
+    return wrap

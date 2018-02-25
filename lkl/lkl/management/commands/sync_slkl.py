@@ -10,6 +10,8 @@ from lkl import utils, config
 from bs4 import BeautifulSoup
 import time
 from user.models import LKLTerminal, LKLD0, LKLD1
+from user.utils import wrapper_raven
+
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -56,6 +58,7 @@ class Command(BaseCommand):
             help=''
         )
 
+    @wrapper_raven
     def handle(self, start, end, table, *args, **options):
         if start is None or end is None:
             end_date = datetime.now()

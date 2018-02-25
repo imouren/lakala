@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from django.core.management.base import BaseCommand
 from user import models
 from lkl import utils
-from user.utils import get_user_by_username
+from user.utils import get_user_by_username, wrapper_raven
 from user import dbutils
 
 reload(sys)
@@ -42,6 +42,7 @@ class Command(BaseCommand):
             help=''
         )
 
+    @wrapper_raven
     def handle(self, start, end, table, *args, **options):
         if end is None:
             end_datetime = datetime.now() - timedelta(4)
