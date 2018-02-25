@@ -84,7 +84,7 @@ def get_pos_d1_detail(pos):
             trans_total += Decimal(obj.draw_rmb)
             fee_total += Decimal(obj.fee_rmb)
             tmp = {
-                "draw_rmb": obj.draw_rm,
+                "draw_rmb": obj.draw_rmb,
                 "fee_rmb": obj.fee_rmb,
                 "pay_date": obj.pay_date
             }
