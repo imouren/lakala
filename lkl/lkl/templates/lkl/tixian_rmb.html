@@ -18,7 +18,7 @@
 <form method="post" action="{% url 'tixian_rmb' %}">
     {% csrf_token %}
     <div class="weui-cells weui-cells_form">
-        <div class="weui-cells__title">手续费10%，拉卡拉和微信支付收取。（暂时人工支付宝提现）后续微信自动到账。</div>
+        <div class="weui-cells__title">总费率10%，拉卡拉税费8%+微信支付税费1%+预付款利率1%。（暂时人工支付宝提现）后续微信自动到账。</div>
         <div class="weui-cell {%if errors.rmb %}weui-cell_warn{% endif %}">
             <div class="weui-cell__hd">
                 <label class="weui-label">提现金额</label>
@@ -28,6 +28,15 @@
             </div>
             <div class="weui-cell__ft">
                 <i class="weui-icon-warn">{{errors.rmb.0}}</i>
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">到账金额</label>
+            </div>
+            <div class="weui-cell__bd">
+                <label class="weui-label" id="fee"></label>
             </div>
         </div>
 
@@ -64,6 +73,18 @@
 {% block footer_js_extra %}
 
 <script>
+    // 税费计算
+    $("#rmb").change(function(){
+        var rmb = $("#rmb").val();
+        if (isNaN(rmb)) {
+            $("#fee").text("格式错误");
+        }
+        else {
+            var fee = parseInt(rmb) * 0.1;
+            var res = fee.toFixed(2);
+            $("#fee").text(res);
+        }
+    });
     // 表单提交
     $("#submit").click(function() {
         var captcha = $('#captcha').val();
