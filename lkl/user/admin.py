@@ -174,7 +174,7 @@ class ProfitD0Admin(admin.ModelAdmin):
 
 
 class TiXianOrderAdmin(admin.ModelAdmin):
-    list_display = ["user", "user_account", "rmb", "fee", "pay_rmb", "status", "order_type", "create_time", "pay_time", "finish_time"]
+    list_display = ["user", "userx", "user_account", "rmb", "fee", "pay_rmb", "status", "order_type", "create_time", "pay_time", "finish_time"]
     fields = ["user", "rmb", "fee", "user_account", "status", "order_type", "pay_time", "finish_time"]
     search_fields = ["user__username"]
     list_filter = ["status"]
@@ -182,6 +182,14 @@ class TiXianOrderAdmin(admin.ModelAdmin):
 
     all_fields = [f.name for f in models.TiXianOrder._meta.get_fields()]
     readonly_fields = all_fields
+
+    def userx(self, obj):
+        if obj.user and hasattr(obj.user, "userprofile"):
+            return obj.user.userprofile.name
+        else:
+            return obj.user
+    userx.allow_tags = True
+    userx.short_description = u'用户姓名'
 
     def get_readonly_fields(self, request, obj=None):
         if is_superuser(request):
