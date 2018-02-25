@@ -71,6 +71,9 @@ class RegisterForm(forms.Form):
         if not self.father_user:
             msg = u"邀请码不存在"
             raise forms.ValidationError(msg)
+        elif self.father_user.username == "13300000000":
+            msg = u"无权使用顶级邀请码"
+            raise forms.ValidationError(msg)
         return invite_code
 
     def clean(self):
