@@ -228,7 +228,7 @@ def pos_detail(request):
     pos_detail = []
     if pos in poses:
         pos_detail = dbutils.get_pos_d1_detail(pos)
-    data = {"poses": pos_detail}
+    data = {"detail": pos_detail}
     return render(request, "lkl/pos_detail.html", data)
 
 
