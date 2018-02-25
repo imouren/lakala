@@ -27,7 +27,7 @@
     <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
         <div class="weui-cells">
 
-        {% for obj in freinds_01 %}
+        {% for obj, d1 in friends %}
 
             <div class="weui-cell">
               <div class="weui-cell__bd">
@@ -46,6 +46,9 @@
                   </div>
               {% endif %}
               <div class="weui-cell__bd">
+                刷卡总额：{{ d1 }}
+              </div>
+              <div class="weui-cell__bd">
                 {{obj.create_time}}
               </div>
             </div>
@@ -56,7 +59,7 @@
     <div id="tab2" class="weui-tab__bd-item ">
         <div class="weui-cells">
 
-        {% for obj in freinds_02 %}
+        {% for obj in friends_02 %}
 
             <div class="weui-cell">
               <div class="weui-cell__bd">
