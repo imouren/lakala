@@ -89,16 +89,32 @@ admin.site.register(models.UserPos, UserPosAdmin)
 
 class UserFenRunAdmin(admin.ModelAdmin):
     form = fms.UserFenRunFrom
-    list_display = ["user", "point", "rmb", "message", "create_time", "update_time"]
+    list_display = ["user", "userx", "point", "rmb", "message", "create_time", "update_time"]
     fields = ["user", "point", "rmb", "message"]
     list_filter = ["point", "rmb"]
     search_fields = ["user__username"]
 
+    def userx(self, obj):
+        if obj.user and hasattr(obj.user, "userprofile"):
+            return obj.user.userprofile.name
+        else:
+            return obj.user
+    userx.allow_tags = True
+    userx.short_description = u'用户姓名'
+
 
 class UserAlipayAdmin(admin.ModelAdmin):
-    list_display = ["user", "account", "name", "create_time", "update_time"]
+    list_display = ["user", "userx", "account", "name", "create_time", "update_time"]
     fields = ["user", "account", "name"]
     search_fields = ["user__username"]
+
+    def userx(self, obj):
+        if obj.user and hasattr(obj.user, "userprofile"):
+            return obj.user.userprofile.name
+        else:
+            return obj.user
+    userx.allow_tags = True
+    userx.short_description = u'用户姓名'
 
 
 admin.site.register(models.UserFenRun, UserFenRunAdmin)
