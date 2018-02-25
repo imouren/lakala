@@ -1,8 +1,5 @@
 {% extends "lkl/base.html" %} {% load staticfiles %}
 
-{% block header_title  %}
-    <title>我的终端</title>
-{% endblock %}
 
 {% block container %}
 
@@ -19,6 +16,9 @@
         <div class="weui-cell">
           <div class="weui-cell__bd">
             {{pos}}
+          </div>
+          <div class="weui-cell__bd">
+            <a href="{% url 'pos_detail' %}?pos={{pos}}">明细</a>
           </div>
           <form id="{{pos}}" method="post" action="{% url 'search_terminal' %}">
           {% csrf_token %}

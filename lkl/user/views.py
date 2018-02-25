@@ -222,6 +222,17 @@ def pos_list(request):
 
 
 @login_required
+def pos_detail(request):
+    pos = request.GET.get("pos")
+    poses = utils.get_user_poses(request.user)
+    pos_detail = []
+    if pos in poses:
+        pos_detail = dbutils.get_pos_d1_detail(pos)
+    data = {"poses": pos_detail}
+    return render(request, "lkl/pos_detail.html", data)
+
+
+@login_required
 def friend_list(request):
     friends_01_d1_total = []
     friends_01 = list(request.user.children.all())

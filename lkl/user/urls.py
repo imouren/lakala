@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^search_terminal/$', views.search_terminal, name="search_terminal"),
     url(r'^bind_pos/$', views.bind_pos, name="bind_pos"),
     url(r'^pos_list/$', views.pos_list, name="pos_list"),
+    url(r'^pos_detail/$', views.pos_detail, name="pos_detail"),
     url(r'^friend_list/$', views.friend_list, name="friend_list"),
     # tixian
     url(r'^tixian_rmb/$', views.tixian_rmb, name="tixian_rmb"),

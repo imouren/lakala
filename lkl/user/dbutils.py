@@ -68,6 +68,36 @@ def get_user_pos(user):
     return list(poses)
 
 
+def get_pos_d1_detail(pos):
+    detail = []
+    objs = models.LKLD1.objects.filter(terminal=pos)
+    trans_total = Decimal(0)
+    fee_total = Decimal(0)
+    for obj in objs:
+        if obj.card_type == u"贷记卡":
+            month = obj.pay_date[:7]
+            if month == "2018-01":
+                continue
+            # 100以下交易不计算
+            if Decimal(obj.draw_rmb) < 100:
+                continue
+            trans_total += Decimal(obj.draw_rmb)
+            fee_total += Decimal(obj.fee_rmb)
+            tmp = {
+                "draw_rmb": obj.draw_rm,
+                "fee_rmb": obj.fee_rmb,
+                "pay_date": obj.pay_date
+            }
+            detail.append(tmp)
+    # total = {
+    #     "draw_rmb": obj.trans_total,
+    #     "fee_rmb": obj.fee_total,
+    #     "pay_date": u"总计"
+    # }
+    # detail.append(total)
+    return detail
+
+
 def get_user_mcode(user):
     """
     获取用户商户号
