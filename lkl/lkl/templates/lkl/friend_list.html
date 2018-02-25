@@ -33,6 +33,20 @@
               <div class="weui-cell__bd">
                 {{obj.name}}
               </div>
+              {% if obj.userfenrun %}
+                  <div class="weui-cell__bd">
+                    分润点数：{{ obj.userfenrun.point }}
+                  </div>
+                  {% if obj.userfenrun.rmb != '0.0' %}
+                  <div class="weui-cell__bd">
+                    秒到点数：{{ obj.userfenrun.rmb }}
+                  </div>
+                  {% endif %}
+              {% else %}
+                  <div class="weui-cell__bd">
+                    未设置分润
+                  </div>
+              {% endif %}
               <div class="weui-cell__bd">
                 {{obj.create_time}}
               </div>
