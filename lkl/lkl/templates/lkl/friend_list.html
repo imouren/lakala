@@ -33,13 +33,13 @@
               <div class="weui-cell__bd">
                 {{obj.name}}
               </div>
-              {% if obj.userfenrun %}
+              {% if obj.user.userfenrun %}
                   <div class="weui-cell__bd">
-                    分润点数：{{ obj.userfenrun.point }}
+                    分润点数：{{ obj.user.userfenrun.point }}
                   </div>
                   {% if obj.userfenrun.rmb != '0.0' %}
                   <div class="weui-cell__bd">
-                    秒到点数：{{ obj.userfenrun.rmb }}
+                    秒到点数：{{ obj.user.userfenrun.rmb }}
                   </div>
                   {% endif %}
               {% else %}
