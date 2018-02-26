@@ -81,9 +81,9 @@ class Command(BaseCommand):
             end_date = utils.string_to_datetime(end1)
             diff = end_date - start_date
             if is_none:
-                s = 0
-            else:
                 s = -3
+            else:
+                s = 0
             for i in range(s, diff.days + 1):
                 adate = start_date + timedelta(i)
                 adate_str = utils.datetime_to_string(adate)
