@@ -60,7 +60,9 @@ class Command(BaseCommand):
 
     @wrapper_raven
     def handle(self, start, end, table, *args, **options):
+        is_none = False
         if start is None or end is None:
+            is_none = True
             end_date = datetime.now()
             start_date = end_date - timedelta(3)
             start = utils.datetime_to_string(start_date, format_str="%Y-%m-%d")
@@ -78,7 +80,11 @@ class Command(BaseCommand):
             start_date = utils.string_to_datetime(start1)
             end_date = utils.string_to_datetime(end1)
             diff = end_date - start_date
-            for i in range(-3, diff.days + 1):
+            if is_none:
+                s = 0
+            else:
+                s = -3
+            for i in range(s, diff.days + 1):
                 adate = start_date + timedelta(i)
                 adate_str = utils.datetime_to_string(adate)
                 d1_data = get_d1_data(cookies, adate_str)
