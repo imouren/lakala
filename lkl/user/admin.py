@@ -106,7 +106,7 @@ class UserFenRunAdmin(admin.ModelAdmin):
         if hasattr(obj.user, "userprofile"):
             p = obj.user.userprofile
             if p.father and hasattr(obj.user, "userprofile"):
-                return '<a href="/admin/user/userprofile/?father__id__exact=%s" target="_blank">%s</a>' % (p.father.id, p.father.userprofile.name)
+                return '<a href="/admin/user/userfenrun/?user__id__exact=%s" target="_blank">%s</a>' % (p.father.id, p.father.userprofile.name)
             else:
                 return u"五彩神石"
         else:
