@@ -30,3 +30,10 @@ def income(request):
         "tx_rmb": "%.2f" % (tx_rmb / 100.0),
     }
     return render(request, "admin/income.html", data)
+
+
+@staff_member_required
+def reminder(request):
+    data = site_utils.get_reminder_data()
+    render_data = {"data": data}
+    return render(request, "admin/reminder.html", render_data)

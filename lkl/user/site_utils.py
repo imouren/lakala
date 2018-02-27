@@ -3,10 +3,12 @@ import redis
 import string
 import random
 import time
+from datetime import datetime, timedelta
 from collections import defaultdict
 from decimal import Decimal, ROUND_DOWN
 from django.conf import settings
 from . import models
+from . import dbutils
 
 
 def get_boss_pos_info():
@@ -92,3 +94,33 @@ def get_all_txrmb():
     for obj in objs:
         total += obj.rmb
     return total
+
+
+def get_reminder_data():
+    d = datetime.now() - timedelta(29)
+    start = "{}-{:02}-{:02}".format(d.year, d.month, d.day)
+    objs = models.LKLTerminal.objects.filter(is_ok=u"否")
+    data = []
+    for obj in objs:
+        day = obj.open_date[:10]
+        if day < start:
+            continue
+        user = dbutils.get_user_by_terminal(obj.terminal)
+        if user:
+            if hasattr(user, "userprofile"):
+                name = user.userprofile.name
+                phone = user.username
+            else:
+                name = u"未知"
+                phone = u"未知"
+        else:
+            name = u"未被绑定"
+            phone = u"未被绑定"
+        info = {
+            "name": name,
+            "phone": phone,
+            "terminal": obj.terminal,
+            "open_date": obj.open_date
+        }
+        data.append(info)
+    return data

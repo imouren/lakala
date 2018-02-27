@@ -247,8 +247,8 @@ SUIT_CONFIG = {
                 {'label': u'老系统', 'icon': 'icon-star', 'url': 'https://s.lakala.com/', 'blank': True},
             )
         },
-        {'label': u'营收状况', 'icon': 'icon-heart', 'url': 'boss_income', 'blank': False},
-        {'label': u'去催单', 'icon': 'icon-plane', 'url': '/admin/', 'blank': False},
+        {'label': u'营收状况', 'icon': 'icon-heart', 'url': 'admin_income', 'blank': False},
+        {'label': u'去催单', 'icon': 'icon-plane', 'url': 'admin_reminder', 'blank': False},
     ),
 
     # misc
