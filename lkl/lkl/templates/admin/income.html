@@ -66,10 +66,11 @@
         </tr>
         </thead>
         <tbody>
-        {% for month, n in pos_data %}
+        {% for month, data in pos_data %}
         <tr>
             <td>{{ month }}</td>
-            <td>{{ n }}</td>
+            <td>{{ data.ok }}</td>
+            <td>{{ data.total }}</td>
         </tr>
         {% endfor %}
         </tbody>

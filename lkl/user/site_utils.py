@@ -19,9 +19,13 @@ def get_boss_pos_info():
         if obj.is_ok == u"是":
             month = obj.open_date[:7]
             if month not in res_dict:
-                res_dict[month] = 1
+                res_dict[month] = {
+                    "ok": 1,
+                    "total": 1
+                }
             else:
-                res_dict[month] += 1
+                res_dict[month]["ok"] += 1
+                res_dict[month]["total"] += 1
     return res_dict
 
 
