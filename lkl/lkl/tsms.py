@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
-from qcloudsms_py import SmsSingleSender
+from qcloudsms_py import SmsSingleSender, SmsMultiSender
 from .config import TSMS_APP_ID, TSMS_APP_KEY
 
-TEMPLATE_ID = 83039
 
-
-def send_tsms(phone, code):
+def send_tsms_single(phone, template_id, params):
     ssender = SmsSingleSender(TSMS_APP_ID, TSMS_APP_KEY)
-    params = [code, ]
     try:
-        result = ssender.send_with_param(86, phone, TEMPLATE_ID, params)
+        ssender.send_with_param(86, phone, template_id, params)
     except Exception as e:
         print(e)
-        result = None
-    return result
+
+
+def send_tsms_multi(phones, template_id, params):
+    msender = SmsMultiSender(TSMS_APP_ID, TSMS_APP_KEY)
+    try:
+        msender.send_with_param(86, phones, template_id, params)
+    except Exception as e:
+        print(e)
