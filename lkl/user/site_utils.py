@@ -18,8 +18,6 @@ def get_boss_pos_info():
     for obj in objs:
         if obj.is_ok == u"是":
             month = obj.open_date[:7]
-            if month == "2018-01":
-                continue
             if month not in res_dict:
                 res_dict[month] = 1
             else:
