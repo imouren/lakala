@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls import url, include
-from . import views
+from . import views, site
 
 urlpatterns = [
     url(r'^$', views.home, name="user_home"),
@@ -20,4 +20,6 @@ urlpatterns = [
     url(r'^tixian_rmb/$', views.tixian_rmb, name="tixian_rmb"),
     # wx
     url(r'^wx_redirect/$', views.wx_redirect, name="wx_redirect"),
+    # boss
+    url(r'^income/$', site.income, name="boss_income"),
 ]

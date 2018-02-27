@@ -237,11 +237,18 @@ SUIT_CONFIG = {
     'MENU': (
         # 'sites',
         {'app': 'auth', 'icon': 'icon-lock', 'models': ('user', 'group')},
-        {'app': 'user', 'icon': 'icon-leaf', 'models': ('UserProfile', 'UserAddress', 'UserPos', 'UserTrade', "UserFenRun", "UserAlipay")},
-        {'label': u'刷卡数据', 'icon': 'icon-star', 'app': 'user', 'models': ('LKLTrade01', )},
+        {'app': 'user', 'icon': 'icon-user', 'models': ('UserProfile', 'UserAddress', 'UserPos', 'UserTrade', "UserFenRun", "UserAlipay")},
+        {'label': u'刷卡数据', 'icon': 'icon-star-empty', 'app': 'user', 'models': ('LKLTrade01', )},
         {'label': u'刷卡数据(老系统)', 'icon': 'icon-star', 'app': 'user', 'models': ('LKLTerminal', 'LKLD0', 'LKLD1')},
-        {'label': u'用户分红', 'icon': 'icon-star', 'app': 'user', 'models': ('UserRMB', 'ProfitD1', 'ProfitD0', 'TiXianOrder')},
-        {'label': u'拉卡拉', 'icon': 'icon-star', 'url': 'https://mposa.lakala.com/', 'blank': True},
+        {'label': u'用户分红', 'icon': 'icon-gift', 'app': 'user', 'models': ('UserRMB', 'ProfitD1', 'ProfitD0', 'TiXianOrder')},
+        {'label': u'拉卡拉官网', 'icon': 'icon-globe', 'blank': True,
+            'models': (
+                {'label': u'新系统', 'icon': 'icon-star', 'url': 'https://mposa.lakala.com/', 'blank': True},
+                {'label': u'老系统', 'icon': 'icon-star', 'url': 'https://s.lakala.com/', 'blank': True},
+            )
+        },
+        {'label': u'营收状况', 'icon': 'icon-heart', 'url': 'boss_income', 'blank': False},
+        {'label': u'去催单', 'icon': 'icon-plane', 'url': '/admin/', 'blank': False},
     ),
 
     # misc

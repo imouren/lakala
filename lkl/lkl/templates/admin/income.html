@@ -1,0 +1,50 @@
+{% extends "admin/base_site.html" %}
+{% load admin_static %}
+
+{% block content %}
+{{ block.super }}
+
+<div id="d1">
+    <table border="1" cellpadding="5" cellspacing="0" id="result_list">
+        <caption align="top">刷卡数据</caption>
+        <tr>
+            <th>月份</th>
+            <th>刷卡量</th>
+            <th>总费用</th>
+            <th>总收入</th>
+        </tr>
+        {% for month, data in d1_data.iteritems %}
+        <tr>
+            <td>{{ month }}</td>
+            <td>{{ data.draw }}</td>
+            <td>{{ data.fee }}</td>
+            <td>{{ data.rmb }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br/>
+    <br/>
+</div>
+
+<div id="d0">
+    <table border="1" cellpadding="5" cellspacing="0" id="result_list">
+        <caption align="top">秒到数据</caption>
+        <tr>
+            <th>月份</th>
+            <th>秒到笔数</th>
+            <th>总收入</th>
+        </tr>
+        {% for month, data in d0_data.iteritems %}
+        <tr>
+            <td>{{ month }}</td>
+            <td>{{ data.n }}</td>
+            <td>{{ data.rmb }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br/>
+    <br/>
+</div>
+
+
+{% endblock %}
