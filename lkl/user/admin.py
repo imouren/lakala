@@ -103,8 +103,12 @@ class UserFenRunAdmin(admin.ModelAdmin):
     userx.short_description = u'用户姓名'
 
     def fatherx(self, obj):
-        if obj.user.father and hasattr(obj.user, "userprofile"):
-            return '<a href="/admin/user/userprofile/?father__id__exact=%s" target="_blank">%s</a>' % (obj.father.id, obj.father.userprofile.name)
+        if hasattr(obj.user, "userprofile"):
+            p = obj.user.userprofile
+            if p.father and hasattr(obj.user, "userprofile"):
+                return '<a href="/admin/user/userprofile/?father__id__exact=%s" target="_blank">%s</a>' % (p.father.id, p.father.userprofile.name)
+            else:
+                return u"五彩神石"
         else:
             return u"五彩神石"
     fatherx.allow_tags = True
