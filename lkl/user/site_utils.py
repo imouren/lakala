@@ -54,3 +54,21 @@ def get_boss_d0_info():
             res_dict[month]["n"] += 1
             res_dict[month]["rmb"] += 1.5
     return res_dict
+
+
+def get_all_urmb():
+    objs = models.UserRMB.objects.all()
+    rmb = 0
+    child_rmb = 0
+    for obj in objs:
+        rmb += obj.rmb
+        child_rmb += obj.child_rmb
+    return rmb, child_rmb
+
+
+def get_all_txrmb():
+    objs = models.TiXianOrder.objects.all()
+    total = 0
+    for obj in objs:
+        total += obj.rmb
+    return total
