@@ -89,7 +89,7 @@ admin.site.register(models.UserPos, UserPosAdmin)
 
 class UserFenRunAdmin(admin.ModelAdmin):
     form = fms.UserFenRunFrom
-    list_display = ["user", "userx", "point", "rmb", "message", "create_time", "update_time"]
+    list_display = ["user", "userx", "fatherx", "point", "rmb", "message", "create_time", "update_time"]
     fields = ["user", "point", "rmb", "message"]
     list_filter = ["point", "rmb"]
     search_fields = ["user__username"]
@@ -101,6 +101,14 @@ class UserFenRunAdmin(admin.ModelAdmin):
             return obj.user
     userx.allow_tags = True
     userx.short_description = u'用户姓名'
+
+    def fatherx(self, obj):
+        if obj.father and hasattr(obj.user, "userprofile"):
+            return '<a href="/admin/user/userprofile/?father__id__exact=%s" target="_blank">%s</a>' % (obj.father.id, obj.father.userprofile.name)
+        else:
+            return u"五彩神石"
+    fatherx.allow_tags = True
+    fatherx.short_description = u'导师'
 
 
 class UserAlipayAdmin(admin.ModelAdmin):
