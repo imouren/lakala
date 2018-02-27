@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for month, data in d1_data.iteritems %}
+        {% for month, data in d1_data %}
         <tr>
             <td>{{ month }}</td>
             <td>{{ data.draw }}</td>
@@ -43,7 +43,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for month, data in d0_data.iteritems %}
+        {% for month, data in d0_data %}
         <tr>
             <td>{{ month }}</td>
             <td>{{ data.n }}</td>
@@ -66,7 +66,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for month, n in pos_data.iteritems %}
+        {% for month, n in pos_data %}
         <tr>
             <td>{{ month }}</td>
             <td>{{ n }}</td>

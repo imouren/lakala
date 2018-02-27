@@ -22,9 +22,9 @@ def income(request):
     urmb, child_urmb = site_utils.get_all_urmb()
     tx_rmb = site_utils.get_all_txrmb()
     data = {
-        "d1_data": d1_data,
-        "d0_data": d0_data,
-        "pos_data": pos_data,
+        "d1_data": sorted(d1_data.iteritems()),
+        "d0_data": sorted(d0_data.iteritems()),
+        "pos_data": sorted(pos_data.iteritems()),
         "urmb": "%.2f" % (urmb / 100.0),
         "child_urmb": "%.2f" % (child_urmb / 100.0),
         "tx_rmb": "%.2f" % (tx_rmb / 100.0),
