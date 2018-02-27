@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -7,6 +8,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from . import site_utils
 
 
+@cache_page(3600)
 @staff_member_required
 def income(request):
     """
