@@ -34,6 +34,7 @@ def income(request):
     return render(request, "admin/income.html", data)
 
 
+@cache_page(3600)
 @staff_member_required
 def reminder(request):
     data = site_utils.get_reminder_data()
