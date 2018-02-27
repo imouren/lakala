@@ -67,7 +67,8 @@ class Command(BaseCommand):
             start_date = end_date - timedelta(3)
             start = utils.datetime_to_string(start_date, format_str="%Y-%m-%d")
             end = utils.datetime_to_string(end_date, format_str="%Y-%m-%d")
-        print "sync slkl", start, end, table
+        print "__sync slkl", start, end, table
+        print datetime.now()
         cookies = get_cookies()
         start1 = "".join(start.split("-"))
         end1 = "".join(end.split("-"))

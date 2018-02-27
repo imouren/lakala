@@ -56,7 +56,8 @@ class Command(BaseCommand):
         end_date = end_datetime.date()
         # start = utils.datetime_to_string(start_date, format_str="%Y-%m-%d")
         # end = utils.datetime_to_string(end_date, format_str="%Y-%m-%d")
-        print "sync user rmb", start_date, end_date, table
+        print "__sync user rmb", start_date, end_date, table
+        print datetime.now()
         default_user = get_user_by_username("13300000000")
         # D0
         if table in ("d0", "all"):

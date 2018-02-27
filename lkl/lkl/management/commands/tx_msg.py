@@ -22,7 +22,8 @@ class Command(BaseCommand):
     """
     @wrapper_raven
     def handle(self, *args, **options):
-        print "start tx_msg..."
+        print "__start tx_msg..."
+        print datetime.now()
         objs = models.TiXianOrder.objects.filter(status="PD")
         names = []
         total = 0

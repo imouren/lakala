@@ -58,7 +58,8 @@ class Command(BaseCommand):
         except Exception:
             end_date = datetime.now()
             start_date = end_date - timedelta(3)
-        print "sync trade01", start_date, end_date
+        print "__sync trade01", start_date, end_date
+        print datetime.now()
         diff = end_date - start_date
         # 登陆操作
         code = get_code_value()
