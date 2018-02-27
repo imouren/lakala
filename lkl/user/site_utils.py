@@ -9,6 +9,24 @@ from django.conf import settings
 from . import models
 
 
+def get_boss_pos_info():
+    """
+    获取全部用户达标机器数量
+    """
+    res_dict = {}
+    objs = models.LKLTerminal.objects.all()
+    for obj in objs:
+        if obj.is_ok == u"是":
+            month = obj.open_date[:7]
+            if month == "2018-01":
+                continue
+            if month not in res_dict:
+                res_dict[month] = 1
+            else:
+                res_dict[month] += 1
+    return res_dict
+
+
 def get_boss_d1_info():
     """
     获取全部用户D1刷卡总额
