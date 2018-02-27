@@ -16,16 +16,16 @@ def get_boss_pos_info():
     res_dict = {}
     objs = models.LKLTerminal.objects.all()
     for obj in objs:
-        if obj.is_ok == u"是":
-            month = obj.open_date[:7]
-            if month not in res_dict:
-                res_dict[month] = {
-                    "ok": 1,
-                    "total": 1
-                }
-            else:
-                res_dict[month]["ok"] += 1
-                res_dict[month]["total"] += 1
+        month = obj.open_date[:7]
+        ok = int(obj.is_ok == u"是")
+        if month not in res_dict:
+            res_dict[month] = {
+                "ok": ok,
+                "total": 1
+            }
+        else:
+            res_dict[month]["ok"] += ok
+            res_dict[month]["total"] += 1
     return res_dict
 
 
