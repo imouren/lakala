@@ -7,6 +7,7 @@ from easy_select2 import select2_modelform
 from suit.admin import SortableTabularInline
 from . import models
 from . import forms as fms
+from . import utils
 
 
 def is_superuser(request):
@@ -17,7 +18,7 @@ def is_superuser(request):
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "name", "fatherx", "phone", "sex", "fenrun", "code", "max_num", "create_time"]
+    list_display = ["user", "name", "fatherx", "phone", "sex", "fenrun", "code", "max_num", "current_num", "create_time"]
     fields = ["user", "phone", "name", "sex", "is_vip", "father", "max_num"]
     search_fields = ["name", "phone"]
     all_fields = [f.name for f in models.UserProfile._meta.get_fields()]
@@ -46,6 +47,12 @@ class UserProfileAdmin(admin.ModelAdmin):
     fenrun.allow_tags = True
     fenrun.short_description = u'分润'
 
+    def current_num(self, obj):
+        poese = utils.get_user_poses(obj.user)
+        return len(poese)
+    current_num.allow_tags = True
+    current_num.short_description = u'绑定数量'
+
 
 admin.site.register(models.UserProfile, UserProfileAdmin)
 
@@ -66,7 +73,7 @@ admin.site.register(models.LKLTrade01, LKLTrade01ileAdmin)
 
 class UserPosAdmin(admin.ModelAdmin):
     form = fms.UserPosAdminForm
-    list_display = ["user", "userx", "code", "pos_d1", "create_time"]
+    list_display = ["user", "userx", "code", "status", "pos_d1", "create_time"]
     fields = ["user", "code"]
     search_fields = ["user__username", "code"]
 
@@ -82,6 +89,20 @@ class UserPosAdmin(admin.ModelAdmin):
         return u'<a href="/admin/user/lkld1/?q=%s" target="_blank">查看</a>' % obj.code
     pos_d1.allow_tags = True
     pos_d1.short_description = u'D1交易'
+
+    def status(self, obj):
+        objs = models.LKLTerminal.objects.filter(terminal=obj.code)
+        if objs:
+            obj = objs[0]
+            if obj.is_ok == u"是":
+                s = u"达标"
+            else:
+                s = u"未达标"
+        else:
+            s = u"未激活"
+        return s
+    status.allow_tags = True
+    status.short_description = u'状态'
 
 
 admin.site.register(models.UserPos, UserPosAdmin)

@@ -97,14 +97,21 @@ def get_all_txrmb():
 
 
 def get_reminder_data():
+    """
+    3月份开始，只有当月激活，当月刷2000才算合格
+    """
     d = datetime.now() - timedelta(29)
-    start = "{}-{:02}-{:02}".format(d.year, d.month, d.day)
+    # start = "{}-{:02}-{:02}".format(d.year, d.month, d.day)
+    current_month = "{}-{:02}".format(d.year, d.month)
     objs = models.LKLTerminal.objects.filter(is_ok=u"否")
     data = []
     for obj in objs:
-        day = obj.open_date[:10]
-        if day < start:
+        month = obj.open_date[:7]
+        if month != current_month:
             continue
+        # day = obj.open_date[:10]
+        # if day < start:
+        #     continue
         user = dbutils.get_user_by_terminal(obj.terminal)
         if user:
             if hasattr(user, "userprofile"):
