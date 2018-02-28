@@ -100,8 +100,9 @@ def get_reminder_data():
     """
     3月份开始，只有当月激活，当月刷2000才算合格
     """
-    d = datetime.now() - timedelta(29)
+    # d = datetime.now() - timedelta(29)
     # start = "{}-{:02}-{:02}".format(d.year, d.month, d.day)
+    d = datetime.now()
     current_month = "{}-{:02}".format(d.year, d.month)
     objs = models.LKLTerminal.objects.filter(is_ok=u"否")
     data = []
