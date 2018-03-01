@@ -76,7 +76,7 @@ def get_pos_d1_detail(pos):
     for obj in objs:
         if obj.card_type == u"贷记卡":
             month = obj.pay_date[:7]
-            if month == "2018-01":
+            if month <= "2018-01":
                 continue
             # 100以下交易不计算
             if Decimal(obj.draw_rmb) < 100:
@@ -128,7 +128,10 @@ def get_user_d0_num(user):
     mcode_list = get_user_mcode(user)
     objs = models.LKLD0.objects.filter(merchant_code__in=mcode_list).filter(fee_rmb="2").filter(trans_type=u"正交易").filter(trans_status=u"成功")
     for obj in objs:
+        month = obj.pay_date[:6]
         day = obj.draw_date[:8]
+        if month <= "201801":
+            continue
         if day >= end_day:
             freeze_n += 1
     return len(objs), freeze_n
@@ -148,7 +151,7 @@ def get_user_d1_total(user):
         if obj.card_type == u"贷记卡":
             month = obj.pay_date[:7]
             day = obj.pay_date[:10]
-            if month == "2018-01":
+            if month <= "2018-01":
                 continue
             # 100以下交易不计算
             if Decimal(obj.draw_rmb) < 100:
