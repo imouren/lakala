@@ -79,9 +79,10 @@ class UserPosAdmin(admin.ModelAdmin):
 
     def userx(self, obj):
         if obj.user and hasattr(obj.user, "userprofile"):
-            return obj.user.userprofile.name
+            name = obj.user.userprofile.name
         else:
-            return obj.user
+            name = obj.user
+        return u'<a href="/admin/user/userpos/?user_id=%s" target="_blank">%s</a>' % (obj.user.id, name)
     userx.allow_tags = True
     userx.short_description = u'用户姓名'
 
