@@ -132,7 +132,7 @@ def get_user_d0_num(user):
         day = obj.draw_date[:8]
         if month <= "201801":
             continue
-        if day >= end_day:
+        if day > end_day:
             freeze_n += 1
     return len(objs), freeze_n
 
@@ -157,7 +157,7 @@ def get_user_d1_total(user):
             if Decimal(obj.draw_rmb) < 100:
                 continue
             trans_total += Decimal(obj.draw_rmb)
-            if day >= end_day:
+            if day > end_day:
                 freeze_total += Decimal(obj.draw_rmb)
     return str(trans_total), str(freeze_total)
 
