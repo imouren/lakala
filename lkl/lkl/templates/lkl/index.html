@@ -5,8 +5,26 @@
 <title>首页</title>
 {% endblock %}
 
+{% block header_css_extra %}
+.juzhong {
+  text-align: center;
+  font-size: 24px;
+  color: cornflowerblue;
+  font-weight: 400;
+  margin: 0 15%;
+}
+.weui-article h1 {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: .9em;
+}
+{% endblock %}
 
 {% block container  %}
+
+<div class="juzhong">
+
+{% if 0 %}
 <h3>
 尊敬的
 {% if request.user.is_authenticated %}
@@ -18,6 +36,7 @@
 {% endif %}
 您好！
 </h3>
+{% endif %}
 
 <div class="bd mt40 mb40">
 <div class="weui_tab">
@@ -68,5 +87,5 @@
 </div>
 </div>
 
-
+</div>
 {% endblock %}
