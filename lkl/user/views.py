@@ -235,7 +235,8 @@ def pos_detail(request):
     poses = utils.get_user_poses(request.user)
     pos_detail = []
     if pos in poses:
-        pos_detail = dbutils.get_pos_d1_detail(pos.code)
+        detail = dbutils.get_pos_d1_detail(pos.code)
+        pos_detail.append(detail)
     data = {"detail": pos_detail}
     return render(request, "lkl/pos_detail.html", data)
 
