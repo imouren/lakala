@@ -54,10 +54,12 @@
             <label class="weui-form-preview__label">秒到总笔数</label>
             <span class="weui-form-preview__value">{{ d0_num }}</span>
         </div>
-        <div class="weui-form-preview__item">
-            <label class="weui-form-preview__label">未结算笔数</label>
-            <span class="weui-form-preview__value">{{ d0_freeze_num }}</span>
-        </div>
+            {% if  0 %}
+                <div class="weui-form-preview__item">
+                    <label class="weui-form-preview__label">未结算笔数</label>
+                    <span class="weui-form-preview__value">{{ d0_freeze_num }}</span>
+                </div>
+            {% endif %}
         {% endif %}
 
     </div>
