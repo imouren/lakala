@@ -15,16 +15,19 @@
 
         <div class="weui-cell">
           <div class="weui-cell__bd">
-            {{pos}}
+            {{pos.code}}
           </div>
           <div class="weui-cell__bd">
-            <a href="{% url 'pos_detail' %}?pos={{pos}}">明细</a>
+            {{pos.status}}
           </div>
-          <form id="{{pos}}" method="post" action="{% url 'search_terminal' %}">
+          <div class="weui-cell__bd">
+            <a href="{% url 'pos_detail' %}?pos={{pos.code}}">明细</a>
+          </div>
+          <form id="{{pos.code}}" method="post" action="{% url 'search_terminal' %}">
           {% csrf_token %}
           <div class="weui-cell__bd">
-            <a href="javascript:;" onclick="$('#{{pos}}').submit();">查看</a>
-            <input name="q" type="hidden" value="{{pos}}">
+            <a href="javascript:;" onclick="$('#{{pos.code}}').submit();">查看</a>
+            <input name="q" type="hidden" value="{{pos.code}}">
             <input name="s" type="hidden" value="0">
           </div>
           </form>

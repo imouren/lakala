@@ -6,6 +6,7 @@ from decimal import Decimal
 from django.db import transaction
 from . import models
 from . import utils
+from lkl.utils import string_to_datetime
 
 
 def add_userrmb_rmb(user, rmb, is_child=False):
@@ -191,3 +192,40 @@ def can_tixian(user):
         else:
             tx = False
     return tx
+
+
+def _is_double_ok(open_date_str, terminal):
+    open_date = string_to_datetime(open_date_str[:10], "%Y-%m-%d")
+    end_date = open_date + timedelta(30)
+    end_date_str = "{}-{:02}-{:02}".format(end_date.year, end_date.month, end_date.day)
+    ok = False
+    objs = models.LKLD1.objects.filter(terminal=terminal)
+    trans_total = Decimal(0)
+    for obj in objs:
+        if obj.card_type == u"贷记卡":
+            day = obj.pay_date[:10]
+            if day < end_date_str:
+                trans_total += Decimal(obj.draw_rmb)
+        if trans_total > 20000:
+            break
+    if trans_total >= 20000:
+        ok = True
+    return ok
+
+
+def get_terminal_status(terminal):
+    """
+    终端状态
+    """
+    objs = models.LKLTerminal.objects.filter(terminal=terminal)
+    if objs:
+        obj = objs[0]
+        if obj.is_ok == u"是":
+            s = u"达标"
+            if _is_double_ok(obj.open_date, obj.terminal):
+                s = u"双达标"
+        else:
+            s = u"未达标"
+    else:
+        s = u"未激活"
+    return s

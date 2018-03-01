@@ -7,7 +7,7 @@ from easy_select2 import select2_modelform
 from suit.admin import SortableTabularInline
 from . import models
 from . import forms as fms
-from . import utils
+from . import utils, dbutils
 
 
 def is_superuser(request):
@@ -92,15 +92,7 @@ class UserPosAdmin(admin.ModelAdmin):
     pos_d1.short_description = u'D1交易'
 
     def status(self, obj):
-        objs = models.LKLTerminal.objects.filter(terminal=obj.code)
-        if objs:
-            obj = objs[0]
-            if obj.is_ok == u"是":
-                s = u"达标"
-            else:
-                s = u"未达标"
-        else:
-            s = u"未激活"
+        s = dbutils.get_terminal_status(obj.code)
         return s
     status.allow_tags = True
     status.short_description = u'状态'

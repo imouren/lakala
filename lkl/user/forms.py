@@ -129,8 +129,8 @@ class UserPosForm(forms.Form):
             max_num = self.user.userprofile.max_num
         else:
             max_num = 0
-        current_num = utils.get_user_poses(self.user)
-        if len(current_num) >= max_num:
+        poses = utils.get_user_poses(self.user)
+        if len(poses) >= max_num:
             msg = u"最多可绑%s机器" % max_num
             raise forms.ValidationError(msg)
         return cleaned_data
@@ -194,8 +194,8 @@ class UserPosAdminForm(forms.ModelForm):
             max_num = user.userprofile.max_num
         else:
             max_num = 0
-        current_num = utils.get_user_poses(user)
-        if len(current_num) >= max_num:
+        poses = utils.get_user_poses(user)
+        if len(poses) >= max_num:
             msg = u"最多可绑%s机器" % max_num
             raise forms.ValidationError(msg)
         return cleaned_data
