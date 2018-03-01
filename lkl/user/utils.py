@@ -190,7 +190,8 @@ def exists_alipay(account):
 
 def get_user_poses(user):
     objs = UserPos.objects.filter(user=user)
-    return objs
+    poses = [obj.code for obj in objs]
+    return poses
 
 
 ## 工具类

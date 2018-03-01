@@ -218,10 +218,10 @@ def bind_pos(request):
 def pos_list(request):
     poses = utils.get_user_poses(request.user)
     pos_list = []
-    for obj in poses:
-        status = dbutils.get_terminal_status(obj.code)
+    for pos in poses:
+        status = dbutils.get_terminal_status(pos)
         tmp = {
-            "code": obj.code,
+            "code": pos,
             "status": status
         }
         pos_list.append(tmp)
@@ -235,8 +235,7 @@ def pos_detail(request):
     poses = utils.get_user_poses(request.user)
     pos_detail = []
     if pos in poses:
-        detail = dbutils.get_pos_d1_detail(pos.code)
-        pos_detail.append(detail)
+        pos_detail = dbutils.get_pos_d1_detail(pos)
     data = {"detail": pos_detail}
     return render(request, "lkl/pos_detail.html", data)
 
