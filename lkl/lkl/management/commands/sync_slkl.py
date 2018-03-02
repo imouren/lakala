@@ -175,6 +175,21 @@ def write_to_db_terminal(data):
                 ok_date=t[10]
             )
             alist.append(obj)
+        else:
+            itmes = LKLTerminal.objects.filter(terminal=t[4])
+            if itmes:
+                item = itmes[0]
+                item.merchant_code = t[0]
+                item.merchant_name = t[2]
+                item.maintain = t[1]
+                item.category = t[3]
+                item.terminal_type = t[5]
+                item.open_date = t[6]
+                item.close_date = t[7]
+                item.is_give = t[8]
+                item.is_ok = t[9]
+                item.ok_date = t[10]
+                item.save()
     if alist:
         LKLTerminal.objects.bulk_create(alist)
 
