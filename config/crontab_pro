@@ -4,6 +4,7 @@
 # db sync data
 5 * * * * /projects/lakala/config/run_command_pro.sh sync_trade01 >> /data/script/mpos.log 2>&1
 5 * * * * /projects/lakala/config/run_command_pro.sh sync_slkl --table=all >> /data/script/slkl.log 2>&1
+35 0 * * * /projects/lakala/config/run_command_pro.sh sync_slkl --table=terminal_update >> /data/script/slkl.log 2>&1
 # user rmb
 5 */3 * * * /projects/lakala/config/run_command_pro.sh user_rmb --table=all >> /data/script/user_rmb.log 2>&1
 15 2 * * * /projects/lakala/config/run_command_pro.sh user_rmb --start=2018-02-01 --table=all >> /data/script/user_rmb.log 2>&1

@@ -64,7 +64,11 @@ class Command(BaseCommand):
         if start is None or end is None:
             is_none = True
             end_date = datetime.now()
-            start_date = end_date - timedelta(3)
+            if table == "terminal_update":
+                end_date = end_date - timedelta(3)
+                start_date = end_date - timedelta(30)
+            else:
+                start_date = end_date - timedelta(3)
             start = utils.datetime_to_string(start_date, format_str="%Y-%m-%d")
             end = utils.datetime_to_string(end_date, format_str="%Y-%m-%d")
         print "__sync slkl", start, end, table
@@ -91,7 +95,7 @@ class Command(BaseCommand):
                 d1_data = get_d1_data(cookies, adate_str)
                 write_to_db_d1(d1_data)
         # 终端
-        if table in ("terminal", "all"):
+        if table in ("terminal", "terminal_update", "all"):
             terminal_data = get_terminal_data(cookies, start, end)
             write_to_db_terminal(terminal_data)
 
