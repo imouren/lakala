@@ -132,15 +132,15 @@ class UserTrade(models.Model):
 @python_2_unicode_compatible
 class UserFenRun(models.Model):
     POINT_CHOICE = [
-        ("5", u"5"),
+        ("5.0", u"5.0"),
         ("5.5", u"5.5"),
-        ("6", u"6"),
+        ("6.0", u"6.0"),
         ("6.5", u"6.5"),
-        ("7", u"7"),
+        ("7.0", u"7.0"),
         ("7.5", u"7.5"),
-        ("8", u"8"),
+        ("8.0", u"8.0"),
         ("8.5", u"8.5"),
-        ("9", u"9"),
+        ("9.0", u"9.0"),
         ("9.5", u"9.5"),
         ("10.0", u"10.0")
     ]
@@ -401,3 +401,28 @@ class TiXianOrder(models.Model):
         db_table = "user_tixian_order"
         verbose_name = verbose_name_plural = u"提现表"
         ordering = ["-pay_time"]
+
+
+@python_2_unicode_compatible
+class FenRunOrder(models.Model):
+    S_CHOICE = (
+        ('WAIT', u'等待审核'),
+        ('PASS', u'审核通过'),
+        ('OK', u'完成'),
+    )
+    user = models.ForeignKey(User, verbose_name=u"用户", related_name="fenrun_asker")
+    child = models.ForeignKey(User, verbose_name=u"下家", related_name="fenrun_target")
+    point = models.IntegerField(u"分润点")
+    rmb = models.IntegerField(u"秒到点")
+    status = models.CharField(u"订单状态", choices=S_CHOICE, max_length=10, default="WAIT")
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    pass_time = models.DateTimeField(u"审核时间", null=True, blank=True)
+    finish_time = models.DateTimeField(u"完结时间", null=True, blank=True)
+
+    def __str__(self):
+        return "%s:%s_%s" % (self.child.username, self.point, self.rmb)
+
+    class Meta:
+        db_table = "user_fenrun_order"
+        verbose_name = verbose_name_plural = u"分润申请表"
+        ordering = ["-pass_time"]
