@@ -229,3 +229,10 @@ def get_terminal_status(terminal):
     else:
         s = u"未激活"
     return s
+
+
+def set_user_fenrun(user, point, rmb):
+    obj, created = models.UserFenRun.objects.update_or_create(
+        user=user,
+        defaults={'point': point, "rmb": rmb},
+    )

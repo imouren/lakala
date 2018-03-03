@@ -240,7 +240,62 @@ class TiXianOrderAdmin(admin.ModelAdmin):
     make_finished.short_description = u"打款完成"
 
 
+class FenRunOrderAdmin(admin.ModelAdmin):
+    list_display = ["userx", "childx", "point", "rmb", "status", "create_time", "pass_time", "finish_time"]
+    fields = ["user", "child", "point", "rmb", "status", "pass_time", "finish_time"]
+    search_fields = ["child__username"]
+    list_filter = ["status"]
+    actions = ['make_finished']
+
+    all_fields = [f.name for f in models.FenRunOrder._meta.get_fields()]
+    readonly_fields = all_fields
+
+    def userx(self, obj):
+        if obj.user and hasattr(obj.user, "userprofile"):
+            return obj.user.userprofile.name
+        else:
+            return obj.user
+    userx.allow_tags = True
+    userx.short_description = u'用户'
+
+    def childx(self, obj):
+        if obj.child and hasattr(obj.child, "userprofile"):
+            return obj.child.userprofile.name
+        else:
+            return obj.child
+    childx.allow_tags = True
+    childx.short_description = u'下家'
+
+    def get_readonly_fields(self, request, obj=None):
+        if is_superuser(request):
+            return []
+        else:
+            return super(FenRunOrderAdmin, self).get_readonly_fields(request, obj)
+
+    def get_actions(self, request):
+        actions = super(FenRunOrderAdmin, self).get_actions(request)
+        is_keep = request.user.is_superuser or request.user.username in ["13311368820"]
+        if not is_keep:
+            if 'make_finished' in actions:
+                del actions['make_finished']
+        return actions
+
+    def make_finished(self, request, queryset):
+        for obj in queryset:
+            if obj.status == "WAIT":
+                # 设置分润
+                dbutils.set_user_fenrun(obj.child, obj.point, obj.rmb)
+                obj.status = "PASS"
+                obj.pass_time = datetime.now()
+                obj.save()
+                obj.status = 'OK'
+                obj.finish_time = datetime.now()
+                obj.save()
+    make_finished.short_description = u"审核通过"
+
+
 admin.site.register(models.UserRMB, UserRMBAdmin)
 admin.site.register(models.ProfitD1, ProfitD1Admin)
 admin.site.register(models.ProfitD0, ProfitD0Admin)
 admin.site.register(models.TiXianOrder, TiXianOrderAdmin)
+admin.site.register(models.FenRunOrder, FenRunOrderAdmin)
