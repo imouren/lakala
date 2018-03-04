@@ -15,7 +15,7 @@
 <form method="post" action="">
     {% csrf_token %}
     <div class="weui-cells weui-cells_form">
-        <div class="weui-cells__title">分润只能申请提高，但不能大于邀请人的分润。
+        <div class="weui-cells__title fc-red">分润只能申请提高，但不能大于邀请人的分润。
         </div>
 
         <div class="weui-cell {%if errors.point %}weui-cell_warn{% endif %}">
