@@ -248,7 +248,7 @@ SUIT_CONFIG = {
         {'label': u'刷卡数据', 'icon': 'icon-star-empty', 'app': 'user', 'models': ('LKLTrade01', )},
         {'label': u'刷卡数据(老系统)', 'icon': 'icon-star', 'app': 'user', 'models': ('LKLTerminal', 'LKLD0', 'LKLD1')},
         {'label': u'用户分红', 'icon': 'icon-gift', 'app': 'user', 'models': ('UserRMB', 'ProfitD1', 'ProfitD0')},
-        {'label': u'审核管理', 'icon': 'icon-gift', 'app': 'user', 'models': ('TiXianOrder', 'FenRunOrder')},
+        {'label': u'审核管理', 'icon': 'icon-check', 'app': 'user', 'models': ('TiXianOrder', 'FenRunOrder')},
         {'label': u'拉卡拉官网', 'icon': 'icon-globe', 'blank': True,
             'models': (
                 {'label': u'新系统', 'icon': 'icon-star', 'url': 'https://mposa.lakala.com/', 'blank': True},
