@@ -236,3 +236,12 @@ def set_user_fenrun(user, point, rmb):
         user=user,
         defaults={'point': point, "rmb": rmb},
     )
+
+
+def get_last_fenren_order(user, child):
+    objs = models.FenRunOrder.objects.filter(user=user, child=child).order_by("-create_time")
+    if objs:
+        obj = objs[0]
+    else:
+        obj = None
+    return obj

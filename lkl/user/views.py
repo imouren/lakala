@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from .forms import LoginForm, RegisterForm, UserPosForm, UserAlipayForm, TixianRMBForm
-from .models import UserProfile, UserPos, UserAlipay
+from .models import UserProfile, UserPos, UserAlipay, UserFenRun, FenRunOrder
 from . import utils, dbutils
 from lkl import config
 from .utils import rclient
@@ -318,6 +318,85 @@ def tixian_rmb(request):
             error = form.errors.get("__all__")
             data.update({"error": error, "errors": form.errors})
     return render(request, "lkl/tixian_rmb.html", data)
+
+
+@login_required
+def set_fenrun(request, child):
+    data = {}
+    hashkey = CaptchaStore.generate_key()
+    img_url = captcha_image_url(hashkey)
+    data.update({"img_url": img_url, "hashkey": hashkey})
+    user = request.user
+    # 分润
+    if hasattr(user, "userfenrun"):
+        f_point = float(user.userfenrun.point)
+        f_rmb = float(user.userfenrun.rmb)
+        point_list = [x[0] for x in UserFenRun.POINT_CHOICE if float(x[0]) <= f_point]
+        rmb_list = [x[0] for x in UserFenRun.RMB_CHOICE if float(x[0]) <= f_rmb]
+        child_fenrun = {
+            "point": json.dumps(point_list),
+            "rmb": json.dumps(rmb_list)
+        }
+    else:
+        child_fenrun = {}
+    data.update(child_fenrun)
+
+    if request.method == 'POST':
+        # 操作频繁
+        key = 'lkl_setfenrun_locked_%s' % (user.id)
+        locked = rclient.get(key)
+        if locked:
+            error = [u"操作太频繁"]
+            data.update({"error": error})
+            return render(request, "lkl/set_fenrun.html", data)
+        else:
+            rclient.set(key, True)
+            rclient.expire(key, 10)
+        # 数值判断
+        point = request.POST.get("point")
+        rmb = request.POST.get("rmb")
+        if point not in point_list or rmb not in rmb_list:
+            error = [u"分润点或者秒到点错误"]
+            data.update({"error": error})
+            return render(request, "lkl/set_fenrun.html", data)
+        # 关系判断
+        child_user = utils.get_user_by_username(child)
+        children = [obj.phone for obj in request.user.children.all()]
+        if not child_user or child not in children:
+            error = [u"用户不存在或者不是您邀请来的"]
+            data.update({"error": error})
+            return render(request, "lkl/set_fenrun.html", data)
+        # 分润提高判断
+        if hasattr(child_user, "userfenrun"):
+            old_point = float(child_user.userfenrun.point)
+            old_rmb = float(child_user.userfenrun.rmb)
+            if float(point) < float(old_point) or float(rmb) < float(old_rmb):
+                error = [u"分润点和秒到点只允许提高"]
+                data.update({"error": error})
+                return render(request, "lkl/set_fenrun.html", data)
+        # 判断是否已经有申请未审批，或者上次提交距离7天内
+        sq = dbutils.get_last_fenren_order(user, child_user)
+        if sq:
+            if sq.status == "OK":
+                now = datetime.now()
+                diff = now - sq.create_time
+                if diff.total_seconds() < 3600 * 24 * 30:
+                    error = [u"30天内只能申请一次"]
+                    data.update({"error": error})
+                    return render(request, "lkl/set_fenrun.html", data)
+            else:
+                error = [u"该用户有未通过分润审核，请等待"]
+                data.update({"error": error})
+                return render(request, "lkl/set_fenrun.html", data)
+        # 创建申请
+        FenRunOrder.objects.create(
+            user=user,
+            child=child_user,
+            point=point,
+            rmb=rmb
+        )
+        return redirect("friend_list")
+    return render(request, "lkl/set_fenrun.html", data)
 
 
 @login_required

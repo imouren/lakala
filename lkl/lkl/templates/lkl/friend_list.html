@@ -25,10 +25,9 @@
         <div class="weui-cells">
 
         {% for obj, d1 in friends %}
-
             <div class="weui-cell">
               <div class="weui-cell__bd">
-                {{obj.name}}
+                <a href="{% url 'set_fenrun' obj.phone %}">{{obj.name}}</a>
               </div>
               {% if obj.user.userfenrun %}
                   <div class="weui-cell__bd">

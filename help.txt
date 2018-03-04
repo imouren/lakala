@@ -4,3 +4,8 @@
 激活30天内，刷卡2W给额外。
 
 用户以前注册过商户版，其他机器都不算了。所有收益被官方拿走。
+
+
+windows下redis的启动和关闭
+redis-server --service-start
+redis-server --service-stop
