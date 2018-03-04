@@ -257,6 +257,7 @@ SUIT_CONFIG = {
         },
         {'label': u'营收状况', 'icon': 'icon-heart', 'url': 'admin_income', 'blank': False},
         {'label': u'去催单', 'icon': 'icon-plane', 'url': 'admin_reminder', 'blank': False},
+        {'label': u'卡拉慧', 'icon': 'icon-flag', 'url': 'user_home', 'blank': True},
     ),
 
     # misc
