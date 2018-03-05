@@ -366,6 +366,70 @@ class ProfitD0(models.Model):
 
 
 @python_2_unicode_compatible
+class ChildProfitD1(models.Model):
+    """
+    分下家用户D1获利表
+    """
+    user = models.ForeignKey(User, verbose_name=u"用户")
+    trans_id = models.CharField(u"流水号", max_length=64, unique=True)
+    fenrun_point = models.CharField(u"提点", max_length=50)
+    fenrun_rmb = models.CharField(u"秒到", max_length=50)
+    fenrun_father_point = models.CharField(u"导师提点", max_length=50)
+    fenrun_father_rmb = models.CharField(u"导师秒到", max_length=50)
+    rmb = models.IntegerField(u"利润金额(分)")
+    merchant_code = models.CharField(u"商户号", max_length=64)
+    draw_date = models.CharField(u"提款日期", max_length=64)
+    draw_rmb = models.CharField(u"提款金额", max_length=64)
+    fee_rmb = models.CharField(u"商户手续费", max_length=64)
+    card_type = models.CharField(u"卡类型", max_length=64)
+    pay_date = models.CharField(u"支付时间", max_length=64)
+    terminal = models.CharField(u"PSAM卡号", max_length=64)
+    status = models.CharField(u"订单状态", choices=STATUS_CHOICE, max_length=10, default="UP")
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    pay_time = models.DateTimeField(u"分红时间", null=True, blank=True)
+
+    class Meta:
+        db_table = "user_profit_child_d1"
+        verbose_name = verbose_name_plural = u"用户D1获利表"
+        ordering = ["-pay_time"]
+
+    def __str__(self):
+        return self.trans_id
+
+
+@python_2_unicode_compatible
+class ChildProfitD0(models.Model):
+    """
+    分下家用户D0获利表
+    """
+    user = models.ForeignKey(User, verbose_name=u"用户")
+    trans_id = models.CharField(u"流水号", max_length=64, unique=True)
+    fenrun_point = models.CharField(u"提点", max_length=50)
+    fenrun_rmb = models.CharField(u"秒到", max_length=50)
+    fenrun_father_point = models.CharField(u"导师提点", max_length=50)
+    fenrun_father_rmb = models.CharField(u"导师秒到", max_length=50)
+    rmb = models.IntegerField(u"利润金额(分)")
+    merchant_code = models.CharField(u"商户号", max_length=64)
+    draw_date = models.CharField(u"提款日期", max_length=64)
+    draw_rmb = models.CharField(u"提款金额", max_length=64)
+    fee_rmb = models.CharField(u"提款手续费", max_length=64)
+    real_rmb = models.CharField(u"实际扣款", max_length=64)
+    trans_type = models.CharField(u"交易类型", max_length=64)
+    trans_status = models.CharField(u"交易状态", max_length=64)
+    status = models.CharField(u"订单状态", choices=STATUS_CHOICE, max_length=10, default="UP")
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    pay_time = models.DateTimeField(u"分红时间", null=True, blank=True)
+
+    class Meta:
+        db_table = "user_profit_child_d0"
+        verbose_name = verbose_name_plural = u"用户D0获利表"
+        ordering = ["-pay_time"]
+
+    def __str__(self):
+        return self.trans_id
+
+
+@python_2_unicode_compatible
 class TiXianOrder(models.Model):
     ORDER_TYPE_CHOICE = (
         ('RMB', u'返利余额提现'),
