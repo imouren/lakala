@@ -188,7 +188,7 @@ class UserRMBAdmin(admin.ModelAdmin):
 class ProfitD1Admin(admin.ModelAdmin):
     list_display = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "card_type", "pay_date", "terminal", "status", "create_time", "pay_time"]
     fields = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "card_type", "pay_date", "terminal", "status", "pay_time"]
-    search_fields = ["user__username", "terminal", "merchant_code"]
+    search_fields = ["user__username", "terminal", "merchant_code", "trans_id"]
     list_filter = ["status"]
 
 
@@ -209,7 +209,7 @@ class ChildProfitD1Admin(admin.ModelAdmin):
 class ChildProfitD0Admin(admin.ModelAdmin):
     list_display = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "fenrun_father_point", "fenrun_father_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "real_rmb", "trans_type", "trans_status", "status", "create_time", "pay_time"]
     fields = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "real_rmb", "trans_type", "trans_status", "status", "pay_time"]
-    search_fields = ["user__username", "merchant_code"]
+    search_fields = ["user__username", "merchant_code", "trans_id"]
     list_filter = ["status"]
 
 
