@@ -136,7 +136,7 @@ def process_d0_rmb(obj):
     profit.status = "PD"
     profit.pay_time = datetime.now()
     profit.save()
-    dbutils.add_userrmb_rmb(father, profit.rmb)
+    dbutils.add_userrmb_rmb(father, profit.rmb, True)
     profit.status = "SU"
     profit.save()
     print "give user d0 child profit ok", father.username, profit.rmb
@@ -197,7 +197,7 @@ def process_d1_rmb(obj):
     profit.status = "PD"
     profit.pay_time = datetime.now()
     profit.save()
-    dbutils.add_userrmb_rmb(father, profit.rmb)
+    dbutils.add_userrmb_rmb(father, profit.rmb, True)
     profit.status = "SU"
     profit.save()
     print "give user d1 child profit ok", father.username, profit.rmb
