@@ -62,7 +62,7 @@ class Command(BaseCommand):
         # D0
         d0_dict = {}
         if table in ("d0", "all"):
-            used_trans_ids = set(models.ProfitD0.objects.values_list("trans_id", flat=True))
+            used_trans_ids = set()
             objs = models.LKLD0.objects.filter(fee_rmb="2").filter(trans_type=u"正交易").filter(trans_status=u"成功")
             for obj in objs:
                 if obj.trans_id in used_trans_ids:
@@ -74,7 +74,7 @@ class Command(BaseCommand):
         # D1
         d1_dict = {}
         if table in ("d1", "all"):
-            used_trans_ids = set(models.ProfitD1.objects.values_list("trans_id", flat=True))
+            used_trans_ids = set()
             objs = models.LKLD1.objects.filter(card_type=u"贷记卡")
             for obj in objs:
                 if obj.trans_id in used_trans_ids:
