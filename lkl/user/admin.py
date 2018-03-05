@@ -199,6 +199,20 @@ class ProfitD0Admin(admin.ModelAdmin):
     list_filter = ["status"]
 
 
+class ChildProfitD1Admin(admin.ModelAdmin):
+    list_display = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "fenrun_father_point", "fenrun_father_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "card_type", "pay_date", "terminal", "status", "create_time", "pay_time"]
+    fields = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "card_type", "pay_date", "terminal", "status", "pay_time"]
+    search_fields = ["user__username", "terminal", "merchant_code"]
+    list_filter = ["status"]
+
+
+class ChildProfitD0Admin(admin.ModelAdmin):
+    list_display = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "fenrun_father_point", "fenrun_father_rmb" "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "real_rmb", "trans_type", "trans_status", "status", "create_time", "pay_time"]
+    fields = ["user", "trans_id", "fenrun_point", "fenrun_rmb", "rmb", "merchant_code", "draw_date", "draw_rmb", "fee_rmb", "real_rmb", "trans_type", "trans_status", "status", "pay_time"]
+    search_fields = ["user__username", "merchant_code"]
+    list_filter = ["status"]
+
+
 class TiXianOrderAdmin(admin.ModelAdmin):
     list_display = ["user", "userx", "user_account", "rmb", "fee", "pay_rmb", "status", "order_type", "create_time", "pay_time", "finish_time"]
     fields = ["user", "rmb", "fee", "user_account", "status", "order_type", "pay_time", "finish_time"]
@@ -297,5 +311,7 @@ class FenRunOrderAdmin(admin.ModelAdmin):
 admin.site.register(models.UserRMB, UserRMBAdmin)
 admin.site.register(models.ProfitD1, ProfitD1Admin)
 admin.site.register(models.ProfitD0, ProfitD0Admin)
+admin.site.register(models.ChildProfitD1, ChildProfitD1Admin)
+admin.site.register(models.ChildProfitD0, ChildProfitD0Admin)
 admin.site.register(models.TiXianOrder, TiXianOrderAdmin)
 admin.site.register(models.FenRunOrder, FenRunOrderAdmin)

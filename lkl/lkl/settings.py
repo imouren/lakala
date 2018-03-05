@@ -50,6 +50,8 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     'user.UserRMB',
     'user.ProfitD1',
     'user.ProfitD0',
+    'user.ChildProfitD1',
+    'user.ChildProfitD0',
     'user.TiXianOrder',
     'user.UserAlipay',
     'user.FenRunOrder'
@@ -247,7 +249,7 @@ SUIT_CONFIG = {
         {'app': 'user', 'icon': 'icon-user', 'models': ('UserProfile', 'UserAddress', 'UserPos', 'UserTrade', "UserFenRun", "UserAlipay")},
         {'label': u'刷卡数据', 'icon': 'icon-star-empty', 'app': 'user', 'models': ('LKLTrade01', )},
         {'label': u'刷卡数据(老系统)', 'icon': 'icon-star', 'app': 'user', 'models': ('LKLTerminal', 'LKLD0', 'LKLD1')},
-        {'label': u'用户分红', 'icon': 'icon-gift', 'app': 'user', 'models': ('UserRMB', 'ProfitD1', 'ProfitD0')},
+        {'label': u'用户分红', 'icon': 'icon-gift', 'app': 'user', 'models': ('UserRMB', 'ProfitD1', 'ProfitD0', 'ChildProfitD1', 'ChildProfitD0')},
         {'label': u'审核管理', 'icon': 'icon-check', 'app': 'user', 'models': ('TiXianOrder', 'FenRunOrder')},
         {'label': u'拉卡拉官网', 'icon': 'icon-globe', 'blank': True,
             'models': (

@@ -390,7 +390,7 @@ class ChildProfitD1(models.Model):
 
     class Meta:
         db_table = "user_profit_child_d1"
-        verbose_name = verbose_name_plural = u"用户D1获利表"
+        verbose_name = verbose_name_plural = u"推荐用户D1获利表"
         ordering = ["-pay_time"]
 
     def __str__(self):
@@ -422,7 +422,7 @@ class ChildProfitD0(models.Model):
 
     class Meta:
         db_table = "user_profit_child_d0"
-        verbose_name = verbose_name_plural = u"用户D0获利表"
+        verbose_name = verbose_name_plural = u"推荐用户D0获利表"
         ordering = ["-pay_time"]
 
     def __str__(self):
