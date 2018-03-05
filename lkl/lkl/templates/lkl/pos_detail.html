@@ -21,7 +21,7 @@
             手续费：{{ item.fee_rmb}}
           </div>
           <div class="weui-cell__bd">
-            {{ item.pay_date|date:'Y-m-d' }}
+            {{ item.pay_date|slice:":10" }}
           </div>
         </div>
 
