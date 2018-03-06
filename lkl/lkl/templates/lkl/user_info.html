@@ -71,16 +71,16 @@
 <br/>
 <div class="weui-form-preview">
     <div class="weui-form-preview__hd">
-        <label class="weui-form-preview__label">刷卡返利余额</label>
+        <label class="weui-form-preview__label">返利余额</label>
         <span class="weui-form-preview__value">
             {{ rmb }}
         </span>
-        {% if 0 %}
-        <label class="weui-form-preview__label">推荐奖励余额</label>
+
+        <label class="weui-form-preview__label">推荐余额</label>
         <span class="weui-form-preview__value">
             {{ child_rmb }}
         </span>
-        {% endif %}
+
     </div>
     {% if alipay %}
     <div class="weui-form-preview__hd">
@@ -107,13 +107,12 @@
     {% if alipay %}
     <div class="weui-form-preview__ft">
         <button id="tixian_rmb" type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">返利余额提现</button>
-        {% if 0 %}
+
         <button id="tixian_child_rmb" type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">推荐余额提现</button>
-        {% endif %}
+
     </div>
     {% endif %}
 </div>
-
 </div>
 
 {% endblock %}
