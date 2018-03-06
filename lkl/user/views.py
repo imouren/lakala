@@ -321,6 +321,70 @@ def tixian_rmb(request):
 
 
 @login_required
+def tixian_child_rmb(request):
+    data = {"order_type": "CHILD_RMB"}
+    hashkey = CaptchaStore.generate_key()
+    img_url = captcha_image_url(hashkey)
+    data.update({"img_url": img_url, "hashkey": hashkey})
+    user = request.user
+    # 支付宝账户
+    alipays = user.useralipay_set.values("account", "name")
+    if alipays:
+        alipay = alipays[0]
+    else:
+        alipay = None
+    if alipay is None:
+        return redirect("user_alipay")
+    data["user_account"] = u"支付宝：%s__%s" % (alipay["account"], alipay["name"])
+
+    if request.method == 'POST':
+        # 禁止提现用户
+        if user.username in config.DISABLE_TIXIN:
+            error = [u"您是合伙人，不允许平台提现"]
+            data.update({"error": error})
+            return render(request, "lkl/tixian_child_rmb.html", data)
+        # 操作频繁
+        key = 'lkl_tixian_locked_%s' % (user.id)
+        locked = rclient.get(key)
+        if locked:
+            error = [u"操作太频繁"]
+            data.update({"error": error})
+            return render(request, "lkl/tixian_child_rmb.html", data)
+        else:
+            rclient.set(key, True)
+            rclient.expire(key, 10)
+        # 未结算订单
+        if not dbutils.can_tixian(user):
+            error = [u"提现间隔大于1分钟且无提现中订单"]
+            data.update({"error": error})
+            return render(request, "lkl/tixian_child_rmb.html", data)
+        # 正式流程
+        data.update(request.POST.dict())
+        form = TixianRMBForm(data)
+        if form.is_valid():
+            tx = form.save(commit=False)
+            # 判断钱够不够
+            _, my_rmb = dbutils.get_userrmb_num(user)
+            if my_rmb < tx.rmb:
+                error = [u"余额不足"]
+                data.update({"error": error})
+            else:
+                tx.user = user
+                tx.fee = int(tx.rmb * 0.1)
+                tx.save()
+                # 扣钱
+                dbutils.sub_userrmb_rmb(user, tx.rmb, True)
+                tx.pay_time = datetime.now()
+                tx.status = "PD"
+                tx.save()
+                return redirect("user_info")
+        else:
+            error = form.errors.get("__all__")
+            data.update({"error": error, "errors": form.errors})
+    return render(request, "lkl/tixian_child_rmb.html", data)
+
+
+@login_required
 def set_fenrun(request, child):
     data = {}
     hashkey = CaptchaStore.generate_key()

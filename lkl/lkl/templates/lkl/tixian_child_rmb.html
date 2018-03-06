@@ -1,0 +1,110 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+
+{% block container %}
+
+<div class="weui-topbar">
+    <h1 class="weui-topbar-title">
+        推荐余额提现
+    </h1>
+    <a href="{% url 'user_info' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
+</div>
+
+<div class="bd mt40 mb40">
+
+<form method="post" action="{% url 'tixian_child_rmb' %}">
+    {% csrf_token %}
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cells__title fc-red">总费率10%，拉卡拉税费8%+微信支付税费1%+预付款利率1%。（暂时人工支付宝提现）后续微信自动到账。</div>
+        <div class="weui-cell {%if errors.rmb %}weui-cell_warn{% endif %}">
+            <div class="weui-cell__hd">
+                <label class="weui-label">提现金额</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="rmb" name="rmb" type="text" placeholder="金额为100的整数倍">
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-warn">{{errors.rmb.0}}</i>
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">到账金额</label>
+            </div>
+            <div class="weui-cell__bd">
+                <label class="weui-label" id="fee"></label>
+            </div>
+        </div>
+
+
+        <div class="weui-cell weui-cell_vcode {% if errors.captcha %}weui-cell_warn{% endif %}">
+            <div class="weui-cell__hd">
+                <label class="weui-label">验证码</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input id="captcha" class="weui-input" name="captcha_1" type="text" placeholder="请输入验证码">
+                <input id="hashkey" name="captcha_0" type="hidden" value="{{ hashkey }}">
+            </div>
+            <div class="weui-cell__ft">
+                <img class="weui-vcode-img js-captcha-refresh" src="{{ img_url }}" />
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-warn"></i>
+            </div>
+        </div>
+
+
+        <div class="weui-btn-area">
+            <button class="weui-btn weui-btn_primary" id="submit" type="submit">确认</button>
+        </div>
+
+    </div>
+
+</form>
+
+</div>
+{% endblock %}
+
+
+{% block footer_js_extra %}
+
+<script>
+    // 税费计算
+    $("#rmb").change(function(){
+        var rmb = $("#rmb").val();
+        if (isNaN(rmb)) {
+            $("#fee").text("格式错误");
+        }
+        else {
+            var fee = parseInt(rmb) * 0.9;
+            var res = fee.toFixed(2);
+            $("#fee").text(res);
+        }
+    });
+    // 表单提交
+    $("#submit").click(function() {
+        var captcha = $('#captcha').val();
+        if(!captcha || captcha.length != 4) {
+            $.toptip('请输入验证码');
+            return false;
+        }
+        else $.toptip('正在提交...', 'success');
+    });
+    // 验证码
+    $('.js-captcha-refresh').click(function() {
+
+        $.getJSON("{% url 'captcha-refresh' %}", {}, function(data) {
+            $('.js-captcha-refresh').attr("src", data.image_url);
+            $('#hashkey').val(data.key);
+        });
+
+        return false;
+    });
+
+    // 错误提示
+    {% if error %}
+    $.toptip('{{ error.0 }}', 'error');
+    {% endif %}
+</script>
+{% endblock %}

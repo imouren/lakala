@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^friend_list/$', views.friend_list, name="friend_list"),
     # tixian
     url(r'^tixian_rmb/$', views.tixian_rmb, name="tixian_rmb"),
+    url(r'^tixian_child_rmb/$', views.tixian_child_rmb, name="tixian_child_rmb"),
     # set fenrun
     url(r'^set_fenrun/(?P<child>[0-9]{11})/$', views.set_fenrun, name="set_fenrun"),
     # wx

@@ -128,8 +128,15 @@
             $(location).attr('href', '{% url "tixian_rmb" %}');
         }
     });
+
     $("#tixian_child_rmb").click(function() {
-        $.toptip('功能实现中，请耐心等待');
+        var rmb = {{ child_rmb }};
+        if (rmb < 100) {
+            $.toptip("满100才能提现，加油！");
+        }
+        else {
+            $(location).attr('href', '{% url "tixian_child_rmb" %}');
+        }
     });
 </script>
 
