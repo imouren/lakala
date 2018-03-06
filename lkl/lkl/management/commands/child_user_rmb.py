@@ -112,7 +112,7 @@ def process_d0_rmb(obj):
     else:
         print "no userprofile!", user.username
         return
-    if Decimal(user_rmb) < Decimal(father_rmb):
+    if Decimal(user_rmb) <= Decimal(father_rmb):
         rmb = int(100 * (Decimal(father_rmb) - Decimal(user_rmb)))
     else:
         print "no fenrun! father:%s-%s user:%s-%s" % (father.username, father_rmb, user.username, user_rmb)
@@ -171,7 +171,7 @@ def process_d1_rmb(obj):
     else:
         print "no userprofile!", user.username
         return
-    if Decimal(user_point) < Decimal(father_point):
+    if Decimal(user_point) <= Decimal(father_point):
         diff_point = Decimal(father_point) - Decimal(user_point)
     else:
         print "no fenrun! father:%s-%s user:%s-%s" % (father.username, father_point, user.username, user_point)
