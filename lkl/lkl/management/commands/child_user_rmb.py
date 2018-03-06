@@ -119,6 +119,7 @@ def process_d0_rmb(obj):
         return
     profit = models.ChildProfitD0.objects.create(
         user=user,
+        father=father,
         trans_id=obj.trans_id,
         fenrun_point=user_point,
         fenrun_rmb=user_rmb,
@@ -180,6 +181,7 @@ def process_d1_rmb(obj):
     xrmb = armb.quantize(Decimal('1.00'), ROUND_DOWN)
     profit = models.ChildProfitD1.objects.create(
         user=user,
+        father=father,
         trans_id=obj.trans_id,
         fenrun_point=user_point,
         fenrun_rmb=user_rmb,

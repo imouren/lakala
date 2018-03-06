@@ -371,6 +371,7 @@ class ChildProfitD1(models.Model):
     分下家用户D1获利表
     """
     user = models.ForeignKey(User, verbose_name=u"用户")
+    father = models.ForeignKey(User, verbose_name=u"导师", related_name="d1_father", null=True)
     trans_id = models.CharField(u"流水号", max_length=64, unique=True)
     fenrun_point = models.CharField(u"提点", max_length=50)
     fenrun_rmb = models.CharField(u"秒到", max_length=50)
@@ -403,6 +404,7 @@ class ChildProfitD0(models.Model):
     分下家用户D0获利表
     """
     user = models.ForeignKey(User, verbose_name=u"用户")
+    father = models.ForeignKey(User, verbose_name=u"导师", related_name="d0_father", null=True)
     trans_id = models.CharField(u"流水号", max_length=64, unique=True)
     fenrun_point = models.CharField(u"提点", max_length=50)
     fenrun_rmb = models.CharField(u"秒到", max_length=50)
