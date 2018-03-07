@@ -13,14 +13,14 @@
 <div class="bd mt40 mb40">
 
 <div class="weui-form-preview">
-    <div class="weui-form-preview__hd">
+    <div class="weui-form-preview__bd">
         <label class="weui-form-preview__label">手机号</label>
-        <em class="weui-form-preview__value">
+        <span class="weui-form-preview__value">
         {{ request.user.userprofile.phone }}
-        </em>
+        </span>
     </div>
     {% if fenrun %}
-    <div class="weui-form-preview__hd">
+    <div class="weui-form-preview__bd">
         <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">分润点数</label>
             <span class="weui-form-preview__value">{{ fenrun.point}}</span>
@@ -40,7 +40,7 @@
         </div>
     </div>
     {% endif %}
-    <div class="weui-form-preview__hd">
+    <div class="weui-form-preview__bd">
         <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">刷卡总额</label>
             <span class="weui-form-preview__value">{{ d1_total }}</span>
@@ -64,13 +64,13 @@
 
     </div>
     <div class="weui-form-preview__ft">
-    <span class="weui-form-preview__btn weui-form-preview__btn_default fc-red">结算数据为从2018年2月1日起，至三天前的交易。</span>
+    <span class="weui-form-preview__btn weui-form-preview__btn_default fc-red">分润结算：2018年2月1日起至三天前。</span>
 
     </div>
 </div>
 <br/>
 <div class="weui-form-preview">
-    <div class="weui-form-preview__hd">
+    <div class="weui-form-preview__bd">
         <label class="weui-form-preview__label">返利余额</label>
         <span class="weui-form-preview__value">
             {{ rmb }}
@@ -83,7 +83,7 @@
 
     </div>
     {% if alipay %}
-    <div class="weui-form-preview__hd">
+    <div class="weui-form-preview__bd">
         <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">支付宝账户</label>
             <span class="weui-form-preview__value">{{ alipay.account }}</span>
@@ -93,7 +93,7 @@
             <span class="weui-form-preview__value">{{ alipay.name }}</span>
         </div>
     </div>
-    <div class="weui-form-preview__hd">
+    <div class="weui-form-preview__bd">
         <div class="weui-form-preview__item">
             <label class="weui-form-preview__label">提现中金额</label>
             <span class="weui-form-preview__value">{{ txz_rmb }}</span>
@@ -113,6 +113,8 @@
     </div>
     {% endif %}
 </div>
+<br>
+<br>
 </div>
 
 {% endblock %}
