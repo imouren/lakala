@@ -2,6 +2,10 @@
 from datetime import datetime
 from django.contrib import admin
 from django import forms
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+from django.contrib.admin.utils import unquote
+from django.core.exceptions import PermissionDenied
 from django.template.loader import render_to_string
 from easy_select2 import select2_modelform
 from suit.admin import SortableTabularInline
@@ -15,6 +19,20 @@ def is_superuser(request):
         return True
     else:
         return False
+
+
+class MyUserAdmin(UserAdmin):
+
+    def user_change_password(self, request, id, from_url=""):
+        user = self.get_object(request, unquote(id))
+        operator = request.user
+        if user.is_superuser and user.id != operator.id:
+            raise PermissionDenied
+        return UserAdmin.user_change_password(self, request, id)
+
+
+admin.site.unregister(User)
+admin.site.register(User, MyUserAdmin)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
