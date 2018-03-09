@@ -22,6 +22,7 @@
 
 # tixian msg
 5 */2 * * * /projects/lakala/config/run_command_pro.sh tx_msg >> /data/script/tx_msg.log 2>&1
+15 */2 * * * /projects/lakala/config/run_command_pro.sh fr_msg >> /data/script/fr_msg.log 2>&1
 
 # run once
 # /projects/lakala/config/run_command_pro.sh sync_trade01 --start=20180101 --end=20180128
