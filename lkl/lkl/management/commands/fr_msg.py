@@ -28,6 +28,7 @@ class Command(BaseCommand):
         objs = models.FenRunOrder.objects.filter(status="WAIT").filter(create_time__gt=start_date)
         time_x = u"近一天"
         total = len(objs)
-        template_id = 93509
-        params = [time_x, total]
-        send_tsms_multi(TX_MSG, template_id, params)
+        if total > 0:
+            template_id = 93509
+            params = [time_x, total]
+            send_tsms_multi(TX_MSG, template_id, params)
