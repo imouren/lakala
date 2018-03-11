@@ -26,7 +26,7 @@ class Command(BaseCommand):
         print datetime.now()
         start_date = datetime.now() - timedelta(1)
         objs = models.FenRunOrder.objects.filter(status="WAIT").filter(create_time__gt=start_date)
-        time_x = u"近一天"
+        time_x = u"近24小时"
         total = len(objs)
         if total > 0:
             template_id = 93509
