@@ -74,7 +74,10 @@ class UserProfileAdmin(admin.ModelAdmin):
     def current_num(self, obj):
         poese = utils.get_user_poses(obj.user)
         num = len(poese)
-        return '<a href="/admin/user/userpos/?user__id=%s" target="_blank">%s</a>' % (obj.user.id, num)
+        if num > 0:
+            return '<a href="/admin/user/userpos/?user__id=%s" target="_blank">%s</a>' % (obj.user.id, num)
+        else:
+            return num
     current_num.allow_tags = True
     current_num.short_description = u'绑定数量'
 
