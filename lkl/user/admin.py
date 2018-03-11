@@ -36,7 +36,7 @@ admin.site.register(User, MyUserAdmin)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "namex", "fatherx", "phone", "sex", "fenrun", "pos", "max_num", "current_num", "create_time"]
+    list_display = ["user", "namex", "fatherx", "phone", "sex", "fenrun", "max_num", "current_num", "create_time"]
     fields = ["user", "phone", "name", "sex", "is_vip", "father", "max_num"]
     search_fields = ["name", "phone"]
     all_fields = [f.name for f in models.UserProfile._meta.get_fields()]
@@ -57,11 +57,6 @@ class UserProfileAdmin(admin.ModelAdmin):
     fatherx.allow_tags = True
     fatherx.short_description = u'导师'
 
-    def pos(self, obj):
-        return '<a href="/admin/user/userpos/?user__id=%s" target="_blank">查看</a>' % obj.user.id
-    pos.allow_tags = True
-    pos.short_description = u'绑定机器'
-
     def namex(self, obj):
         return '<a href="/admin/user/userprofile/?father__id__exact=%s" target="_blank">%s</a>' % (obj.user.id, obj.name)
     namex.allow_tags = True
@@ -78,7 +73,8 @@ class UserProfileAdmin(admin.ModelAdmin):
 
     def current_num(self, obj):
         poese = utils.get_user_poses(obj.user)
-        return len(poese)
+        num = len(poese)
+        return '<a href="/admin/user/userpos/?user__id=%s" target="_blank">%s</a>' % (obj.user.id, num)
     current_num.allow_tags = True
     current_num.short_description = u'绑定数量'
 
