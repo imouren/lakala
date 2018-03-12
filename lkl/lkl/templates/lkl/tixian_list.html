@@ -15,7 +15,7 @@
 
         <div class="weui-cell">
           <div class="weui-cell__bd">
-            {{ item.finish_time }}
+            {{ item.finish_time | date:"Ymd"} }}
           </div>
           <div class="weui-cell__bd">
             {{item.get_order_type_display}}
