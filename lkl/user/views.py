@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from .forms import LoginForm, RegisterForm, UserPosForm, UserAlipayForm, TixianRMBForm
-from .models import UserProfile, UserPos, UserAlipay, UserFenRun, FenRunOrder
+from .models import UserProfile, UserPos, UserAlipay, UserFenRun, FenRunOrder, TiXianOrder
 from . import utils, dbutils
 from lkl import config
 from .utils import rclient
@@ -386,6 +386,14 @@ def tixian_child_rmb(request):
             error = form.errors.get("__all__")
             data.update({"error": error, "errors": form.errors})
     return render(request, "lkl/tixian_child_rmb.html", data)
+
+
+@login_required
+def tixian_list(request):
+    user = request.user
+    objs = TiXianOrder.objects.filter(user=user).filter(status="SU")
+    data = {"items": objs}
+    return render(request, "lkl/tixian_list.html", data)
 
 
 @login_required

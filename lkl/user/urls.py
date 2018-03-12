@@ -19,6 +19,7 @@ urlpatterns = [
     # tixian
     url(r'^tixian_rmb/$', views.tixian_rmb, name="tixian_rmb"),
     url(r'^tixian_child_rmb/$', views.tixian_child_rmb, name="tixian_child_rmb"),
+    url(r'^tixian_list/$', views.tixian_list, name="tixian_list"),
     # set fenrun
     url(r'^set_fenrun/(?P<child>[0-9]{11})/$', views.set_fenrun, name="set_fenrun"),
     # wx

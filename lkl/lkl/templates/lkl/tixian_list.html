@@ -1,0 +1,38 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+
+{% block container %}
+
+<div class="weui-topbar">
+    <h1 class="weui-topbar-title">提现记录</h1>
+    <a href="{% url 'user_account' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
+</div>
+
+<div class="bd mt40 mb40">
+
+    <div class="weui-cells">
+    {% for item in items %}
+
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            {{ item.finish_time }}
+          </div>
+          <div class="weui-cell__bd">
+            {{item.get_order_type_display}}
+          </div>
+          <div class="weui-cell__bd">
+            {{item.rmb}}
+          </div>
+        </div>
+
+    {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block footer_js_extra %}
+
+
+{% endblock %}
