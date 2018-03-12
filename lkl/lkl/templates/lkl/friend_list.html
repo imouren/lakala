@@ -24,28 +24,44 @@
     <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
         <div class="weui-cells">
 
-        {% for obj, d1 in friends %}
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+            姓名
+            </div>
+            <div class="weui-cell__bd">
+            分润
+            </div>
+            <div class="weui-cell__bd">
+            刷卡总额
+            </div>
+            <div class="weui-cell__bd">
+            达标/激活/绑定
+            </div>
+        </div>
+
+        {% for obj, d1, status_num in friends %}
             <div class="weui-cell">
               <div class="weui-cell__bd">
                 <a href="{% url 'set_fenrun' obj.phone %}">{{obj.name}}</a>
               </div>
               {% if obj.user.userfenrun %}
                   <div class="weui-cell__bd">
-                    分润：{{ obj.user.userfenrun.point }}
+                    {{ obj.user.userfenrun.point }}
                   {% if obj.user.userfenrun.rmb != '0.0' %}
                     __{{ obj.user.userfenrun.rmb }}
                   {% endif %}
                   </div>
               {% else %}
                   <div class="weui-cell__bd">
-                    未设置分润
+                    --
                   </div>
               {% endif %}
               <div class="weui-cell__bd">
-                刷卡总额：{{ d1 }}
+                {{ d1 }}
               </div>
               <div class="weui-cell__bd">
-                {{obj.create_time| date:"Ymd"}}
+                {# {{obj.create_time| date:"Ymd"}} #}
+                {{ status_num.2 }}/{{ status_num.1 }}/{{ status_num.0 }}
               </div>
             </div>
 

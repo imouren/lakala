@@ -243,15 +243,19 @@ def pos_detail(request):
 @login_required
 def friend_list(request):
     friends_01_d1_total = []
+    pos_status_list = []
     friends_01 = list(request.user.children.all())
     friends_01.sort(key=lambda x: x.create_time)
     friends_02 = []
     for obj in friends_01:
         d1_totoal, freeze_total = dbutils.get_user_d1_total(obj.user)
         friends_01_d1_total.append(d1_totoal)
+        poses = dbutils.get_user_pos(obj.user)
+        jihuo, dabiao = dbutils.get_pos_status_num(poses)
+        pos_status_list.append((len(poses), jihuo, dabiao))
         friends = list(obj.user.children.all())
         friends_02.extend(friends)
-    friends = zip(friends_01, friends_01_d1_total)
+    friends = zip(friends_01, friends_01_d1_total, pos_status_list)
     data = {"friends": friends, "friends_02": friends_02}
     return render(request, "lkl/friend_list.html", data)
 

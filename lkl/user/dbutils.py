@@ -69,6 +69,15 @@ def get_user_pos(user):
     return list(poses)
 
 
+def get_pos_status_num(poses):
+    objs = models.LKLTerminal.objects.filter(terminal__in=poses)
+    dabiao = 0
+    for obj in objs:
+        if obj.is_ok == u"是":
+            dabiao += 1
+    return len(objs), dabiao
+
+
 def get_pos_d1_detail(pos):
     detail = []
     objs = models.LKLD1.objects.filter(terminal=pos)
