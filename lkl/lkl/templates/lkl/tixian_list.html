@@ -21,7 +21,7 @@
             {{item.get_order_type_display}}
           </div>
           <div class="weui-cell__bd">
-            {{item.rmb/10}}
+            {% widthratio item.rmb 100 1 %}
           </div>
         </div>
 
