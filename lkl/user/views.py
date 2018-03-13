@@ -475,6 +475,14 @@ def set_fenrun(request, child):
     return render(request, "lkl/set_fenrun.html", data)
 
 
+def password_reset(request):
+    data = {}
+    hashkey = CaptchaStore.generate_key()
+    img_url = captcha_image_url(hashkey)
+    data.update({"img_url": img_url, "hashkey": hashkey})
+    return render(request, "lkl/password_reset.html", data)
+
+
 @login_required
 def bind_wx(request):
     # 获取

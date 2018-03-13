@@ -8,9 +8,12 @@ urlpatterns = [
     url(r'^alipay/$', views.alipay, name="user_alipay"),
     url(r'^news/$', views.news, name="user_news"),
     url(r'^account/$', views.account, name="user_account"),
+    # user
     url(r'^login/$', views.login, name="user_login"),
     url(r'^register/$', views.register, name="user_register"),
     url(r'^logout/$', views.logout, name="user_logout"),
+    url(r'^password_reset/$', views.password_reset, name="password_reset"),
+    # pos and friends
     url(r'^search_terminal/$', views.search_terminal, name="search_terminal"),
     url(r'^bind_pos/$', views.bind_pos, name="bind_pos"),
     url(r'^pos_list/$', views.pos_list, name="pos_list"),
