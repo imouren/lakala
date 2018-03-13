@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import json
+import cPickle as pickle
 from django.shortcuts import render
 from django.views.decorators.cache import cache_page
 from django.http import HttpResponse
@@ -37,11 +37,11 @@ def income(request):
             "child_urmb": "%.2f" % (child_urmb / 100.0),
             "tx_rmb": "%.2f" % (tx_rmb / 100.0),
         }
-        data_str = json.dumps(data)
+        data_str = pickle.dumps(data)
         rclient.set(key, data_str)
         rclient.expire(key, 3600)
     else:
-        data = json.loads(data_str)
+        data = pickle.loads(data_str)
     return render(request, "admin/income.html", data)
 
 
