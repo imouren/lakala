@@ -1,11 +1,9 @@
 {% extends "admin/base_site.html" %}
 {% load admin_static %}
-{% load cache %}
 
 {% block content %}
 {{ block.super }}
 
-{% cache 3600 income %}
 <br/>
 <br/>
 <div id="d1" class="results">
@@ -119,5 +117,4 @@
     <br/>
 </div>
 
-{% endcache %}
 {% endblock %}
