@@ -491,4 +491,4 @@ class FenRunOrder(models.Model):
     class Meta:
         db_table = "user_fenrun_order"
         verbose_name = verbose_name_plural = u"分润申请表"
-        ordering = ["-pass_time"]
+        ordering = ["-create_time"]
