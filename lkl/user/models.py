@@ -272,6 +272,8 @@ class LKLD1(models.Model):
     draw_date = models.CharField(u"提款日期", max_length=64)
     draw_rmb = models.CharField(u"提款金额", max_length=64)
     fee_rmb = models.CharField(u"商户手续费", max_length=64)
+    fee_rate = models.CharField(u"商户手续费率", max_length=64, default="0.600%")
+    fee_max = models.CharField(u"封顶手续费", max_length=64, default="")
     card_type = models.CharField(u"卡类型", max_length=64)
     pay_date = models.CharField(u"支付时间", max_length=64)
     pos_type = models.CharField(u"卡应用类型", max_length=64)

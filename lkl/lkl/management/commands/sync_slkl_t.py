@@ -317,6 +317,11 @@ def write_to_db_d1(data):
     # 当前帐号下级代理商0 流水号1 签约机构2 签约机构号3 商户号4 商户注册名5
     # 终端号6 交易日期7 交易金额8 商户手续费9 借贷记标记10 支付时间11 卡应用类型12   PSAM卡号13
     # 原有数据
+    # 3月15日修改数据
+    # 当前帐号下级代理商0 流水号1 签约机构2 签约机构号3 商户号4 商户注册名5
+    # 终端号6 交易日期7 交易金额8 商户手续费9
+    # 新增两个  商户签约费率10  封顶手续费 11
+    # 借贷记标记12 支付时间13 卡应用类型14   PSAM卡号15
     tids = [terminal[1] for terminal in data]
     used_tids = set(LKLD1.objects.filter(trans_id__in=tids).values_list("trans_id", flat=True))
     # 插入db
@@ -335,9 +340,11 @@ def write_to_db_d1(data):
                 draw_rmb=t[8],
                 fee_rmb=t[9],
                 card_type=t[10],
-                pay_date=t[11],
-                pos_type=t[12],
-                terminal=t[13]
+                fee_rate=t[11],
+                fee_max=t[12],
+                pay_date=t[13],
+                pos_type=t[14],
+                terminal=t[15]
             )
             alist.append(obj)
     if alist:
