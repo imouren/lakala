@@ -326,8 +326,9 @@ def write_to_db_d1(data):
     used_tids = set(LKLD1.objects.filter(trans_id__in=tids).values_list("trans_id", flat=True))
     # 插入db
     alist = []
+    tids_set = set()  # 他的系统有重复流水的
     for t in data:
-        if t[1] not in used_tids:
+        if t[1] not in used_tids and t[1] not in tids_set:
             obj = LKLD1(
                 agent=t[0],
                 trans_id=t[1],
@@ -347,5 +348,6 @@ def write_to_db_d1(data):
                 terminal=t[15]
             )
             alist.append(obj)
+            tids_set.add(t[1])
     if alist:
         LKLD1.objects.bulk_create(alist)
