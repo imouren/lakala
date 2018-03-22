@@ -1,0 +1,91 @@
+{% extends "lkl/base.html" %}
+{% load staticfiles %}
+
+{% block header_title %}
+<title>首页</title>
+{% endblock %}
+
+{% block header_css_extra %}
+.juzhong {
+  text-align: center;
+  font-size: 24px;
+  color: cornflowerblue;
+  font-weight: 400;
+  margin: 0 15%;
+}
+.weui-article h1 {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: .9em;
+}
+{% endblock %}
+
+{% block container  %}
+
+<div class="juzhong">
+
+{% if 0 %}
+<h3>
+尊敬的
+{% if request.user.is_authenticated %}
+    {% if request.user.userprofile %}
+    {{ request.user.userprofile.name }}
+    {% else %}
+    {{ request.user.username }}
+    {% endif %}
+{% endif %}
+您好！
+</h3>
+{% endif %}
+
+<div class="bd mt40 mb40">
+<div class="weui_tab">
+<article class="weui-article">
+    <h1>假如生活欺骗了你</h1>
+    <section>
+        <h3>假如生活欺骗了你，</h3>
+        <h3>不要悲伤，不要心急！</h3>
+        <h3>忧郁的日子里须要镇静：</h3>
+        <h3>相信吧，快乐的日子将会来临！</h3>
+        <h3>心儿永远向往着未来；</h3>
+        <h3>现在却常是忧郁。</h3>
+        <h3>一切都是瞬息，一切都将会过去；</h3>
+        <h3>而那过去了的，就会成为亲切的怀恋。</h3>
+    </section>
+    <h1>相信未来</h1>
+    <section>
+        <h3>当蜘蛛网无情地查封了我的炉台，</h3>
+        <h3>当灰烬的余烟叹息着贫困的悲哀，</h3>
+        <h3>我依然固执地铺平失望的灰烬，</h3>
+        <h3>用美丽的雪花写下：相信未来。</h3>
+        <h3>当我的紫葡萄化为深秋的露水，</h3>
+        <h3>当我的鲜花依偎在别人的情怀，</h3>
+        <h3>我依然固执地用凝霜的枯藤，</h3>
+        <h3>在凄凉的大地上写下：相信未来。</h3>
+        <h3>我要用手指那涌向天边的排浪，</h3>
+        <h3>我要用手掌 那托起太阳的大海，</h3>
+        <h3>摇曳着曙光那支温暖漂亮的笔杆，</h3>
+        <h3>用孩子的笔体写下：相信未来。</h3>
+        <h3>我之所以坚定地相信未来，</h3>
+        <h3>是我相信未来人们的眼睛</h3>
+        <h3>她有拨开历史风尘的睫毛，</h3>
+        <h3>她有看透岁月篇章的瞳孔。</h3>
+        <h3>不管人们对于我们腐烂的皮肉，</h3>
+        <h3>那些迷途的惆怅，失败的苦痛，</h3>
+        <h3>是寄予感动的热泪，深切的同情，</h3>
+        <h3>还是给以轻蔑的微笑，辛辣的嘲讽。</h3>
+        <h3>我坚信人们对于我们的脊骨，</h3>
+        <h3>那无数次地探索、迷途、失败和成功，</h3>
+        <h3>一定会给予热情、客观、公正的评定，</h3>
+        <h3>是的，我焦急地等待着他们的评定。</h3>
+        <h3>朋友，坚定地相信未来吧，</h3>
+        <h3>相信不屈不挠的努力，</h3>
+        <h3>相信战胜死亡的年轻，</h3>
+        <h3>相信未来，热爱生命。</h3>
+    </section>
+</article>
+</div>
+</div>
+
+</div>
+{% endblock %}

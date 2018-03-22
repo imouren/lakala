@@ -2,6 +2,7 @@
 import json
 import logging
 import requests
+import cPickle as pickle
 from datetime import datetime
 from urllib import quote_plus
 from django.shortcuts import render
@@ -23,11 +24,28 @@ from .utils import rclient
 logger = logging.getLogger('statistics')
 
 
-def home(request):
+def home_bak(request):
     """
     用户首页
     """
     data = {}
+    return render(request, "lkl/index.html", data)
+
+
+def home(request):
+    """
+    用户首页
+    """
+    key = 'lkl_home'
+    data_str = rclient.get(key)
+    if not data_str:
+        items = dbutils.get_user_pos_top()
+        data_str = pickle.dumps(items)
+        rclient.set(key, data_str)
+        rclient.expire(key, 3600)
+    else:
+        items = pickle.loads(data_str)
+    data = {"items": items}
     return render(request, "lkl/index.html", data)
 
 

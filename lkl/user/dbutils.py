@@ -254,3 +254,15 @@ def get_last_fenren_order(user, child):
     else:
         obj = None
     return obj
+
+
+def get_user_pos_top():
+    objs = models.UserPos.objects.all()
+    user_dict = {}
+    for obj in objs:
+        if obj.user in user_dict:
+            user_dict[obj.user] += 1
+        else:
+            user_dict[obj.user] = 1
+    good_user = [(user, n) for user, n in user_dict.iteritems() if n >= 10]
+    return sorted(good_user, key=lambda x: -x[1])
