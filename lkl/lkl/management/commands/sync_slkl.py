@@ -135,6 +135,8 @@ def get_terminal_data(cookies, start, end):
         html = r.content.decode("utf-8")
         soup = BeautifulSoup(html)
         data = []
+        title = soup.title.name
+        print "title", title
         total = r1(ur"共(\d+)条", html)
         print "total", total
         total = int(total)
