@@ -281,3 +281,8 @@ def get_token_code():
 def disable_token(token):
     objs = models.SLKLToken.objects.filter(token=token)
     objs.update(is_disabled=True)
+
+
+def add_token(token):
+    obj = models.SLKLToken.objects.create(token=token)
+    return obj
