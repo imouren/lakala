@@ -494,3 +494,19 @@ class FenRunOrder(models.Model):
         db_table = "user_fenrun_order"
         verbose_name = verbose_name_plural = u"分润申请表"
         ordering = ["-create_time"]
+
+
+@python_2_unicode_compatible
+class SLKLToken(models.Model):
+    token = models.TextField(u"token")
+    is_disabled = models.BooleanField(u"是否禁用", default=False)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    update_time = models.DateTimeField(u"更新时间", auto_now=True)
+
+    def __str__(self):
+        return str(self.id)
+
+    class Meta:
+        db_table = "user_slkl_token"
+        verbose_name = verbose_name_plural = u"凭证"
+        ordering = ["-create_time"]

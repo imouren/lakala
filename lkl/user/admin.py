@@ -343,3 +343,13 @@ admin.site.register(models.ChildProfitD1, ChildProfitD1Admin)
 admin.site.register(models.ChildProfitD0, ChildProfitD0Admin)
 admin.site.register(models.TiXianOrder, TiXianOrderAdmin)
 admin.site.register(models.FenRunOrder, FenRunOrderAdmin)
+
+
+class SLKLTokenAdmin(admin.ModelAdmin):
+    list_display = ["token", "is_disabled", "create_time", "update_time"]
+    fields = ["token", "is_disabled"]
+    search_fields = []
+    list_filter = ["is_disabled"]
+
+
+admin.site.register(models.SLKLToken, SLKLTokenAdmin)

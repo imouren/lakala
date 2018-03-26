@@ -266,3 +266,18 @@ def get_user_pos_top():
             user_dict[obj.user] = 1
     good_user = [(user, n) for user, n in user_dict.iteritems() if n >= 10]
     return sorted(good_user, key=lambda x: -x[1])
+
+
+# token
+def get_token_code():
+    objs = models.SLKLToken.objects.filter(is_disabled=False).order_by("-create_time")
+    if objs:
+        token = objs[0].token
+    else:
+        token = None
+    return token
+
+
+def disable_token(token):
+    objs = models.SLKLToken.objects.filter(token=token)
+    objs.update(is_disabled=True)
