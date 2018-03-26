@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 import time
 from user.models import LKLTerminal, LKLD0, LKLD1
 from user.utils import wrapper_raven
+from user.dbutils import get_token_code, disable_token
 
 
 reload(sys)
@@ -18,7 +19,7 @@ sys.setdefaultencoding('utf-8')
 warnings.filterwarnings("ignore")
 
 TIMEOUT = 120  # 超时时间
-URL = config.SLKL_TOKEN
+URL = get_token_code()
 HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "Accept-Encoding": "gzip, deflate, sdch",
@@ -73,6 +74,9 @@ class Command(BaseCommand):
             end = utils.datetime_to_string(end_date, format_str="%Y-%m-%d")
         print "__sync slkl", start, end, table
         print datetime.now()
+        if not URL:
+            print "token:", URL
+            return
         cookies = get_cookies()
         start1 = "".join(start.split("-"))
         end1 = "".join(end.split("-"))
@@ -135,6 +139,11 @@ def get_terminal_data(cookies, start, end):
         html = r.content.decode("utf-8")
         soup = BeautifulSoup(html)
         data = []
+        title = soup.title.string
+        print "title", title
+        if title == u"操作失败":
+            disable_token(URL)
+            break
         total = r1(ur"共(\d+)条", html)
         print "total", total
         total = int(total)
@@ -221,6 +230,11 @@ def get_d0_data(cookies, start, end):
         html = r.content.decode("utf-8")
         soup = BeautifulSoup(html)
         data = []
+        title = soup.title.string
+        print "title", title
+        if title == u"操作失败":
+            disable_token(URL)
+            break
         total = r1(ur"共(\d+)条", html)
         print "total", total
         total = int(total)
@@ -293,6 +307,11 @@ def get_d1_data(cookies, adate):
         html = r.content.decode("utf-8")
         soup = BeautifulSoup(html)
         data = []
+        title = soup.title.string
+        print "title", title
+        if title == u"操作失败":
+            disable_token(URL)
+            break
         total = r1(ur"共(\d+)条", html)
         print "total", total
         total = int(total)
@@ -326,8 +345,9 @@ def write_to_db_d1(data):
     used_tids = set(LKLD1.objects.filter(trans_id__in=tids).values_list("trans_id", flat=True))
     # 插入db
     alist = []
+    tids_set = set()  # 他的系统有重复流水的
     for t in data:
-        if t[1] not in used_tids:
+        if t[1] not in used_tids and t[1] not in tids_set:
             obj = LKLD1(
                 agent=t[0],
                 trans_id=t[1],
@@ -347,5 +367,6 @@ def write_to_db_d1(data):
                 terminal=t[15]
             )
             alist.append(obj)
+            tids_set.add(t[1])
     if alist:
         LKLD1.objects.bulk_create(alist)
