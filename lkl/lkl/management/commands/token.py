@@ -100,4 +100,5 @@ class Command(BaseCommand):
             dbutils.add_token(token)
         else:
             print "token is None"
+        dbutils.del_token()
         print "ok"

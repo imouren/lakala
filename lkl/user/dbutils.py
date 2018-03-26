@@ -286,3 +286,9 @@ def disable_token(token):
 def add_token(token):
     obj = models.SLKLToken.objects.create(token=token)
     return obj
+
+
+def del_token():
+    now = datetime.now() - timedelta(1)
+    objs = models.SLKLToken.objects.filter(create_time__lt=now)
+    objs.delete()
