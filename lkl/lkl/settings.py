@@ -54,7 +54,8 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     'user.ChildProfitD0',
     'user.TiXianOrder',
     'user.UserAlipay',
-    'user.FenRunOrder'
+    'user.FenRunOrder',
+    'user.SLKLToken'
 ]
 
 MIDDLEWARE = [
@@ -260,6 +261,7 @@ SUIT_CONFIG = {
         {'label': u'营收状况', 'icon': 'icon-heart', 'url': 'admin_income', 'blank': False},
         {'label': u'去催单', 'icon': 'icon-plane', 'url': 'admin_reminder', 'blank': False},
         {'label': u'卡拉慧', 'icon': 'icon-flag', 'url': 'user_home', 'blank': True},
+        {'label': u'TOKEN', 'icon': 'icon-check', 'app': 'user', 'models': ('SLKLToken',)},
     ),
 
     # misc
