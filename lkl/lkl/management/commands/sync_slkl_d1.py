@@ -93,7 +93,7 @@ class Command(BaseCommand):
                 s = -3
             else:
                 s = 0
-            for i in range(s, diff.days + 1):
+            for i in range(s, diff.days + 1)[::-1]:
                 adate = start_date + timedelta(i)
                 adate_str = utils.datetime_to_string(adate)
                 d1_data = get_d1_data(cookies, adate_str)
