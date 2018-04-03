@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "raven.contrib.django.raven_compat",
     'captcha',
     'user',
+    "xyf",
 ]
 
 ADMIN_VIEW_PERMISSION_MODELS = [
@@ -55,7 +56,10 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     'user.TiXianOrder',
     'user.UserAlipay',
     'user.FenRunOrder',
-    'user.SLKLToken'
+    'user.SLKLToken',
+    "xyf.XYFToken",
+    "xyf.SYFTrade",
+    "xyf.SYFTerminal",
 ]
 
 MIDDLEWARE = [
@@ -262,6 +266,7 @@ SUIT_CONFIG = {
         {'label': u'去催单', 'icon': 'icon-plane', 'url': 'admin_reminder', 'blank': False},
         {'label': u'卡拉慧', 'icon': 'icon-flag', 'url': 'user_home', 'blank': True},
         {'label': u'TOKEN', 'icon': 'icon-check', 'app': 'user', 'models': ('SLKLToken',)},
+        {'label': u'星驿付数据', 'icon': 'icon-check', 'app': 'xyf', 'models': ('SYFTerminal', 'SYFTrade', 'XYFToken')},
     ),
 
     # misc
