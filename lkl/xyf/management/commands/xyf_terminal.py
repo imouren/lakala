@@ -85,9 +85,12 @@ def get_activate_terminal(cookies, page):
     soup = BeautifulSoup(html)
     data = []
     total = r1(ur"共\[(\d+)\]条", html)
-    print "total", total
+
+    print "total", total, "page", page
     if not total or not total.isdigit():
         disable_token(token)
+    else:
+        total = int(total)
     content = soup.find("div", class_="pageContent")
     tbody = content.find("tbody")
     if tbody:
@@ -104,7 +107,11 @@ def get_terminal_data(cookies):
     all_data = []
     page = 1
     while True:
-        data, total = get_activate_terminal(cookies, page)
+        try:
+            data, total = get_activate_terminal(cookies, page)
+        except Exception, e:
+            print e
+            continue
         all_data.extend(data)
         if page * 12 >= total:
             break
@@ -114,43 +121,43 @@ def get_terminal_data(cookies):
 
 
 def write_to_db_terminal(data):
-    tids = [terminal[7] for terminal in data]
+    tids = [terminal[6] for terminal in data]
     used_tids = set(SYFTerminal.objects.filter(terminal__in=tids).values_list("terminal", flat=True))
     # 插入db
     alist = []
     for t in data:
-        if t[7] not in used_tids:
+        if t[6] not in used_tids:
             obj = SYFTerminal(
                 promotion=t[0],
-                merchant_receipt=t[2],
-                merchant_name=t[3],
-                agent_code=t[4],
-                agent_name=t[5],
-                sn_code=t[6],
-                terminal=t[7],
-                bind_date=t[8],
-                recharge_date=t[9],
-                recharge_status=t[10],
-                trade_rmb=t[11],
-                ok_status=t[12]
+                merchant_receipt=t[1],
+                merchant_name=t[2],
+                agent_code=t[3],
+                agent_name=t[4],
+                sn_code=t[5],
+                terminal=t[6],
+                bind_date=t[7],
+                recharge_date=t[8],
+                recharge_status=t[9],
+                trade_rmb=t[10],
+                ok_status=t[11]
             )
             alist.append(obj)
         else:
-            itmes = SYFTerminal.objects.filter(terminal=t[7])
+            itmes = SYFTerminal.objects.filter(terminal=t[6])
             if itmes:
                 item = itmes[0]
                 item.promotion = t[0]
-                item.merchant_receipt = t[2]
-                item.merchant_name = t[3]
-                item.agent_code = t[4]
-                item.agent_name = t[5]
-                item.sn_code = t[6]
-                item.terminal = t[7]
-                item.bind_date = t[8]
-                item.recharge_date = t[9]
-                item.recharge_status = t[10]
-                item.trade_rmb = t[11]
-                item.ok_status = t[12]
+                item.merchant_receipt = t[1]
+                item.merchant_name = t[2]
+                item.agent_code = t[3]
+                item.agent_name = t[4]
+                item.sn_code = t[5]
+                item.terminal = t[6]
+                item.bind_date = t[7]
+                item.recharge_date = t[8]
+                item.recharge_status = t[9]
+                item.trade_rmb = t[10]
+                item.ok_status = t[11]
                 item.save()
     if alist:
         SYFTerminal.objects.bulk_create(alist)

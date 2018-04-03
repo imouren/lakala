@@ -7,7 +7,6 @@ from collections import defaultdict
 from decimal import Decimal
 from django.contrib.auth.models import User
 from django.conf import settings
-from .models import UserProfile, LKLTrade01, UserPos, LKLD1, UserAlipay
 from lkl import config
 
 
