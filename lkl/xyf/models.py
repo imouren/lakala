@@ -42,7 +42,7 @@ class SYFTrade(models.Model):
     trade_date = models.CharField(u"交易时间", max_length=64)
     trans_id = models.CharField(u"流水号", max_length=64, unique=True)
     trade_type = models.CharField(u"交易类型", max_length=64)
-    consume_type = models.CharField(u"交易类型", max_length=64)
+    consume_type = models.CharField(u"消费类型", max_length=64)
     card_code = models.CharField(u"卡号", max_length=64)
     card_type = models.CharField(u"消费卡类型", max_length=64)
     trade_rmb = models.CharField(u"交易金额（元）", max_length=64)
@@ -58,6 +58,7 @@ class SYFTrade(models.Model):
     class Meta:
         db_table = "syf_trade"
         verbose_name = verbose_name_plural = u"交易明细"
+        ordering = ["-trade_date"]
 
     def __str__(self):
         return self.trans_id
@@ -86,6 +87,7 @@ class SYFTerminal(models.Model):
     class Meta:
         db_table = "syf_terminal"
         verbose_name = verbose_name_plural = u"激活商户管理"
+        ordering = ["-bind_date"]
 
     def __str__(self):
         return self.terminal

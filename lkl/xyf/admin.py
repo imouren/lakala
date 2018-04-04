@@ -34,8 +34,16 @@ admin.site.register(models.XYFToken, XYFTokenAdmin)
 class SYFTerminalAdmin(admin.ModelAdmin):
     list_display = ["promotion", "merchant_receipt", "merchant_name", "sn_code", "terminal", "bind_date", "recharge_date", "recharge_status", "trade_rmb", "ok_status", "update_time"]
     fields = list_display
-    search_fields = ["sn_code", "terminal"]
+    search_fields = ["sn_code", "terminal", "bind_date"]
+    list_filter = []
+
+
+class SYFTradeAdmin(admin.ModelAdmin):
+    list_display = ["merchant_name", "merchant_receipt", "settlement_type", "account_type", "pay_status", "agent_code", "agent_name", "pos_type", "yun", "site_id", "terminal", "trade_date", "trans_id", "trade_type", "consume_type", "card_code", "card_type", "trade_rmb", "trade_fee", "trade_status", "trade_card_type", "auth_status", "card_bank", "return_code", "return_info", "flow_status"]
+    fields = list_display
+    search_fields = ["trans_id", "terminal", "trade_date"]
     list_filter = []
 
 
 admin.site.register(models.SYFTerminal, SYFTerminalAdmin)
+admin.site.register(models.SYFTrade, SYFTradeAdmin)

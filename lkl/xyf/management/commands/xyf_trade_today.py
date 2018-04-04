@@ -8,7 +8,7 @@ from django.core.management.base import BaseCommand
 from lkl import utils, config
 from bs4 import BeautifulSoup
 import time
-from xyf.models import SYFTrade, SYFTerminal
+from xyf.models import SYFTrade
 from user.utils import wrapper_raven
 from xyf.dbutils import get_token_code, disable_token
 
@@ -33,18 +33,18 @@ token = get_token_code()
 
 class Command(BaseCommand):
     """
-    交易管理--激活商户管理
+    交易管理--当日交易明细
     """
 
     @wrapper_raven
     def handle(self, *args, **options):
-        print "__xyf terminal"
+        print "__xyf trade today"
         if not token:
             print "no token!!"
             return
         cookies = get_cookies(token)
-        terminal_data = get_terminal_data(cookies)
-        write_to_db_terminal(terminal_data)
+        data = get_data(cookies)
+        write_to_db(data)
 
 
 def r1(pattern, text):
@@ -62,23 +62,34 @@ def get_cookies(cookie_string):
     return cookies
 
 
-def get_activate_terminal(cookies, page):
-    url = "http://sddl.postar.cn/qryActiveUserList.tran"
+def get_trade_today(cookies, page):
+    url = "http://sddl.postar.cn/transaction_postxnjnl_day_query.trans"
     data = {
-        "OPERATING": "stlw/activeUserList.jsp",
+        "OPERATING": "stlw/query_txnjnl_agent_day.jsp",
         "pageNum": "%s" % page,
         "numPerPage": "12",
-        "CAMID": "",
+        "showFlag": "",
+        "XYHeight": "",
+        "FLAG": "2",
+        "SUMTOAL": "",
+        "AGTORG_1": "",
+        "MERCNUM_1": "",
+        "TXNCD_1": "",
+        "TXNSTS_1": "",
+        "LOGNO_1": "",
+        "OPERSTATUS": "",
+        "STATUS": "",
+        "MERNAM_1": "",
+        "TERMID": "",
+        "TXNAMTSTR": "",
+        "TXNAMTEND": "",
         "MERCID": "",
-        "MERCNAM": "",
-        "TOPAGENTID": "",
-        "PAY_FLAG": "",
-        "TERMPHYNO": "",
-        "BINDTIMESTA": "",
-        "BINDTIMEEND": "",
-        "PAYDATESTA": "",
-        "PAYDATEEND": "",
-        "STANDARD_FLAG": "",
+        "AGENTID": "",
+        "merstlmod": "",
+        "POStype": "",
+        "SECPAYFLG": "",
+        "PAYSTATUS": "",
+        "ROTFLG1": "",
     }
     r = requests.post(url, data=data, cookies=cookies)
     html = r.content.decode("utf-8")
@@ -102,14 +113,14 @@ def get_activate_terminal(cookies, page):
     return data, total
 
 
-def get_terminal_data(cookies):
-    print "get_terminal_data..."
+def get_data(cookies):
+    print "get_trade_data..."
     all_data = []
     page = 1
     retry = 3
     while True:
         try:
-            data, total = get_activate_terminal(cookies, page)
+            data, total = get_trade_today(cookies, page)
         except Exception, e:
             print e
             retry -= 1
@@ -125,44 +136,41 @@ def get_terminal_data(cookies):
     return all_data
 
 
-def write_to_db_terminal(data):
-    tids = [terminal[6] for terminal in data]
-    used_tids = set(SYFTerminal.objects.filter(terminal__in=tids).values_list("terminal", flat=True))
+def write_to_db(data):
+    tids = [tarde[13] for tarde in data]
+    used_tids = set(SYFTrade.objects.filter(trans_id__in=tids).values_list("trans_id", flat=True))
     # 插入db
     alist = []
     for t in data:
-        if t[6] not in used_tids:
-            obj = SYFTerminal(
-                promotion=t[0],
-                merchant_receipt=t[1],
-                merchant_name=t[2],
-                agent_code=t[3],
-                agent_name=t[4],
-                sn_code=t[5],
-                terminal=t[6],
-                bind_date=t[7],
-                recharge_date=t[8],
-                recharge_status=t[9],
-                trade_rmb=t[10],
-                ok_status=t[11]
+        if t[13] not in used_tids:
+            obj = SYFTrade(
+                merchant_name=t[1],
+                merchant_receipt=t[2],
+                settlement_type=t[3],
+                account_type=t[4],
+                pay_status=t[5],
+                agent_code=t[6],
+                agent_name=t[7],
+                pos_type=t[8],
+                yun=t[9],
+                site_id=t[10],
+                terminal=t[11],
+                trade_date=t[12],
+                trans_id=t[13],
+                trade_type=t[14],
+                consume_type=t[15],
+                card_code=t[16],
+                card_type=t[17],
+                trade_rmb=t[18],
+                trade_fee=t[19],
+                trade_status=t[20],
+                trade_card_type=t[21],
+                auth_status=t[22],
+                card_bank=t[23],
+                return_code=t[24],
+                return_info=t[25],
+                flow_status=t[26],
             )
             alist.append(obj)
-        else:
-            itmes = SYFTerminal.objects.filter(terminal=t[6])
-            if itmes:
-                item = itmes[0]
-                item.promotion = t[0]
-                item.merchant_receipt = t[1]
-                item.merchant_name = t[2]
-                item.agent_code = t[3]
-                item.agent_name = t[4]
-                item.sn_code = t[5]
-                item.terminal = t[6]
-                item.bind_date = t[7]
-                item.recharge_date = t[8]
-                item.recharge_status = t[9]
-                item.trade_rmb = t[10]
-                item.ok_status = t[11]
-                item.save()
     if alist:
-        SYFTerminal.objects.bulk_create(alist)
+        SYFTrade.objects.bulk_create(alist)
