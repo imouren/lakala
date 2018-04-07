@@ -10,8 +10,7 @@ from django.template.loader import render_to_string
 from easy_select2 import select2_modelform
 from suit.admin import SortableTabularInline
 from . import models
-from . import forms as fms
-from . import utils, dbutils
+from xyf import forms as fms
 
 
 def is_superuser(request):
@@ -50,6 +49,7 @@ admin.site.register(models.SYFTrade, SYFTradeAdmin)
 
 
 class XYFPosAdmin(admin.ModelAdmin):
+    form = fms.XYFPosAdminForm
     list_display = ["user", "sn_code", "terminal", "is_activate", "create_time", "update_time"]
     fields = ["user", "sn_code", "terminal", "is_activate"]
     search_fields = ["sn_code", "terminal"]
