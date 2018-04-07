@@ -15,11 +15,7 @@ from django.contrib.auth import views as django_views
 from django.contrib.auth.decorators import login_required
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
-from .forms import LoginForm, RegisterForm, UserPosForm, UserAlipayForm, TixianRMBForm
-from .models import UserProfile, UserPos, UserAlipay, UserFenRun, FenRunOrder, TiXianOrder
-from . import utils, dbutils
-from lkl import config
-from .utils import rclient
+from . import dbutils
 
 logger = logging.getLogger('statistics')
 
@@ -30,3 +26,27 @@ def home(request):
     """
     data = {}
     return render(request, "lkl/index.html", data)
+
+
+@login_required
+def xyf_pos_list(request):
+    poses = dbutils.get_user_poses(request.user)
+    pos_list = []
+    for sn, pos in poses:
+        status = dbutils.get_terminal_status(pos)
+        tmp = {
+            "sn": sn,
+            "code": pos,
+            "status": status
+        }
+        pos_list.append(tmp)
+    data = {"poses": pos_list}
+    return render(request, "xyf/pos_list.html", data)
+
+
+@login_required
+def xyf_pos_detail(request):
+    pos = request.GET.get("pos")
+    pos_detail = dbutils.get_pos_detail(pos)
+    data = {"detail": pos_detail}
+    return render(request, "xyf/pos_detail.html", data)

@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^robot/', make_view(robot)),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^user/', include('user.urls')),
+    url(r'^xyf/', include('xyf.urls')),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
 ]

@@ -47,3 +47,13 @@ class SYFTradeAdmin(admin.ModelAdmin):
 
 admin.site.register(models.SYFTerminal, SYFTerminalAdmin)
 admin.site.register(models.SYFTrade, SYFTradeAdmin)
+
+
+class XYFPosAdmin(admin.ModelAdmin):
+    list_display = ["user", "sn_code", "terminal", "is_activate", "create_time", "update_time"]
+    fields = ["user", "sn_code", "terminal", "is_activate"]
+    search_fields = ["sn_code", "terminal"]
+    list_filter = ["is_activate"]
+
+
+admin.site.register(models.XYFPos, XYFPosAdmin)

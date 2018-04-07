@@ -91,3 +91,28 @@ class SYFTerminal(models.Model):
 
     def __str__(self):
         return self.terminal
+
+
+@python_2_unicode_compatible
+class XYFPos(models.Model):
+    user = models.ForeignKey(User, verbose_name=u"用户")
+    sn_code = models.CharField(u"SN号", max_length=64, unique=True)
+    terminal = models.CharField(u"终端号", max_length=64, blank=True)
+    is_activate = models.BooleanField(u"是否激活", default=False)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    update_time = models.DateTimeField(u"更新时间", auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.terminal:
+            objs = SYFTerminal.objects.filter(sn_code=self.sn_code)
+            if objs:
+                obj = objs[0]
+                self.terminal = obj.terminal
+        return super(XYFPos, self).save(*args, **kwargs)
+
+    class Meta:
+        db_table = "xyf_pos"
+        verbose_name = verbose_name_plural = u"用户POS机"
+
+    def __str__(self):
+        return self.terminal

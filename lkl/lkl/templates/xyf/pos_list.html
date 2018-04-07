@@ -1,0 +1,39 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+
+{% block container %}
+
+<div class="weui-topbar">
+    <h1 class="weui-topbar-title">我的终端</h1>
+    <a href="{% url 'user_account' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
+</div>
+
+<div class="bd mt40 mb40">
+
+    <div class="weui-cells">
+    {% for pos in poses %}
+
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            **{{pos.sn|slice:"-4:"}}
+          </div>
+          <div class="weui-cell__bd">
+            {{pos.status}}
+          </div>
+          <div class="weui-cell__bd">
+            <a href="{% url 'xyf_pos_detail' %}?pos={{pos.code}}">明细</a>
+          </div>
+
+        </div>
+
+    {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block footer_js_extra %}
+
+
+{% endblock %}

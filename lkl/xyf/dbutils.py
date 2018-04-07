@@ -35,3 +35,50 @@ def del_token():
     now = datetime.now() - timedelta(1)
     objs = models.XYFToken.objects.filter(create_time__lt=now)
     objs.delete()
+
+
+def get_user_poses(user):
+    objs = models.XYFPos.objects.filter(user=user)
+    poses = [(obj.sn_code, obj.terminal) for obj in objs if obj.terminal]
+    return poses
+
+
+def get_terminal_status(terminal):
+    """
+    终端状态
+    """
+    objs = models.SYFTerminal.objects.filter(terminal=terminal)
+    if objs:
+        obj = objs[0]
+        if obj.ok_status == u"已达标":
+            s = obj.ok_status
+        else:
+            s = obj.recharge_status
+    else:
+        s = u"未激活"
+    return s
+
+
+def get_pos_detail(pos):
+    detail = []
+    objs = models.SYFTrade.objects.filter(terminal=pos)
+    trans_total = Decimal(0)
+    fee_total = Decimal(0)
+    for obj in objs:
+        if obj.trade_card_type == u"贷记卡" and obj.return_code == "00":
+            trans_total += Decimal(obj.trade_rmb)
+            fee_total += Decimal(obj.trade_fee)
+            tmp = {
+                "draw_rmb": obj.trade_rmb,
+                "fee_rmb": obj.trade_fee,
+                "pay_date": obj.trade_date
+            }
+            detail.append(tmp)
+    if detail:
+        total = {
+            "draw_rmb": trans_total,
+            "fee_rmb": fee_total,
+            "pay_date": u"总计"
+        }
+        detail.append(total)
+    return detail
