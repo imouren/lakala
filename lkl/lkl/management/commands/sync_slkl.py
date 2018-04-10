@@ -146,7 +146,15 @@ def get_terminal_data(cookies, start, end):
             break
         total = r1(ur"共(\d+)条", html)
         print "total", total
-        total = int(total)
+        if page > 1:
+            try:
+                total = int(total)
+            except:
+                print "retry....page:", page
+                continue
+            if total == 0:
+                print "retry....page:", page
+                continue
         tbody = soup.find("tbody")
         if tbody:
             for line in tbody.find_all("tr"):
