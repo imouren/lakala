@@ -330,15 +330,14 @@ def get_d1_data(cookies, adate):
             break
         total = r1(ur"共(\d+)条", html)
         print "total", total
-        if page > 1:
-            try:
-                total = int(total)
-            except:
-                print "retry....page:", page
-                continue
-            if total == 0:
-                print "retry....page:", page
-                continue
+        try:
+            total = int(total)
+        except:
+            print "retry....page:", page
+            continue
+        if page > 1 and total == 0:
+            print "retry....page:", page
+            continue
         tbody = soup.find("tbody")
         if tbody:
             for line in tbody.find_all("tr"):
