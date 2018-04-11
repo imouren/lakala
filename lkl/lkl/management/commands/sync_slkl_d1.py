@@ -333,8 +333,11 @@ def get_d1_data(cookies, adate):
         try:
             total = int(total)
         except:
-            print "retry....page:", page
-            continue
+            if page == 1:
+                break
+            else:
+                print "retry....page:", page
+                continue
         if page > 1 and total == 0:
             print "retry....page:", page
             continue
