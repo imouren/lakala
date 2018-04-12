@@ -32,7 +32,7 @@ admin.site.register(models.XYFToken, XYFTokenAdmin)
 
 class SYFTerminalAdmin(admin.ModelAdmin):
     list_display = ["promotion", "merchant_receipt", "merchant_name", "sn_code", "terminal", "bind_date", "recharge_date", "recharge_status", "trade_rmb", "ok_status", "update_time"]
-    fields = list_display
+    fields = ["promotion", "merchant_receipt", "merchant_name", "sn_code", "terminal", "bind_date", "recharge_date", "recharge_status", "trade_rmb", "ok_status"]
     search_fields = ["sn_code", "terminal", "bind_date"]
     list_filter = []
 
