@@ -93,7 +93,7 @@ class Command(BaseCommand):
                 s = -3
             else:
                 s = 0
-            for i in range(s, diff.days + 1):
+            for i in range(s, diff.days + 1)[::-1]:
                 adate = start_date + timedelta(i)
                 adate_str = utils.datetime_to_string(adate)
                 d1_data = get_d1_data(cookies, adate_str)
@@ -146,7 +146,17 @@ def get_terminal_data(cookies, start, end):
             break
         total = r1(ur"共(\d+)条", html)
         print "total", total
-        total = int(total)
+        try:
+            total = int(total)
+        except:
+            if page == 1:
+                break
+            else:
+                print "retry....page:", page
+                continue
+        if page > 1 and total == 0:
+            print "retry....page:", page
+            continue
         tbody = soup.find("tbody")
         if tbody:
             for line in tbody.find_all("tr"):
@@ -237,7 +247,17 @@ def get_d0_data(cookies, start, end):
             break
         total = r1(ur"共(\d+)条", html)
         print "total", total
-        total = int(total)
+        try:
+            total = int(total)
+        except:
+            if page == 1:
+                break
+            else:
+                print "retry....page:", page
+                continue
+        if page > 1 and total == 0:
+            print "retry....page:", page
+            continue
         tbody = soup.find("tbody")
         if tbody:
             for line in tbody.find_all("tr"):
@@ -314,7 +334,17 @@ def get_d1_data(cookies, adate):
             break
         total = r1(ur"共(\d+)条", html)
         print "total", total
-        total = int(total)
+        try:
+            total = int(total)
+        except:
+            if page == 1:
+                break
+            else:
+                print "retry....page:", page
+                continue
+        if page > 1 and total == 0:
+            print "retry....page:", page
+            continue
         tbody = soup.find("tbody")
         if tbody:
             for line in tbody.find_all("tr"):
