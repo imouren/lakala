@@ -38,7 +38,7 @@ class SYFTerminalAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         queryset = super(SYFTerminalAdmin, self).get_queryset(request)
-        queryset = queryset.extra({'trade_rmb': "CAST(trade_rmb as FLOAT)"})
+        queryset = queryset.extra({'trade_rmb': "CAST(trade_rmb as DECIMAL)"})
         return queryset
 
 
