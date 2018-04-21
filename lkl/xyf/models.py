@@ -116,3 +116,29 @@ class XYFPos(models.Model):
 
     def __str__(self):
         return self.terminal
+
+
+@python_2_unicode_compatible
+class XYFFenRun(models.Model):
+    POINT_CHOICE = [
+        ("0.515", u"0.515"),
+        ("0.520", u"0.520"),
+        ("0.525", u"0.525"),
+        ("0.530", u"0.530"),
+        ("0.535", u"0.535"),
+        ("0.540", u"0.540"),
+        ("0.545", u"0.545"),
+        ("0.550", u"0.550"),
+    ]
+    user = models.OneToOneField(User, verbose_name=u"用户")
+    point = models.CharField(u"提点", choices=POINT_CHOICE, max_length=50)
+    message = models.TextField(u"说明", blank=True)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    update_time = models.DateTimeField(u"更新时间", auto_now=True)
+
+    class Meta:
+        db_table = "xyf_fenrun"
+        verbose_name = verbose_name_plural = u"星驿付分润"
+
+    def __str__(self):
+        return self.point

@@ -53,12 +53,19 @@ admin.site.register(models.SYFTerminal, SYFTerminalAdmin)
 admin.site.register(models.SYFTrade, SYFTradeAdmin)
 
 
+@admin.register(models.XYFPos)
 class XYFPosAdmin(admin.ModelAdmin):
     form = fms.XYFPosAdminForm
     list_display = ["user", "sn_code", "terminal", "is_activate", "create_time", "update_time"]
     fields = ["user", "sn_code", "terminal", "is_activate"]
-    search_fields = ["sn_code", "terminal"]
+    search_fields = ["sn_code", "terminal", "user__username"]
     list_filter = ["is_activate"]
 
 
-admin.site.register(models.XYFPos, XYFPosAdmin)
+@admin.register(models.XYFFenRun)
+class XYFFenRunAdmin(admin.ModelAdmin):
+    form = fms.XYFFenRunAdminForm
+    list_display = ["user", "point", "message", "create_time", "update_time"]
+    fields = ["user", "point", "message"]
+    search_fields = ["user__username"]
+    list_filter = ["point"]

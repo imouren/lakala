@@ -14,3 +14,15 @@ class XYFPosAdminForm(forms.ModelForm):
         widgets = {
             'user': apply_select2(forms.Select)
         }
+
+
+class XYFFenRunAdminForm(forms.ModelForm):
+    """
+    for admin
+    """
+    class Meta:
+        model = models.XYFFenRun
+        fields = ["user", "point", "message"]
+        widgets = {
+            'user': apply_select2(forms.Select)
+        }

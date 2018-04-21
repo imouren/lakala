@@ -61,6 +61,7 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     "xyf.SYFTrade",
     "xyf.SYFTerminal",
     "xyf.XYFPos",
+    "xyf.XYFFenRun"
 ]
 
 MIDDLEWARE = [
@@ -267,7 +268,7 @@ SUIT_CONFIG = {
         {'label': u'去催单', 'icon': 'icon-plane', 'url': 'admin_reminder', 'blank': False},
         {'label': u'卡拉慧', 'icon': 'icon-flag', 'url': 'user_home', 'blank': True},
         {'label': u'TOKEN', 'icon': 'icon-check', 'app': 'user', 'models': ('SLKLToken',)},
-        {'label': u'星驿付数据', 'icon': 'icon-check', 'app': 'xyf', 'models': ('SYFTerminal', 'SYFTrade', 'XYFToken', 'XYFPos')},
+        {'label': u'星驿付数据', 'icon': 'icon-check', 'app': 'xyf', 'models': ('SYFTerminal', 'SYFTrade', 'XYFToken', 'XYFPos', 'XYFFenRun')},
     ),
 
     # misc
