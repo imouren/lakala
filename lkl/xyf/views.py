@@ -20,12 +20,17 @@ from . import dbutils
 logger = logging.getLogger('statistics')
 
 
+@login_required
 def home(request):
     """
-    用户首页
+    星驿付用户首页
     """
     data = {}
-    return render(request, "lkl/index_bak.html", data)
+    poses = dbutils.get_user_poses(request.user)
+    if poses:
+        return render(request, "xyf/home.html", data)
+    else:
+        return render(request, "lkl/index_bak.html", data)
 
 
 @login_required
@@ -50,3 +55,28 @@ def xyf_pos_detail(request):
     pos_detail = dbutils.get_pos_detail(pos)
     data = {"detail": pos_detail}
     return render(request, "xyf/pos_detail.html", data)
+
+
+@login_required
+def info(request):
+    """
+    我的信息
+    """
+    user = request.user
+    # 分润
+    base_point = 0.55
+    if hasattr(user, "xyffenrun"):
+        point = float(user.xyffenrun.point)
+        fenrun = {"point": point}
+    else:
+        fenrun = None
+        point = 0.55
+    trans_total = dbutils.get_user_trans_total(user)
+    diff_point = point - base_point
+    rmb = trans_total / 100.0 / diff_point
+    data = {
+        "fenrun": fenrun,
+        "pay_total": trans_total,
+        "rmb": "%.2f" % rmb,
+    }
+    return render(request, "xyf/user_info.html", data)

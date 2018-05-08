@@ -1,0 +1,64 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+
+{% block container %}
+
+<div class="weui-topbar">
+    <h1 class="weui-topbar-title">
+        {{ request.user.userprofile.name }}
+    </h1>
+    <a href="{% url 'xyf_home' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
+</div>
+
+<div class="bd mt40 mb40">
+
+<div class="weui-form-preview">
+    <div class="weui-form-preview__bd">
+        <label class="weui-form-preview__label">手机号</label>
+        <span class="weui-form-preview__value">
+        {{ request.user.userprofile.phone }}
+        </span>
+    </div>
+    {% if fenrun %}
+    <div class="weui-form-preview__bd">
+        <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">分润点数</label>
+            <span class="weui-form-preview__value">{{ fenrun.point}}</span>
+        </div>
+    </div>
+    {% else %}
+    <div class="weui-form-preview__bd">
+        <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">联系客服添加分润</label>
+            <span class="weui-form-preview__value">微信：45367076</span>
+        </div>
+    </div>
+    {% endif %}
+    <div class="weui-form-preview__bd">
+        <div class="weui-form-preview__item">
+            <label class="weui-form-preview__label">刷卡总额</label>
+            <span class="weui-form-preview__value">{{ trans_total }}</span>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="weui-form-preview">
+    <div class="weui-form-preview__bd">
+        <label class="weui-form-preview__label">预计返利</label>
+        <span class="weui-form-preview__value">
+            {{ rmb }}
+        </span>
+
+    </div>
+
+
+</div>
+<br>
+<br>
+</div>
+
+{% endblock %}
+
+{% block footer_js_extra %}
+
+{% endblock %}

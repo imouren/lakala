@@ -1,0 +1,43 @@
+{% extends "lkl/base.html" %}
+{% load staticfiles %}
+
+{% block header_title  %}
+    <title>个人中心</title>
+{% endblock %}
+
+{% block container  %}
+
+
+<div class="weui-grids">
+    <a href="{% url 'xyf_user_info' %}" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+            <img src="{% static "/lkl/icon/xinxi.png" %}" alt="">
+        </div>
+        <p class="weui-grid__label">
+            我的信息
+        </p>
+    </a>
+    <a href="{% url 'xyf_pos_list' %}" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+            <img src="{% static "/lkl/icon/pos.png" %}" alt="">
+        </div>
+        <p class="weui-grid__label">
+            我的终端
+        </p>
+    </a>
+    <a href="{% url 'user_logout' %}" class="weui-grid js_grid">
+        <div class="weui-grid__icon">
+            <img src="{% static "/lkl/icon/tuichu.jpg" %}" alt="">
+        </div>
+        <p class="weui-grid__label">
+            退出
+        </p>
+    </a>
+</div>
+
+</div>
+{% endblock %}
+
+{% block footer_js_extra %}
+
+{% endblock %}

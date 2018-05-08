@@ -82,3 +82,14 @@ def get_pos_detail(pos):
         }
         detail.append(total)
     return detail
+
+
+def get_user_trans_total(user):
+    poses = get_user_poses(user)
+    terminals = [pos[1] for pos in poses]
+    objs = models.SYFTrade.objects.filter(terminal__in=terminals)
+    trans_total = Decimal(0)
+    for obj in objs:
+        if obj.trade_card_type == u"贷记卡" and obj.return_code == "00":
+            trans_total += Decimal(obj.trade_rmb)
+    return trans_total
