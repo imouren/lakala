@@ -25,7 +25,7 @@ def home(request):
     用户首页
     """
     data = {}
-    return render(request, "lkl/index.html", data)
+    return render(request, "lkl/index_bak.html", data)
 
 
 @login_required
