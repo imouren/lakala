@@ -73,7 +73,7 @@ def info(request):
         point = 0.55
     trans_total = dbutils.get_user_trans_total(user)
     diff_point = point - base_point
-    rmb = trans_total / 100.0 / diff_point
+    rmb = float(trans_total) / 100.0 / diff_point
     data = {
         "fenrun": fenrun,
         "pay_total": trans_total,
