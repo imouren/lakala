@@ -79,7 +79,7 @@ def info(request):
         rmb = 0
     data = {
         "fenrun": fenrun,
-        "pay_total": trans_total,
+        "trans_total": trans_total,
         "rmb": "%.2f" % rmb,
     }
     return render(request, "xyf/user_info.html", data)
