@@ -74,7 +74,7 @@ def info(request):
     trans_total = dbutils.get_user_trans_total(user)
     diff_point = base_point - point
     if diff_point > 0:
-        rmb = float(trans_total) / 100.0 / diff_point
+        rmb = float(trans_total) / 100.0 * diff_point
     else:
         rmb = 0
     data = {
