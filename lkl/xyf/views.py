@@ -72,7 +72,7 @@ def info(request):
         fenrun = None
         point = 0.55
     trans_total = dbutils.get_user_trans_total(user)
-    diff_point = point - base_point
+    diff_point = base_point - point
     if diff_point > 0:
         rmb = float(trans_total) / 100.0 / diff_point
     else:
