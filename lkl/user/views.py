@@ -27,6 +27,8 @@ logger = logging.getLogger('statistics')
 def home_bak(request):
     """
     用户首页
+    微信登陆，判断是否绑定过
+    绑定过自动登录 同时更新微信用户信息
     """
     data = {}
     return render(request, "lkl/index.html", data)
@@ -503,8 +505,9 @@ def password_reset(request):
 
 @login_required
 def bind_wx(request):
-    # 获取
-    # 重新授权或者第一次授权
+    # 绑定微信
+    # todo 判断已经绑定过
+    # todo 判断用户profile有内容
     user = request.user
     base_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={}&redirect_uri={}&response_type=code&scope=snsapi_userinfo&state={}#wechat_redirect"
     rurl = quote_plus(config.WX_REDIRECT_URL)
@@ -513,13 +516,36 @@ def bind_wx(request):
 
 
 def wx_redirect(request):
+    """
+    info response
+    {
+    "openid":" OPENID",
+    "nickname": NICKNAME,
+    "sex":"1",
+    "province":"PROVINCE"
+    "city":"CITY",
+    "country":"COUNTRY",
+    "headimgurl":    "http://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",
+    "privilege":[ "PRIVILEGE1" "PRIVILEGE2"     ],
+    "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+    }
+    """
     logger.info(request.GET)
     code = request.GET.get("code")
     username = request.GET.get("state")
+    # 获取 openid access_token refresh_token 的到期时间
     url_base = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={}&secret={}&code={}&grant_type=authorization_code"
     url = url_base.format(config.APP_ID, config.APP_SECRET, code)
     res = requests.get(url).json()
-    # 保存 openid access_token refresh_token 的到期时间
-    # 保存openid 和 username对应关系 绑定时间
-    # 获取用户信息，并保存数据库
+    access_token = res["access_token"]
+    openid = res["openid"]
+    scope = res["scope"]
+    # 判断openid 是否绑定过
+    if scope == "snsapi_userinfo":
+        # 通过access_token和openid拉取用户信息
+        info_url_base = "https://api.weixin.qq.com/sns/userinfo?access_token={}&openid={}&lang=zh_CN"
+        info_url = info_url_base.format(access_token, openid)
+        info_res = requests.get(info_url).json()
+        # 创建绑定关系 带用户信息
+
     return HttpResponse("ok")

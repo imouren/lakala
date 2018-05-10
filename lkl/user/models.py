@@ -510,3 +510,28 @@ class SLKLToken(models.Model):
         db_table = "user_slkl_token"
         verbose_name = verbose_name_plural = u"凭证"
         ordering = ["-create_time"]
+
+
+@python_2_unicode_compatible
+class WXUser(models.Model):
+    """
+    微信用户
+    """
+    user = models.OneToOneField(User)
+    openid = models.CharField(u"openid", max_length=128, unique=True)
+    nickname = models.CharField(u"昵称", max_length=64, blank=True)
+    sex = models.CharField(u"性别", max_length=10, blank=True)
+    province = models.CharField(u"省份", max_length=64, blank=True)
+    city = models.CharField(u"城市", max_length=64, blank=True)
+    country = models.CharField(u"国家", max_length=64, blank=True)
+    headimgurl = models.CharField(u"头像", max_length=512, blank=True)
+    unionid = models.CharField(u"unionid", max_length=128, blank=True)
+    update_time = models.DateTimeField(u"创建时间", auto_now=True)
+    create_time = models.DateTimeField(u"更新时间", auto_now_add=True)
+
+    class Meta:
+        db_table = "wx_user"
+        verbose_name = verbose_name_plural = u"微信用户"
+
+    def __str__(self):
+        return self.openid
