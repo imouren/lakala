@@ -56,11 +56,12 @@ class Command(BaseCommand):
             print "no token!!"
             return
         if not start or not end:
-            end_date = datetime.now() - timedelta(1)
+            end_date = datetime.now()
             start_date = end_date - timedelta(3)
             start = utils.datetime_to_string(start_date, format_str="%Y%m%d")
             end = utils.datetime_to_string(end_date, format_str="%Y%m%d")
         cookies = get_cookies(token)
+        print start, end
         data = get_data(start, end, cookies)
         write_to_db(data)
 
