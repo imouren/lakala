@@ -94,7 +94,7 @@ class Command(BaseCommand):
             token = get_token_good()
             times += 1
             time.sleep(5)
-            if times >= 5:
+            if times >= 15:
                 break
         if token:
             dbutils.add_token(token)
