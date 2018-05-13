@@ -315,3 +315,11 @@ def is_bing_wx(user):
         return True
     else:
         return False
+
+
+def get_wx_user(user):
+    objs = models.WXUser.objects.filter(user=user)
+    if objs:
+        return objs[0]
+    else:
+        return None

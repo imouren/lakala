@@ -1,0 +1,39 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+
+{% block container %}
+
+<div class="weui-topbar">
+    <h1 class="weui-topbar-title">
+        {{ request.user.userprofile.name }}
+    </h1>
+    <a href="{% url 'user_account' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
+</div>
+
+<div class="bd mt40 mb40">
+
+<div class="weui-form-preview">
+    <div class="weui-form-preview__bd">
+        <label class="weui-form-preview__label">昵称</label>
+        <span class="weui-form-preview__value">
+        {{ nickname }}
+        </span>
+    </div>
+
+    <div class="weui-form-preview__bd">
+        <label class="weui-form-preview__label">头像</label>
+        <span class="weui-form-preview__value">
+        <img src="{{ headimgurl }}" alt="" />
+        </span>
+    </div>
+
+</div>
+
+
+</div>
+
+{% endblock %}
+
+{% block footer_js_extra %}
+
+{% endblock %}

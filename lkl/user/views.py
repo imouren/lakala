@@ -508,8 +508,13 @@ def bind_wx(request):
     # 绑定微信
     # 判断已经绑定过
     user = request.user
-    if dbutils.is_bing_wx(user):
-        return redirect("user_account")
+    wx_user = dbutils.get_wx_user(user)
+    if wx_user:
+        wx_info = {
+            "nickname": wx_user.nickname,
+            "headimgurl": wx_user.headimgurl
+        }
+        return render(request, "lkl/wx_info.html", wx_info)
     # todo 判断用户profile有内容
     user = request.user
     base_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={}&redirect_uri={}&response_type=code&scope=snsapi_userinfo&state={}#wechat_redirect"
@@ -564,4 +569,4 @@ def wx_redirect(request):
                 headimgurl=info_res["headimgurl"],
                 unionid=info_res.get("unionid", ""),
             )
-    return HttpResponse("ok")
+    return HttpResponse(u"绑定成功")
