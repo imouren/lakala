@@ -255,6 +255,7 @@ SUIT_CONFIG = {
         {'app': 'auth', 'icon': 'icon-lock', 'models': ('user', 'group')},
         {'app': 'user', 'icon': 'icon-user', 'models': ('UserProfile', 'UserAddress', 'UserPos', 'UserTrade', "UserFenRun", "UserAlipay")},
         {'label': u'刷卡数据', 'icon': 'icon-star-empty', 'app': 'user', 'models': ('LKLTrade01', )},
+        {'label': u'微信用户', 'icon': 'icon-user', 'app': 'user', 'models': ('WXUser', )},
         {'label': u'刷卡数据(老系统)', 'icon': 'icon-star', 'app': 'user', 'models': ('LKLTerminal', 'LKLD0', 'LKLD1')},
         {'label': u'用户分红', 'icon': 'icon-gift', 'app': 'user', 'models': ('UserRMB', 'ProfitD1', 'ProfitD0', 'ChildProfitD1', 'ChildProfitD0')},
         {'label': u'审核管理', 'icon': 'icon-check', 'app': 'user', 'models': ('TiXianOrder', 'FenRunOrder')},

@@ -353,3 +353,10 @@ class SLKLTokenAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.SLKLToken, SLKLTokenAdmin)
+
+
+@admin.register(models.WXUser)
+class WXUserAdmin(admin.ModelAdmin):
+    list_display = ["user", "openid", "nickname", "sex", "province", "city", "country", "headimgurl", "update_time"]
+    fields = []
+    search_fields = ["user__username"]
