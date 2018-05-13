@@ -533,6 +533,7 @@ def wx_redirect(request):
     "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
     }
     """
+    logger.info("wx_redirect")
     logger.info(request.GET)
     code = request.GET.get("code")
     username = request.GET.get("state")
@@ -540,7 +541,9 @@ def wx_redirect(request):
     # 获取 openid access_token refresh_token 的到期时间
     url_base = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={}&secret={}&code={}&grant_type=authorization_code"
     url = url_base.format(config.APP_ID, config.APP_SECRET, code)
+    logger.info(url)
     res = requests.get(url).json()
+    logger.info(res)
     access_token = res["access_token"]
     openid = res["openid"]
     scope = res["scope"]
