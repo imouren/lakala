@@ -555,7 +555,9 @@ def wx_redirect(request):
         # 通过access_token和openid拉取用户信息
         info_url_base = "https://api.weixin.qq.com/sns/userinfo?access_token={}&openid={}&lang=zh_CN"
         info_url = info_url_base.format(access_token, openid)
-        info_res = requests.get(info_url).json()
+        response = requests.get(info_url)
+        response.encoding = 'utf-8'
+        info_res = response.json()
         logger.info(info_res)
         # 创建绑定关系 带用户信息
         if not dbutils.is_bing_wx(user):
