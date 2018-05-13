@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from .forms import LoginForm, RegisterForm, UserPosForm, UserAlipayForm, TixianRMBForm
-from .models import UserProfile, UserPos, UserAlipay, UserFenRun, FenRunOrder, TiXianOrder
+from .models import UserProfile, UserPos, UserAlipay, UserFenRun, FenRunOrder, TiXianOrder, WXUser
 from . import utils, dbutils
 from lkl import config
 from .utils import rclient
@@ -506,7 +506,10 @@ def password_reset(request):
 @login_required
 def bind_wx(request):
     # 绑定微信
-    # todo 判断已经绑定过
+    # 判断已经绑定过
+    user = request.user
+    if dbutils.is_bing_wx(user):
+        return redirect("user_account")
     # todo 判断用户profile有内容
     user = request.user
     base_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={}&redirect_uri={}&response_type=code&scope=snsapi_userinfo&state={}#wechat_redirect"
@@ -533,6 +536,7 @@ def wx_redirect(request):
     logger.info(request.GET)
     code = request.GET.get("code")
     username = request.GET.get("state")
+    user = dbutils.get_user_by_username(username)
     # 获取 openid access_token refresh_token 的到期时间
     url_base = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={}&secret={}&code={}&grant_type=authorization_code"
     url = url_base.format(config.APP_ID, config.APP_SECRET, code)
@@ -547,5 +551,16 @@ def wx_redirect(request):
         info_url = info_url_base.format(access_token, openid)
         info_res = requests.get(info_url).json()
         # 创建绑定关系 带用户信息
-
+        if not dbutils.is_bing_wx(user):
+            WXUser.objects.create(
+                user=user,
+                openid=info_res["openid"],
+                nickname=info_res["nickname"],
+                sex=info_res["sex"],
+                province=info_res["province"],
+                city=info_res["city"],
+                country=info_res["country"],
+                headimgurl=info_res["headimgurl"],
+                unionid=info_res["unionid"],
+            )
     return HttpResponse("ok")

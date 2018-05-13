@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from collections import defaultdict
 from decimal import Decimal
 from django.db import transaction
+from django.contrib.auth.models import User
 from . import models
 from . import utils
 from lkl.utils import string_to_datetime
@@ -42,6 +43,17 @@ def get_user_by_terminal(terminal):
     try:
         obj = models.UserPos.objects.get(code=terminal)
         user = obj.user
+    except Exception:
+        user = None
+    return user
+
+
+def get_user_by_username(username):
+    """
+    通过昵称获取用户
+    """
+    try:
+        user = User.objects.get(username=username)
     except Exception:
         user = None
     return user
@@ -294,3 +306,12 @@ def del_token():
     now = datetime.now() - timedelta(1)
     objs = models.SLKLToken.objects.filter(create_time__lt=now)
     objs.delete()
+
+
+# 微信绑定相关
+def is_bing_wx(user):
+    objs = models.WXUser.objects.filter(user=user)
+    if objs:
+        return True
+    else:
+        return False

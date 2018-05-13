@@ -26,11 +26,12 @@ def home(request):
     星驿付用户首页
     """
     data = {}
-    poses = dbutils.get_user_poses(request.user)
-    if poses:
-        return render(request, "xyf/home.html", data)
-    else:
-        return render(request, "lkl/index_bak.html", data)
+    return render(request, "xyf/home.html", data)
+    # poses = dbutils.get_user_poses(request.user)
+    # if poses:
+    #     return render(request, "xyf/home.html", data)
+    # else:
+    #     return render(request, "lkl/index_bak.html", data)
 
 
 @login_required
