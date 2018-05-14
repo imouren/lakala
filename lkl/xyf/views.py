@@ -16,8 +16,15 @@ from django.contrib.auth.decorators import login_required
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from . import dbutils
+from lkl import wx_utils, config
 
 logger = logging.getLogger('statistics')
+
+
+def home_login(request):
+    state = "xyf_home"
+    url = wx_utils.get_wx_authorize_url(config.WX_REDIRECT_URL_LOGIN, state)
+    return redirect(url)
 
 
 @login_required

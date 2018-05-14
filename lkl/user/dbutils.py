@@ -323,3 +323,11 @@ def get_wx_user(user):
         return objs[0]
     else:
         return None
+
+
+def get_wx_user_by_openid(openid):
+    objs = models.WXUser.objects.filter(openid=openid)
+    if objs:
+        return objs[0]
+    else:
+        return None

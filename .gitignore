@@ -6,6 +6,7 @@ settings_local.py
 manage_local.py
 config.py
 settings_pro.py
+wx_utils.py
 
 # Vim swap files
 *.swp

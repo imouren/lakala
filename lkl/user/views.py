@@ -18,7 +18,7 @@ from captcha.helpers import captcha_image_url
 from .forms import LoginForm, RegisterForm, UserPosForm, UserAlipayForm, TixianRMBForm
 from .models import UserProfile, UserPos, UserAlipay, UserFenRun, FenRunOrder, TiXianOrder, WXUser
 from . import utils, dbutils
-from lkl import config
+from lkl import config, wx_utils
 from .utils import rclient
 
 logger = logging.getLogger('statistics')
@@ -517,9 +517,8 @@ def bind_wx(request):
         return render(request, "lkl/wx_info.html", wx_info)
     # todo 判断用户profile有内容
     user = request.user
-    base_url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={}&redirect_uri={}&response_type=code&scope=snsapi_userinfo&state={}#wechat_redirect"
-    rurl = quote_plus(config.WX_REDIRECT_URL)
-    url = base_url.format(config.APP_ID, rurl, user.username)
+    state = user.username
+    url = wx_utils.get_wx_authorize_url(config.WX_REDIRECT_URL, state)
     return redirect(url)
 
 
@@ -543,22 +542,18 @@ def wx_redirect(request):
     code = request.GET.get("code")
     username = request.GET.get("state")
     user = dbutils.get_user_by_username(username)
-    # 获取 openid access_token refresh_token 的到期时间
-    url_base = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={}&secret={}&code={}&grant_type=authorization_code"
-    url = url_base.format(config.APP_ID, config.APP_SECRET, code)
-    res = requests.get(url).json()
+    res = wx_utils.get_access_token(code)
     access_token = res["access_token"]
     openid = res["openid"]
     scope = res["scope"]
     # 判断openid 是否绑定过
     if scope == "snsapi_userinfo":
         # 通过access_token和openid拉取用户信息
-        info_url_base = "https://api.weixin.qq.com/sns/userinfo?access_token={}&openid={}&lang=zh_CN"
-        info_url = info_url_base.format(access_token, openid)
-        response = requests.get(info_url)
-        response.encoding = 'utf-8'
-        info_res = response.json()
-        logger.info(info_res)
+        # info_res = wx_utils.get_sns_userinfo(access_token, openid)
+        info_res = wx_utils.get_userinfo(access_token, openid)
+        if not info["subscribe"]:
+            return HttpResponse(u"未关注公众号，不允许绑定")
+        # logger.info(info_res)
         # 创建绑定关系 带用户信息
         if not dbutils.is_bing_wx(user):
             WXUser.objects.create(
@@ -573,3 +568,22 @@ def wx_redirect(request):
                 unionid=info_res.get("unionid", ""),
             )
     return HttpResponse(u"绑定成功")
+
+
+def wx_redirect_login(request):
+    """
+    微信自动登陆回调
+    """
+    code = request.GET.get("code")
+    uri = request.GET.get("state")
+    res = wx_utils.get_access_token(code)
+    access_token = res["access_token"]
+    openid = res["openid"]
+    # scope = res["scope"]
+    info = wx_utils.get_userinfo(access_token, openid)
+    # 判断openid 是否关注过
+    # 判断openid 是否绑定过
+    if info["subscribe"]:
+        wx_user = wx_utils.get_wx_user_by_openid(openid)
+        auth.login(request, wx_user.user)
+    return redirect(uri)

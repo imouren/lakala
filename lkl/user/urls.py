@@ -28,6 +28,7 @@ urlpatterns = [
     # wx
     url(r'^bind_wx/$', views.bind_wx, name="bind_wx"),
     url(r'^wx_redirect/$', views.wx_redirect, name="wx_redirect"),
+    url(r'^wx_redirect_login/$', views.wx_redirect_login, name="wx_redirect_login"),
     # admin
     url(r'^income/$', site.income, name="admin_income"),
     url(r'^reminder/$', site.reminder, name="admin_reminder"),
