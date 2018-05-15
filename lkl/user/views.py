@@ -515,8 +515,10 @@ def bind_wx(request):
             "headimgurl": wx_user.headimgurl
         }
         return render(request, "lkl/wx_info.html", wx_info)
-    # todo 判断用户profile有内容
-    user = request.user
+    # 判断用户profile有内容
+    if not hasattr(user, "userprofile"):
+        return HttpResponse(u"用户信息有误")
+    # 判断是否关注过（忽略，提现的时候判断）
     state = user.username
     url = wx_utils.get_wx_authorize_url(config.WX_REDIRECT_URL, state)
     return redirect(url)
