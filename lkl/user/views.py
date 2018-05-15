@@ -581,9 +581,10 @@ def wx_redirect_login(request):
     openid = res["openid"]
     logger.info(res)
     logger.info(access_token)
-    return redirect(uri)
     # scope = res["scope"]
     info = wx_utils.get_userinfo(access_token, openid)
+    logger.info(info)
+    return redirect(uri)
     # 判断openid 是否关注过
     # 判断openid 是否绑定过
     if info["subscribe"]:
