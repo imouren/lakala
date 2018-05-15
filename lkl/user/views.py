@@ -582,7 +582,8 @@ def wx_redirect_login(request):
     logger.info(res)
     logger.info(access_token)
     # scope = res["scope"]
-    info = wx_utils.get_userinfo(access_token, openid)
+    api_access_token = wx_utils.get_api_access_token()
+    info = wx_utils.get_userinfo(api_access_token, openid)
     logger.info(info)
     return redirect(uri)
     # 判断openid 是否关注过
