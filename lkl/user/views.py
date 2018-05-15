@@ -34,6 +34,13 @@ def home_bak(request):
     return render(request, "lkl/index.html", data)
 
 
+def home_login(request):
+    scope = "snsapi_base"
+    state = "user_home"
+    url = wx_utils.get_wx_authorize_url(config.WX_REDIRECT_URL_LOGIN, state, scope)
+    return redirect(url)
+
+
 def home(request):
     """
     用户首页
