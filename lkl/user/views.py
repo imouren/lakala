@@ -585,6 +585,6 @@ def wx_redirect_login(request):
     # 判断openid 是否关注过
     # 判断openid 是否绑定过
     if info["subscribe"]:
-        wx_user = wx_utils.get_wx_user_by_openid(openid)
+        wx_user = dbutils.get_wx_user_by_openid(openid)
         auth.login(request, wx_user.user)
     return redirect(uri)
