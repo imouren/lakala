@@ -574,7 +574,8 @@ def wx_redirect(request):
     if scope == "snsapi_userinfo":
         # 通过access_token和openid拉取用户信息
         # info_res = wx_utils.get_sns_userinfo(access_token, openid)
-        info_res = wx_utils.get_userinfo(access_token, openid)
+        api_access_token = wx_utils.get_api_access_token()
+        info_res = wx_utils.get_userinfo(api_access_token, openid)
         if not info_res["subscribe"]:
             return HttpResponse(u"未关注公众号，不允许绑定")
         # logger.info(info_res)
