@@ -441,6 +441,7 @@ def set_fenrun(request, child):
             "rmb": json.dumps(rmb_list)
         }
     else:
+        point_list = []
         child_fenrun = {}
     data.update(child_fenrun)
 
