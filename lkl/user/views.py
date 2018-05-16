@@ -579,7 +579,7 @@ def wx_redirect(request):
             return HttpResponse(u"未关注公众号，不允许绑定")
         # logger.info(info_res)
         # 创建绑定关系 带用户信息
-        if not dbutils.is_bing_wx(user):
+        if not dbutils.is_bing_wx(user, openid):
             WXUser.objects.create(
                 user=user,
                 openid=info_res["openid"],
@@ -591,6 +591,8 @@ def wx_redirect(request):
                 headimgurl=info_res["headimgurl"],
                 unionid=info_res.get("unionid", ""),
             )
+        else:
+            return HttpResponse(u"账户或者微信被绑定过")
     return HttpResponse(u"绑定成功")
 
 

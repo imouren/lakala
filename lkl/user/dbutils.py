@@ -5,6 +5,7 @@ from collections import defaultdict
 from decimal import Decimal
 from django.db import transaction
 from django.contrib.auth.models import User
+from django.db.models import Q
 from . import models
 from . import utils
 from lkl.utils import string_to_datetime
@@ -309,8 +310,8 @@ def del_token():
 
 
 # 微信绑定相关
-def is_bing_wx(user):
-    objs = models.WXUser.objects.filter(user=user)
+def is_bing_wx(user, openid):
+    objs = models.WXUser.objects.filter(Q(user=user) | Q(openid=openid))
     if objs:
         return True
     else:
