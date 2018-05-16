@@ -1,0 +1,38 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+
+{% block container %}
+
+<div class="weui-topbar">
+    <h1 class="weui-topbar-title">
+        微信绑定
+    </h1>
+    <a href="{% url 'user_account' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
+</div>
+
+<div class="bd mt40 mb40">
+
+<div class="weui-msg">
+  <div class="weui-msg__text-area">
+    <h2 class="weui-msg__title">重要说明</h2>
+    <p class="weui-msg__desc">尊敬的用户，请务必认真阅读以下说明，否则影响您的提现。</p>
+    <p class="weui-msg__desc">1. 微信用户必须实名</p>
+    <p class="weui-msg__desc">2. 微信实名必须与本公众号注册时候填写姓名一致</p>
+    <p class="weui-msg__desc">3. 一旦绑定不可以解除</p>
+    <p class="weui-msg__desc">4. 绑定微信为提现到账微信号</p>
+    <p class="weui-msg__desc">5. 只有关注本公众号才允许提现</p>
+  </div>
+  <div class="weui-msg__opr-area">
+    <p class="weui-btn-area">
+      <a href="{% url 'bind_wx' %}" class="weui-btn weui-btn_primary">确认绑定</a>
+    </p>
+  </div>
+</div>
+
+</div>
+
+{% endblock %}
+
+{% block footer_js_extra %}
+
+{% endblock %}

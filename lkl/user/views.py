@@ -511,6 +511,21 @@ def password_reset(request):
 
 
 @login_required
+def bind_wx_page(request):
+    # 绑定微信
+    # 判断已经绑定过
+    user = request.user
+    wx_user = dbutils.get_wx_user(user)
+    if wx_user:
+        wx_info = {
+            "nickname": wx_user.nickname,
+            "headimgurl": wx_user.headimgurl
+        }
+        return render(request, "lkl/wx_info.html", wx_info)
+    return render(request, "lkl/wx_page.html", {})
+
+
+@login_required
 def bind_wx(request):
     # 绑定微信
     # 判断已经绑定过
@@ -560,7 +575,7 @@ def wx_redirect(request):
         # 通过access_token和openid拉取用户信息
         # info_res = wx_utils.get_sns_userinfo(access_token, openid)
         info_res = wx_utils.get_userinfo(access_token, openid)
-        if not info["subscribe"]:
+        if not info_res["subscribe"]:
             return HttpResponse(u"未关注公众号，不允许绑定")
         # logger.info(info_res)
         # 创建绑定关系 带用户信息
@@ -595,5 +610,6 @@ def wx_redirect_login(request):
     # 判断openid 是否绑定过
     if info["subscribe"]:
         wx_user = dbutils.get_wx_user_by_openid(openid)
-        auth.login(request, wx_user.user)
+        if wx_user:
+            auth.login(request, wx_user.user)
     return redirect(uri)

@@ -27,6 +27,7 @@ urlpatterns = [
     # set fenrun
     url(r'^set_fenrun/(?P<child>[0-9]{11})/$', views.set_fenrun, name="set_fenrun"),
     # wx
+    url(r'^bind_wx_page/$', views.bind_wx_page, name="bind_wx_page"),
     url(r'^bind_wx/$', views.bind_wx, name="bind_wx"),
     url(r'^wx_redirect/$', views.wx_redirect, name="wx_redirect"),
     url(r'^wx_redirect_login/$', views.wx_redirect_login, name="wx_redirect_login"),
