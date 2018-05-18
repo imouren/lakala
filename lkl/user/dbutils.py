@@ -9,6 +9,7 @@ from django.db.models import Q
 from . import models
 from . import utils
 from lkl.utils import string_to_datetime
+from xyf.utils import send_token_msg
 
 
 def add_userrmb_rmb(user, rmb, is_child=False):
@@ -296,6 +297,7 @@ def disable_token(token):
     for obj in objs:
         obj.is_disabled = True
         obj.save()
+    send_token_msg()
 
 
 def add_token(token):

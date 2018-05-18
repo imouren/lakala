@@ -11,7 +11,6 @@ import time
 from xyf.models import SYFTrade, SYFTerminal
 from user.utils import wrapper_raven
 from xyf.dbutils import get_token_code, disable_token
-from xyf.utils import send_token_msg
 
 
 reload(sys)
@@ -90,7 +89,6 @@ def get_activate_terminal(cookies, page):
     print "total", total, "page", page
     if not total or not total.isdigit():
         disable_token(token)
-        send_token_msg()
     else:
         total = int(total)
     content = soup.find("div", class_="pageContent")
