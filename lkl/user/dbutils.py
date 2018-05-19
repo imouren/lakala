@@ -297,7 +297,6 @@ def disable_token(token):
     for obj in objs:
         obj.is_disabled = True
         obj.save()
-    send_token_msg()
 
 
 def add_token(token):

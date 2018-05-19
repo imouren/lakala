@@ -7,6 +7,7 @@ from django.db import transaction
 from . import models
 from . import utils
 from lkl.utils import string_to_datetime
+from xyf.utils import send_token_msg
 
 
 # token
@@ -24,6 +25,7 @@ def disable_token(token):
     for obj in objs:
         obj.is_disabled = True
         obj.save()
+    send_token_msg()
 
 
 def add_token(token):
