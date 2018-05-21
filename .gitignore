@@ -7,6 +7,7 @@ manage_local.py
 config.py
 settings_pro.py
 wx_utils.py
+wx_pay.py
 help.txt
 
 # Vim swap files

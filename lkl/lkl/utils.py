@@ -19,3 +19,27 @@ def string_to_datetime(time_str, format_str="%Y%m%d"):
 def get_salt(n=4):
     res = [random.choice(string.digits) for i in range(n)]
     return "".join(res)
+
+
+def get_client_ip(request):
+    ip = request.META.get('HTTP_X_FORWARDED_FOR', None)
+    if ip:
+        return ip.split(',')[0].strip()
+    return request.META.get('REMOTE_ADDR', None)
+
+
+def wx_tixian(open_id, fen, name, user_ip):
+    from .wx_pay import WxPay
+    pay = WxPay()
+    api_cert_path = "/root/wxpay/"
+    api_key_path = "/root/wxpay/"
+    data = {
+        "openid": open_id,
+        "amount": fen,
+        "check_name": "FORCE_CHECK",
+        "re_user_name": name,
+        "spbill_create_ip": user_ip,
+        "desc": u"分润发放"
+    }
+    res = pay.enterprise_payment(api_cert_path, api_key_path, data)
+    print res
