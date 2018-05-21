@@ -31,8 +31,8 @@ def get_client_ip(request):
 def wx_tixian(open_id, fen, name, user_ip):
     from .wx_pay import WxPay
     pay = WxPay()
-    api_cert_path = "/root/wxpay/"
-    api_key_path = "/root/wxpay/"
+    api_cert_path = "/root/wxpay/apiclient_cert.pem"
+    api_key_path = "/root/wxpay/apiclient_key.pem"
     data = {
         "openid": open_id,
         "amount": fen,
