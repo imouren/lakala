@@ -41,5 +41,5 @@ def wx_tixian(open_id, fen, name, user_ip):
         "spbill_create_ip": user_ip,
         "desc": u"分润发放"
     }
-    res = pay.enterprise_payment(api_cert_path, api_key_path, data)
+    res = pay.enterprise_payment(api_cert_path, api_key_path, **data)
     print res
