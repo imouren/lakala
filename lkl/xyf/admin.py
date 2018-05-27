@@ -81,7 +81,7 @@ class XYFUserRMBAdmin(admin.ModelAdmin):
 
 @admin.register(models.XYFProfit)
 class XYFProfitAdmin(admin.ModelAdmin):
-    list_display = ["user", "terminal", "trade_date", "trans_id", "trade_rmb", "trade_fee", "trade_status", "trade_card_type", "return_code", "status", "create_time", "pay_time"]
+    list_display = ["user", "fenrun_point", "rmb", "terminal", "trade_date", "trans_id", "trade_rmb", "trade_fee", "trade_status", "trade_card_type", "return_code", "status", "create_time", "pay_time"]
     fields = ["user", "terminal", "trade_date", "trans_id", "trade_rmb", "trade_fee", "trade_status", "trade_card_type", "return_code", "status", "pay_time"]
     search_fields = ["user__username", "terminal", "trans_id"]
     list_filter = ["status"]
