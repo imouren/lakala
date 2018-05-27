@@ -31,6 +31,9 @@
 */30 * * * * /projects/lakala/config/run_command_pro.sh xyf_trade_today >> /data/script/xyf_trade_today.log 2>&1
 13 */4 * * * /projects/lakala/config/run_command_pro.sh xyf_trade_history >> /data/script/xyf_trade_history.log 2>&1
 
+# xyf rmb
+*/30 * * * * /projects/lakala/config/run_command_pro.sh xyf_user_rmb >> /data/script/xyf_user_rmb.log 2>&1
+
 # run once
 # /projects/lakala/config/run_command_pro.sh sync_trade01 --start=20180101 --end=20180128
 # /projects/lakala/config/run_command_pro.sh sync_slkl --start=20180101 --end=20180213 --table=d0

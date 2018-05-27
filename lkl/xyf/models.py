@@ -6,6 +6,13 @@ from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 
 
+STATUS_CHOICE = (
+    ('UP', u'未支付'),
+    ('PD', u'已支付'),
+    ('SU', u'成功'),
+)
+
+
 @python_2_unicode_compatible
 class XYFToken(models.Model):
     token = models.TextField(u"token")
@@ -142,3 +149,50 @@ class XYFFenRun(models.Model):
 
     def __str__(self):
         return self.point
+
+
+@python_2_unicode_compatible
+class XYFUserRMB(models.Model):
+    """
+    用户金钱表
+    """
+    user = models.OneToOneField(User)
+    rmb = models.IntegerField(u"金额(分)")
+    child_rmb = models.IntegerField(u"推荐金额(分)", default=0)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    update_time = models.DateTimeField(u"更新时间", auto_now=True)
+
+    class Meta:
+        db_table = "xyf_user_rmb"
+        verbose_name = verbose_name_plural = u"星用户金钱表"
+        ordering = ["-rmb", "-child_rmb"]
+
+    def __str__(self):
+        return str(self.rmb)
+
+
+@python_2_unicode_compatible
+class XYFProfit(models.Model):
+    """
+    用户获利表
+    """
+    user = models.ForeignKey(User, verbose_name=u"用户")
+    terminal = models.CharField(u"终端号", max_length=64)
+    trade_date = models.CharField(u"交易时间", max_length=64)
+    trans_id = models.CharField(u"流水号", max_length=64, unique=True)
+    trade_rmb = models.CharField(u"交易金额（元）", max_length=64)
+    trade_fee = models.CharField(u"交易手续费（元）", max_length=64)
+    trade_status = models.CharField(u"交易状态", max_length=64)
+    trade_card_type = models.CharField(u"卡类型", max_length=64)
+    return_code = models.CharField(u"返回码", max_length=64)
+    status = models.CharField(u"订单状态", choices=STATUS_CHOICE, max_length=10, default="UP")
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    pay_time = models.DateTimeField(u"分红时间", null=True, blank=True)
+
+    class Meta:
+        db_table = "xyf_user_profit"
+        verbose_name = verbose_name_plural = u"星用户获利表"
+        ordering = ["-pay_time"]
+
+    def __str__(self):
+        return self.trans_id

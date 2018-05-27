@@ -60,6 +60,7 @@ class XYFPosAdmin(admin.ModelAdmin):
     fields = ["user", "sn_code", "terminal", "is_activate"]
     search_fields = ["sn_code", "terminal", "user__username"]
     list_filter = ["is_activate"]
+    readonly_fields = ["terminal"]
 
 
 @admin.register(models.XYFFenRun)
@@ -69,3 +70,18 @@ class XYFFenRunAdmin(admin.ModelAdmin):
     fields = ["user", "point", "message"]
     search_fields = ["user__username"]
     list_filter = ["point"]
+
+
+@admin.register(models.XYFUserRMB)
+class XYFUserRMBAdmin(admin.ModelAdmin):
+    list_display = ["user", "rmb", "create_time", "update_time"]
+    fields = ["user", "rmb"]
+    search_fields = ["user__username"]
+
+
+@admin.register(models.XYFProfit)
+class XYFProfitAdmin(admin.ModelAdmin):
+    list_display = ["user", "terminal", "trade_date", "trans_id", "trade_rmb", "trade_fee", "trade_status", "trade_card_type", "return_code", "status", "create_time", "pay_time"]
+    fields = ["user", "terminal", "trade_date", "trans_id", "trade_rmb", "trade_fee", "trade_status", "trade_card_type", "return_code", "status", "pay_time"]
+    search_fields = ["user__username", "terminal", "trans_id"]
+    list_filter = ["status"]

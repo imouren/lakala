@@ -92,6 +92,38 @@ def get_user_trans_total(user):
     objs = models.SYFTrade.objects.filter(terminal__in=terminals)
     trans_total = Decimal(0)
     for obj in objs:
-        if obj.trade_card_type == u"贷记卡" and obj.return_code == "00":
+        if obj.trade_card_type == u"贷记卡" and obj.return_code == "00" and obj.trade_rmb != "299.0":
             trans_total += Decimal(obj.trade_rmb)
     return trans_total
+
+
+def add_xyfuserrmb_rmb(user, rmb):
+    with transaction.atomic():
+        obj, created = models.XYFUserRMB.objects.select_for_update().get_or_create(user=user, defaults={"rmb": 0})
+        obj.rmb += rmb
+        obj.save()
+
+
+def sub_xyfuserrmb_rmb(user, rmb):
+    with transaction.atomic():
+        obj, created = models.XYFUserRMB.objects.select_for_update().get_or_create(user=user, defaults={"rmb": 0})
+        obj.rmb -= rmb
+        obj.save()
+
+
+def get_xyfuserrmb_num(user):
+    with transaction.atomic():
+        obj, created = models.XYFUserRMB.objects.select_for_update().get_or_create(user=user, defaults={"rmb": 0})
+    return obj.rmb
+
+
+def get_user_by_terminal(terminal):
+    """
+    通过终端号获取用户
+    """
+    try:
+        obj = models.XYFPos.objects.get(terminal=terminal)
+        user = obj.user
+    except Exception:
+        user = None
+    return user
