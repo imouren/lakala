@@ -51,7 +51,7 @@ class Command(BaseCommand):
         default_user = get_user_by_username("13300000000")
         # SYFTrade
         used_trans_ids = set(models.XYFProfit.objects.values_list("trans_id", flat=True))
-        objs = models.SYFTrade.objects.filter(card_type=u"贷记卡").filter(return_code="00")
+        objs = models.SYFTrade.objects.filter(trade_card_type=u"贷记卡").filter(return_code="00")
         # if obj.trade_card_type == u"贷记卡" and obj.return_code == "00" and obj.trade_rmb != "299.0":
         for obj in objs:
             if obj.trans_id in used_trans_ids:
