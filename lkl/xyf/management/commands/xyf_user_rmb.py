@@ -60,6 +60,7 @@ class Command(BaseCommand):
             adate = adatetime.date()
             if start_date <= adate <= end_date:
                 process_xyf_rmb(obj, default_user)
+        print "ok"
 
 
 def process_xyf_rmb(obj, default_user):
