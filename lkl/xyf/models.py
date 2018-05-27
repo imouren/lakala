@@ -177,6 +177,7 @@ class XYFProfit(models.Model):
     用户获利表
     """
     user = models.ForeignKey(User, verbose_name=u"用户")
+    rmb = models.IntegerField(u"利润金额(分)", default=0)
     terminal = models.CharField(u"终端号", max_length=64)
     trade_date = models.CharField(u"交易时间", max_length=64)
     trans_id = models.CharField(u"流水号", max_length=64, unique=True)

@@ -90,7 +90,7 @@ def process_xyf_rmb(obj, default_user):
         trade_fee=obj.trade_fee,
         trade_status=obj.trade_status,
         trade_card_type=obj.trade_card_type,
-        return_code=obj.return_code,
+        return_code=obj.return_code
     )
     profit.status = "PD"
     profit.pay_time = datetime.now()
