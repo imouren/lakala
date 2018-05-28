@@ -91,6 +91,6 @@ def info(request):
         # "trans_total": trans_total,
         # "rmb": "%.2f" % rmb,
         "trans_total": u"敬请期待",
-        "rmb": "%.2f" u"敬请期待",
+        "rmb": u"敬请期待",
     }
     return render(request, "xyf/user_info.html", data)
