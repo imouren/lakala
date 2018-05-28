@@ -77,7 +77,9 @@ def process_xyf_rmb(obj, default_user):
     else:
         print "no user fenrun!"
         return
-    armb = (Decimal("0.550") - Decimal(user_point)) / Decimal("0.55") * Decimal(obj.trade_fee) * Decimal("0.92")
+    myrmb = Decimal("0.035") / Decimal("0.55") * Decimal(obj.trade_fee)
+    myrmb = myrmb.quantize(Decimal('1.00'), ROUND_DOWN)
+    armb = (Decimal("0.550") - Decimal(user_point)) / Decimal("0.035") * myrmb * Decimal("0.92")
     xrmb = armb.quantize(Decimal('1.00'), ROUND_DOWN)
     profit = models.XYFProfit.objects.create(
         user=user,
