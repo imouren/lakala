@@ -5,7 +5,8 @@ from datetime import datetime
 from django.core.management.base import BaseCommand
 from xyf import models
 from lkl.utils import wx_tixian
-from user.utils import get_user_by_username, wrapper_raven, get_wx_user
+from user.utils import get_user_by_username, wrapper_raven
+from user.dbutils import get_wx_user
 from xyf import dbutils
 
 
