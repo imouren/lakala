@@ -158,6 +158,7 @@ class XYFUserRMB(models.Model):
     """
     user = models.OneToOneField(User)
     rmb = models.IntegerField(u"金额(分)")
+    is_auto = models.BooleanField(u"自动到账", default=False)
     child_rmb = models.IntegerField(u"推荐金额(分)", default=0)
     create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
     update_time = models.DateTimeField(u"更新时间", auto_now=True)
@@ -198,3 +199,40 @@ class XYFProfit(models.Model):
 
     def __str__(self):
         return self.trans_id
+
+
+@python_2_unicode_compatible
+class XYFTiXianOrder(models.Model):
+    ORDER_TYPE_CHOICE = (
+        ('RMB', u'返利余额提现'),
+        ('CHILD_RMB', u'推荐余额提现'),
+    )
+    user = models.ForeignKey(User, verbose_name=u"用户")
+    user_account = models.CharField(u"用户账号", max_length=512, blank=True)
+    rmb = models.IntegerField(u"提现金额(分)")
+    fee = models.IntegerField(u"提现手续费(分)")
+    status = models.CharField(u"订单状态", choices=STATUS_CHOICE, max_length=10, default="UP")
+    order_id = models.CharField(u"订单ID", max_length=64, unique=True)
+    order_type = models.CharField(u"提现类型", choices=ORDER_TYPE_CHOICE, max_length=20, default="RMB")
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    pay_time = models.DateTimeField(u"提现时间", null=True, blank=True)
+    finish_time = models.DateTimeField(u"完结时间", null=True, blank=True)
+
+    def __str__(self):
+        return self.order_id
+
+    def save(self, *args, **kwargs):
+        if not self.order_id:
+            uid = str(uuid.uuid4())
+            self.order_id = hashlib.md5(uid).hexdigest()
+        return super(XYFTiXianOrder, self).save(*args, **kwargs)
+
+    def _pay_rmb(self):
+        return self.rmb - self.fee
+    _pay_rmb.short_description = u"到账金额"
+    pay_rmb = property(_pay_rmb)
+
+    class Meta:
+        db_table = "xyf_tixian_order"
+        verbose_name = verbose_name_plural = u"星提现表"
+        ordering = ["-pay_time"]

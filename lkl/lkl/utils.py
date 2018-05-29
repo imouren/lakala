@@ -28,7 +28,7 @@ def get_client_ip(request):
     return request.META.get('REMOTE_ADDR', None)
 
 
-def wx_tixian(open_id, fen, name, user_ip):
+def wx_tixian(open_id, fen, name, user_ip="139.199.102.27"):
     """
     {'partner_trade_no': '1498390922201805216403871295',
     'payment_time': '2018-05-21 21:03:15',

@@ -74,8 +74,8 @@ class XYFFenRunAdmin(admin.ModelAdmin):
 
 @admin.register(models.XYFUserRMB)
 class XYFUserRMBAdmin(admin.ModelAdmin):
-    list_display = ["user", "rmb", "create_time", "update_time"]
-    fields = ["user", "rmb"]
+    list_display = ["user", "rmb", "is_auto", "create_time", "update_time"]
+    fields = ["user", "rmb", "is_auto"]
     search_fields = ["user__username"]
 
 
