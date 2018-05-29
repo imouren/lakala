@@ -26,3 +26,15 @@ class XYFFenRunAdminForm(forms.ModelForm):
         widgets = {
             'user': apply_select2(forms.Select)
         }
+
+
+class XYFUserRMBAdminForm(forms.ModelForm):
+    """
+    for admin
+    """
+    class Meta:
+        model = models.XYFUserRMB
+        fields = ["user", "rmb", "is_auto"]
+        widgets = {
+            'user': apply_select2(forms.Select)
+        }
