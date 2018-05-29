@@ -90,7 +90,7 @@ class XYFProfitAdmin(admin.ModelAdmin):
 
 @admin.register(models.XYFTiXianOrder)
 class XYFTiXianOrderAdmin(admin.ModelAdmin):
-    list_display = ["user", "user_account", "rmb", "terminal", "fee", "status", "order_id", "order_type", "create_time", "pay_time", "finish_time"]
-    fields = ["user", "user_account", "rmb", "terminal", "fee", "status", "order_id", "order_type", "pay_time", "finish_time"]
+    list_display = ["user", "user_account", "rmb", "fee", "status", "order_id", "order_type", "create_time", "pay_time", "finish_time"]
+    fields = ["user", "user_account", "rmb", "fee", "status", "order_id", "order_type", "pay_time", "finish_time"]
     search_fields = ["user__username", ]
     list_filter = ["status"]
