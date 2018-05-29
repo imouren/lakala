@@ -86,3 +86,11 @@ class XYFProfitAdmin(admin.ModelAdmin):
     fields = ["user", "terminal", "trade_date", "trans_id", "trade_rmb", "trade_fee", "trade_status", "trade_card_type", "return_code", "status", "pay_time"]
     search_fields = ["user__username", "terminal", "trans_id"]
     list_filter = ["status"]
+
+
+@admin.register(models.XYFTiXianOrder)
+class XYFTiXianOrderAdmin(admin.ModelAdmin):
+    list_display = ["user", "user_account", "rmb", "terminal", "fee", "status", "order_id", "order_type", "create_time", "pay_time", "finish_time"]
+    fields = ["user", "user_account", "rmb", "terminal", "fee", "status", "order_id", "order_type", "pay_time", "finish_time"]
+    search_fields = ["user__username", ]
+    list_filter = ["status"]
