@@ -52,6 +52,7 @@ class Command(BaseCommand):
 
 def tixian(objs):
     for obj in objs:
+        print "start:", obj.user, obj.rmb
         user = obj.user
         user_rmb = obj.rmb
         if user_rmb < MIN_RMB:
@@ -86,5 +87,7 @@ def tixian(objs):
             tx.status = 'SU'
             tx.finish_time = datetime.now()
             tx.save()
+            print "pay ok!"
         else:
+            print "pay error!"
             print res
