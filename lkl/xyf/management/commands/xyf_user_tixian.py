@@ -81,7 +81,7 @@ def tixian(objs):
         tx.status = "PD"
         tx.save()
         # give user wx rmb
-        res = wx_tixian(wx_user.openid, real_rmb, name)
+        res = wx_tixian(wx_user.openid, str(real_rmb), name)
         if res["result_code"] == "SUCCESS":
             tx.status = 'SU'
             tx.finish_time = datetime.now()
