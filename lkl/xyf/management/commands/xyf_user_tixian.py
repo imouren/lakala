@@ -71,7 +71,7 @@ def tixian(objs):
         real_rmb = tixian_rmb - fee_rmb
         tx = models.XYFTiXianOrder.objects.create(
             user=user,
-            user_account=wx_user.open_id,
+            user_account=wx_user.openid,
             rmb=tixian_rmb,
             fee=fee_rmb,
             order_type="RMB",
