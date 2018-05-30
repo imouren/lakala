@@ -78,6 +78,19 @@ class XYFUserRMBAdmin(admin.ModelAdmin):
     list_display = ["user", "rmb", "is_auto", "create_time", "update_time"]
     fields = ["user", "rmb", "is_auto"]
     search_fields = ["user__username"]
+    actions = ['auto_ok_action', 'auto_no_action']
+
+    def auto_ok_action(self, request, queryset):
+        for obj in queryset:
+            obj.is_auto = True
+            obj.save()
+    auto_ok_action.short_description = u"自动到账"
+
+    def auto_no_action(self, request, queryset):
+        for obj in queryset:
+            obj.is_auto = False
+            obj.save()
+    auto_no_action.short_description = u"不自动到账"
 
 
 @admin.register(models.XYFProfit)
