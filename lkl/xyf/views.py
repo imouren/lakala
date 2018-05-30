@@ -81,16 +81,15 @@ def info(request):
         fenrun = None
         point = 0.55
     trans_total = dbutils.get_user_trans_total(user)
-    diff_point = base_point - point
-    if diff_point > 0:
-        rmb = float(trans_total) / 100.0 * diff_point
-    else:
-        rmb = 0
+    # diff_point = base_point - point
+    # if diff_point > 0:
+    #     rmb = float(trans_total) / 100.0 * diff_point
+    # else:
+    #     rmb = 0
+    rmb = dbutils.get_xyfuserrmb_num(user)
     data = {
         "fenrun": fenrun,
-        # "trans_total": trans_total,
-        # "rmb": "%.2f" % rmb,
-        "trans_total": u"敬请期待",
-        "rmb": u"敬请期待",
+        "trans_total": trans_total,
+        "rmb": "%.2f" % rmb / 100.0
     }
     return render(request, "xyf/user_info.html", data)
