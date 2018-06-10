@@ -66,6 +66,10 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     "xyf.XYFUserRMB",
     "xyf.XYFProfit",
     "xyf.XYFTiXianOrder",
+    "jinkong.JKMerchant",
+    "jinkong.JKTerminal",
+    "jinkong.JKTrade",
+    "jinkong.JKToken"
 ]
 
 MIDDLEWARE = [
