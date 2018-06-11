@@ -38,6 +38,7 @@
 10 * * * * /projects/lakala/config/run_command_pro.sh jk_merchant >> /data/script/jk_data.log 2>&1
 45 * * * * /projects/lakala/config/run_command_pro.sh jk_terminal >> /data/script/jk_data.log 2>&1
 */15 * * * * /projects/lakala/config/run_command_pro.sh jk_trade >> /data/script/jk_data.log 2>&1
+*/21 * * * * /projects/lakala/config/run_command_pro.sh jk_settlement >> /data/script/jk_data.log 2>&1
 
 
 # run once
