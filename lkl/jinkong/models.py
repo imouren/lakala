@@ -106,6 +106,33 @@ class JKTerminal(models.Model):
 
 
 @python_2_unicode_compatible
+class JKSettlement(models.Model):
+    """
+    数据来源http://119.18.194.36/
+    minipos商户结算单查询
+    """
+    trans_id = models.CharField(u"流水号", max_length=64, unique=True)
+    merchant_code = models.CharField(u"商户编号", max_length=64)
+    register_name = models.CharField(u"注册名称", max_length=64)
+    start_time = models.CharField(u"发起时间", max_length=64)
+    trade_rmb = models.CharField(u"金额（元）", max_length=64)
+    trade_fee = models.CharField(u"手续费（元）", max_length=64)
+    pay_type = models.CharField(u"付款方式", max_length=64)
+    end_time = models.CharField(u"完成时间", max_length=64)
+    pay_status = models.CharField(u"结算状态", max_length=64)
+    fenrun = models.CharField(u"分润", max_length=64)
+    update_time = models.DateTimeField(u"爬取更新时间", auto_now=True)
+
+    class Meta:
+        db_table = "jk_settlement"
+        verbose_name = verbose_name_plural = u"商户结算单查询"
+        ordering = ["-update_time"]
+
+    def __str__(self):
+        return self.trans_id
+
+
+@python_2_unicode_compatible
 class JKToken(models.Model):
     token = models.TextField(u"token")
     is_disabled = models.BooleanField(u"是否禁用", default=False)

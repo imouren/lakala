@@ -69,6 +69,7 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     "jinkong.JKMerchant",
     "jinkong.JKTerminal",
     "jinkong.JKTrade",
+    "jinkong.JKSettlement",
     "jinkong.JKToken"
 ]
 
@@ -278,7 +279,7 @@ SUIT_CONFIG = {
         {'label': u'卡拉慧', 'icon': 'icon-flag', 'url': 'user_home', 'blank': True},
         {'label': u'TOKEN', 'icon': 'icon-check', 'app': 'user', 'models': ('SLKLToken',)},
         {'label': u'星驿付数据', 'icon': 'icon-check', 'app': 'xyf', 'models': ('SYFTerminal', 'SYFTrade', 'XYFToken', 'XYFPos', 'XYFFenRun', 'XYFUserRMB', 'XYFProfit', 'XYFTiXianOrder')},
-        {'label': u'金控数据', 'icon': 'icon-check', 'app': 'jinkong', 'models': ('JKMerchant', 'JKTerminal', 'JKTrade', 'JKToken')},
+        {'label': u'金控数据', 'icon': 'icon-check', 'app': 'jinkong', 'models': ('JKMerchant', 'JKTerminal', 'JKTrade', 'JKSettlement', 'JKToken')},
     ),
 
     # misc

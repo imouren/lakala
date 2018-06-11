@@ -40,6 +40,13 @@ class JKTradeAdmin(admin.ModelAdmin):
     search_fields = ["trans_id", "terminal", "trade_date"]
 
 
+@admin.register(models.JKSettlement)
+class JKSettlementAdmin(admin.ModelAdmin):
+    list_display = ["id", "trans_id", "merchant_code", "register_name", "start_time", "trade_rmb", "trade_fee", "pay_type", "end_time", "pay_status", "fenrun", "update_time"]
+    fields = ["trans_id", "merchant_code", "register_name", "start_time", "trade_rmb", "trade_fee", "pay_type", "end_time", "pay_status", "fenrun"]
+    search_fields = ["trans_id", ]
+
+
 @admin.register(models.JKToken)
 class JKTokenAdmin(admin.ModelAdmin):
     list_display = ["id", "token", "is_disabled", "create_time", "update_time"]
