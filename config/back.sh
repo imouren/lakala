@@ -1,0 +1,1 @@
+mysqldump -uuser -ppass lakala  | gzip > `date  "+/data/mysql_bak/lakala_%Y%m%d.gz"
