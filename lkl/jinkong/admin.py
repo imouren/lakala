@@ -10,6 +10,7 @@ from django.template.loader import render_to_string
 from easy_select2 import select2_modelform
 from suit.admin import SortableTabularInline
 from . import models
+from . import forms as fms
 
 
 def is_superuser(request):
@@ -51,3 +52,13 @@ class JKSettlementAdmin(admin.ModelAdmin):
 class JKTokenAdmin(admin.ModelAdmin):
     list_display = ["id", "token", "is_disabled", "create_time", "update_time"]
     fields = ["token", "is_disabled"]
+
+
+@admin.register(models.JKPos)
+class JKPosAdmin(admin.ModelAdmin):
+    form = fms.JKPosAdminForm
+    list_display = ["user", "sn_code", "terminal", "is_activate", "create_time", "update_time"]
+    fields = ["user", "sn_code", "terminal", "is_activate"]
+    search_fields = ["sn_code", "terminal", "user__username"]
+    list_filter = ["is_activate"]
+    readonly_fields = ["terminal"]

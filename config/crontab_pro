@@ -50,3 +50,4 @@
 # /projects/lakala/config/run_command_pro.sh user_rmb --start=2018-02-01 --end=2018-02-18 --table=d1
 # /projects/lakala/config/run_command_pro.sh xyf_trade_history --start=20180329 --end=20180404
 # /projects/lakala/config/run_command_pro.sh jk_trade --start=20180520 --end=20180610
+# /projects/lakala/config/run_command_pro.sh jk_settlement --start=20180520 --end=20180610
