@@ -62,3 +62,12 @@ class JKPosAdmin(admin.ModelAdmin):
     search_fields = ["sn_code", "terminal", "user__username"]
     list_filter = ["is_activate"]
     readonly_fields = ["terminal"]
+
+
+@admin.register(models.JKFenRun)
+class JKFenRunAdmin(admin.ModelAdmin):
+    form = fms.JKFenRunAdminForm
+    list_display = ["user", "point", "message", "create_time", "update_time"]
+    fields = ["user", "point", "message"]
+    search_fields = ["user__username"]
+    list_filter = ["point"]

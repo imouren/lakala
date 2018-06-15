@@ -14,3 +14,15 @@ class JKPosAdminForm(forms.ModelForm):
         widgets = {
             'user': apply_select2(forms.Select)
         }
+
+
+class JKFenRunAdminForm(forms.ModelForm):
+    """
+    for admin
+    """
+    class Meta:
+        model = models.JKFenRun
+        fields = ["user", "point", "message"]
+        widgets = {
+            'user': apply_select2(forms.Select)
+        }

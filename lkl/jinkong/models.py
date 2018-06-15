@@ -171,3 +171,38 @@ class JKPos(models.Model):
 
     def __str__(self):
         return self.sn_code
+
+
+@python_2_unicode_compatible
+class JKFenRun(models.Model):
+    POINT_CHOICE = [
+        ("0.520", u"0.520"),
+        ("0.525", u"0.525"),
+        ("0.530", u"0.530"),
+        ("0.535", u"0.535"),
+        ("0.540", u"0.540"),
+        ("0.545", u"0.545"),
+        ("0.550", u"0.550"),
+        ("0.555", u"0.555"),
+        ("0.560", u"0.560"),
+        ("0.565", u"0.565"),
+        ("0.570", u"0.570"),
+        ("0.575", u"0.575"),
+        ("0.580", u"0.580"),
+        ("0.585", u"0.585"),
+        ("0.590", u"0.590"),
+        ("0.595", u"0.595"),
+        ("0.60", u"0.60"),
+    ]
+    user = models.OneToOneField(User, verbose_name=u"用户")
+    point = models.CharField(u"提点", choices=POINT_CHOICE, max_length=50)
+    message = models.TextField(u"说明", blank=True)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    update_time = models.DateTimeField(u"更新时间", auto_now=True)
+
+    class Meta:
+        db_table = "jk_fenrun"
+        verbose_name = verbose_name_plural = u"金控分润"
+
+    def __str__(self):
+        return self.point
