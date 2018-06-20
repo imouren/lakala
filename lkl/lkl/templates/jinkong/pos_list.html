@@ -5,7 +5,7 @@
 
 <div class="weui-topbar">
     <h1 class="weui-topbar-title">我的终端</h1>
-    <a href="{% url 'xyf_home' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
+    <a href="{% url 'jk_home' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
 </div>
 
 <div class="bd mt40 mb40">
@@ -21,7 +21,7 @@
             {{pos.status}}
           </div>
           <div class="weui-cell__bd">
-            <a href="{% url 'xyf_pos_detail' %}?pos={{pos.code}}">明细</a>
+            <a href="{% url 'jk_pos_detail' %}?pos={{pos.code}}">明细</a>
           </div>
 
         </div>

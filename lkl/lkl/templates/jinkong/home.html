@@ -2,14 +2,14 @@
 {% load staticfiles %}
 
 {% block header_title  %}
-    <title>星驿付个人中心</title>
+    <title>金控个人中心</title>
 {% endblock %}
 
 {% block container  %}
 
 
 <div class="weui-grids">
-    <a href="{% url 'xyf_user_info' %}" class="weui-grid js_grid">
+    <a href="{% url 'jk_user_info' %}" class="weui-grid js_grid">
         <div class="weui-grid__icon">
             <img src="{% static "/lkl/icon/xinxi.png" %}" alt="">
         </div>
@@ -17,7 +17,7 @@
             我的信息
         </p>
     </a>
-    <a href="{% url 'xyf_pos_list' %}" class="weui-grid js_grid">
+    <a href="{% url 'jk_pos_list' %}" class="weui-grid js_grid">
         <div class="weui-grid__icon">
             <img src="{% static "/lkl/icon/pos.png" %}" alt="">
         </div>
@@ -31,14 +31,6 @@
         </div>
         <p class="weui-grid__label">
             绑定微信
-        </p>
-    </a>
-    <a href="{% url 'jk_home' %}" class="weui-grid js_grid">
-        <div class="weui-grid__icon">
-            <img src="{% static "/lkl/icon/jinkong.jpg" %}" alt="">
-        </div>
-        <p class="weui-grid__label">
-            金控
         </p>
     </a>
     <a href="{% url 'user_logout' %}" class="weui-grid js_grid">
