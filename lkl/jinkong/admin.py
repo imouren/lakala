@@ -38,7 +38,7 @@ class JKTerminalAdmin(admin.ModelAdmin):
 class JKTradeAdmin(admin.ModelAdmin):
     list_display = ["id", "merchant_code", "register_name", "agent_name", "phone", "terminal", "trade_date", "trade_time", "trade_rmb", "trade_type", "trade_status", "is_miao", "return_code", "card_type", "card_code", "card_bank", "trade_fee", "qingfen_rmb", "trans_id", "fenrun", "trade_category", "product", "update_time"]
     fields = ["merchant_code", "register_name", "agent_name", "phone", "terminal", "trade_date", "trade_time", "trade_rmb", "trade_type", "trade_status", "is_miao", "return_code", "card_type", "card_code", "card_bank", "trade_fee", "qingfen_rmb", "trans_id", "fenrun", "trade_category", "product"]
-    search_fields = ["trans_id", "terminal", "trade_date"]
+    search_fields = ["trans_id", "terminal", "trade_date", "merchant_code"]
 
 
 @admin.register(models.JKSettlement)
