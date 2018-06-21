@@ -21,6 +21,13 @@ from lkl import wx_utils, config
 logger = logging.getLogger('statistics')
 
 
+def home_login(request):
+    scope = "snsapi_base"
+    state = "jk_home"
+    url = wx_utils.get_wx_authorize_url(config.WX_REDIRECT_URL_LOGIN, state, scope)
+    return redirect(url)
+
+
 @login_required
 def home(request):
     """
