@@ -26,3 +26,15 @@ class JKFenRunAdminForm(forms.ModelForm):
         widgets = {
             'user': apply_select2(forms.Select)
         }
+
+
+class JKYunFenRunAdminForm(forms.ModelForm):
+    """
+    for admin
+    """
+    class Meta:
+        model = models.JKFenRun
+        fields = ["user", "point", "message"]
+        widgets = {
+            'user': apply_select2(forms.Select)
+        }

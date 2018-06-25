@@ -206,3 +206,32 @@ class JKFenRun(models.Model):
 
     def __str__(self):
         return self.point
+
+
+@python_2_unicode_compatible
+class JKYunFenRun(models.Model):
+    POINT_CHOICE = [
+        ("0.28", u"0.28"),
+        ("0.29", u"0.29"),
+        ("0.30", u"0.30"),
+        ("0.31", u"0.31"),
+        ("0.32", u"0.32"),
+        ("0.33", u"0.33"),
+        ("0.34", u"0.34"),
+        ("0.35", u"0.35"),
+        ("0.36", u"0.36"),
+        ("0.37", u"0.37"),
+        ("0.38", u"0.38"),
+    ]
+    user = models.OneToOneField(User, verbose_name=u"用户")
+    point = models.CharField(u"提点", choices=POINT_CHOICE, max_length=50)
+    message = models.TextField(u"说明", blank=True)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    update_time = models.DateTimeField(u"更新时间", auto_now=True)
+
+    class Meta:
+        db_table = "jk_yunfenrun"
+        verbose_name = verbose_name_plural = u"金控云闪付分润"
+
+    def __str__(self):
+        return self.point

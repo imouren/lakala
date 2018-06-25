@@ -71,3 +71,12 @@ class JKFenRunAdmin(admin.ModelAdmin):
     fields = ["user", "point", "message"]
     search_fields = ["user__username"]
     list_filter = ["point"]
+
+
+@admin.register(models.JKYunFenRun)
+class JKYunFenRunAdmin(admin.ModelAdmin):
+    form = fms.JKYunFenRunAdminForm
+    list_display = ["user", "point", "message", "create_time", "update_time"]
+    fields = ["user", "point", "message"]
+    search_fields = ["user__username"]
+    list_filter = ["point"]
