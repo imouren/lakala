@@ -46,6 +46,7 @@ def home(request):
     """
     用户首页
     """
+    return redirect("jk_home")
     key = 'lkl_home'
     data_str = rclient.get(key)
     if not data_str:

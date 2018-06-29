@@ -3,7 +3,7 @@ from django.conf.urls import url, include
 from . import views, site
 
 urlpatterns = [
-    # url(r'^$', views.home, name="user_home"),
+    url(r'^$', views.home, name="user_home"),
     url(r'^home_login/$', views.home_login, name="user_home_login"),
     url(r'^info/$', views.info, name="user_info"),
     url(r'^alipay/$', views.alipay, name="user_alipay"),
