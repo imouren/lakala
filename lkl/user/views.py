@@ -36,7 +36,8 @@ def home_bak(request):
 
 def home_login(request):
     scope = "snsapi_base"
-    state = "user_home"
+    # state = "user_home"
+    state = "jk_home"
     url = wx_utils.get_wx_authorize_url(config.WX_REDIRECT_URL_LOGIN, state, scope)
     return redirect(url)
 
@@ -120,7 +121,7 @@ def login(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return redirect("user_home")
+    return redirect("jk_home")
 
 
 def register(request):
