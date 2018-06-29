@@ -72,6 +72,7 @@ def account(request):
     """
     账户页
     """
+    return redirect("jk_home")
     data = {}
     if request.user.is_authenticated:
         return render(request, "lkl/account.html", data)
