@@ -31,7 +31,7 @@ class JKMerchantAdmin(admin.ModelAdmin):
 class JKTerminalAdmin(admin.ModelAdmin):
     list_display = ["id", "merchant_code", "agent_code", "pos_type", "terminal", "communication", "sn_code", "storage_date", "install_date", "is_xjrw", "business", "fee_receive", "fee_back", "status", "update_time"]
     fields = ["factory", "merchant_code", "agent_code", "pos_type", "terminal", "communication", "sn_code", "storage_date", "install_date", "is_xjrw", "business", "fee_receive", "fee_back", "status"]
-    search_fields = ["sn_code", "terminal"]
+    search_fields = ["merchant_code", "sn_code", "terminal"]
     list_filter = ["fee_receive", "fee_back", "status"]
 
 
