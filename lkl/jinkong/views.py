@@ -62,6 +62,14 @@ def jk_pos_detail(request):
 
 
 @login_required
+def jk_merchant_prov(request):
+    pos = request.GET.get("pos")
+    pos_detail = dbutils.get_pos_prov(pos)
+    data = {"detail": pos_detail}
+    return render(request, "jinkong/pos_detail.html", data)
+
+
+@login_required
 def info(request):
     """
     我的信息
