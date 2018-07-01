@@ -5,7 +5,6 @@ from collections import defaultdict
 from decimal import Decimal
 from django.db import transaction
 from . import models
-from . import utils
 from lkl.utils import string_to_datetime
 
 
@@ -90,3 +89,7 @@ def get_user_trans_total(user):
         if obj.card_type == u"贷记" and obj.return_code == "00" and obj.product.strip() == "" and obj.trade_category.strip() == "" and obj.trade_rmb != "220.0" and obj.trade_rmb != "300.0":
             trans_total += Decimal(obj.trade_rmb)
     return trans_total
+
+
+def change_prov_code(user, ):
+    pass
