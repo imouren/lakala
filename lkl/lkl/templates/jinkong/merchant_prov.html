@@ -1,0 +1,39 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+
+{% block container %}
+
+<div class="weui-topbar">
+    <h1 class="weui-topbar-title">归属地</h1>
+    <a href="{% url 'jk_home' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
+</div>
+
+<div class="bd mt40 mb40">
+
+    <div class="weui-cells">
+    {% for merchant, prov in merchants %}
+
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            {{merchant}}
+          </div>
+          <div class="weui-cell__bd">
+            {{prov}}
+          </div>
+          <div class="weui-cell__bd">
+            <a href="{% url 'jk_home' %}?pos={{pos.code}}">改归属地</a>
+          </div>
+
+        </div>
+
+    {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block footer_js_extra %}
+
+
+{% endblock %}

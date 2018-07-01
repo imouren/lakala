@@ -91,5 +91,7 @@ def get_user_trans_total(user):
     return trans_total
 
 
-def change_prov_code(user, ):
-    pass
+def get_user_merchants(user):
+    terminals = set(models.JKPos.objects.filter(user=user).values_list("terminal", flat=True))
+    merchants = list(models.JKTerminal.objects.filter(user=user).filter(terminal__in=terminals).values_list("merchant_code", flat=True))
+    return merchants

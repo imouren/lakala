@@ -15,7 +15,7 @@ from django.contrib.auth import views as django_views
 from django.contrib.auth.decorators import login_required
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
-from . import dbutils
+from . import dbutils, utils
 from lkl import wx_utils, config
 
 logger = logging.getLogger('statistics')
@@ -63,10 +63,10 @@ def jk_pos_detail(request):
 
 @login_required
 def jk_merchant_prov(request):
-    pos = request.GET.get("pos")
-    pos_detail = dbutils.get_pos_prov(pos)
-    data = {"detail": pos_detail}
-    return render(request, "jinkong/pos_detail.html", data)
+    merchants = dbutils.get_user_merchants(request.user)
+    merchants_dict = utils.get_current_prov(merchants)
+    data = {"merchants": merchants_dict}
+    return render(request, "jinkong/merchant_prov.html", data)
 
 
 @login_required

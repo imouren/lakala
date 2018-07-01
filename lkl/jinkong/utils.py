@@ -34,10 +34,8 @@ def get_cookies(cookie_string):
     return cookies
 
 
-def get_current_prov(user, merchant_code):
-    token = get_token_code()
-    cookies = get_cookies(token)
-    url = "http://119.18.194.36/miniIf/miniModifyPlace?mno=%s" % merchant_code
+def _get_merchant_prov(cookies, merchant):
+    url = "http://119.18.194.36/miniIf/miniModifyPlace?mno=%s" % merchant
     r = requests.get(url, cookies=cookies)
     html = r.content.decode("utf-8")
     soup = BeautifulSoup(html)
@@ -47,14 +45,23 @@ def get_current_prov(user, merchant_code):
     return prov
 
 
-def change_prov(user, merchant_code, province):
+def get_current_prov(merchants):
+    token = get_token_code()
+    cookies = get_cookies(token)
+    res = {}
+    for merchant in merchants:
+        prov = _get_merchant_prov(cookies, merchant)
+        res[merchant] = prov
+    return res
+
+
+def change_prov(merchant, province):
     token = get_token_code()
     cookies = get_cookies(token)
     data = {
         "province": province,
-        "mercId": merchant_code
+        "mercId": merchant
     }
     url = "http://119.18.194.36/miniIf/miniSavePlaceData"
     r = requests.post(url, data=data, cookies=cookies)
     return r.ok
-
