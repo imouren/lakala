@@ -1,0 +1,33 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+
+{% block container %}
+
+<div class="weui-topbar">
+    <h1 class="weui-topbar-title">归属地</h1>
+    <a href="{% url 'jk_home' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
+</div>
+
+<div class="bd mt40 mb40">
+
+<form method="get" action="{% url 'jk_change_merchant_prov' %}">
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cells__title fc-red">分润只能申请提高，但不能大于邀请人的分润。
+        </div>
+
+        <div class="weui-btn-area">
+            <button class="weui-btn weui-btn_primary" id="submit" type="submit">确认申请</button>
+        </div>
+
+    </div>
+
+</form>
+
+</div>
+
+{% endblock %}
+
+{% block footer_js_extra %}
+
+
+{% endblock %}

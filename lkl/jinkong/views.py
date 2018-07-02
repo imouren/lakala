@@ -17,6 +17,7 @@ from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from . import dbutils, utils, models
 from lkl import wx_utils, config
+from prov_code import PROV_CODE
 
 logger = logging.getLogger('statistics')
 
@@ -79,13 +80,14 @@ def jk_merchant_prov(request):
 
 
 @login_required
-def jk_change_prov(request):
+def jk_change_merchant_prov(request):
     merchant = request.GET.get("merchant")
     prov = request.GET.get("prov")
     merchants = dbutils.get_user_merchants(request.user)
     if merchant not in merchants:
         return redirect("jk_home")
-    ok = utils.change_prov(merchant, prov)
+    if prov in PROV_CODE:
+        utils.change_prov(merchant, prov)
     return redirect("jk_merchant_prov")
 
 
