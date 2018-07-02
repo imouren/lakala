@@ -82,13 +82,18 @@ def jk_merchant_prov(request):
 @login_required
 def jk_change_merchant_prov(request):
     merchant = request.GET.get("merchant")
-    prov = request.GET.get("prov")
-    merchants = dbutils.get_user_merchants(request.user)
-    if merchant not in merchants:
-        return redirect("jk_home")
-    if prov in PROV_CODE:
-        utils.change_prov(merchant, prov)
-    return redirect("jk_merchant_prov")
+    data = {"merchant": merchant}
+    if request.method == 'POST':
+        merchant = request.POST.get("merchant")
+        prov = request.POST.get("prov")
+        merchants = dbutils.get_user_merchants(request.user)
+        if merchant not in merchants:
+            return redirect("jk_home")
+        if prov in PROV_CODE:
+            utils.change_prov(merchant, prov)
+        return redirect("jk_merchant_prov")
+    else:
+        return render(request, "jinkong/change_merchant_prov.html", data)
 
 
 @login_required
