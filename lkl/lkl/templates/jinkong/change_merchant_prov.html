@@ -13,7 +13,7 @@
 <form method="post" action="{% url 'jk_change_merchant_prov' %}">
 {% csrf_token %}
     <div class="weui-cells weui-cells_form">
-        <div class="weui-cells__title">
+        <div class="weui-cells__title fc-red">
         会员福利，请勿频繁调用！
         </div>
 
@@ -32,7 +32,7 @@
             </div>
             <div class="weui-cell__bd">
                 <select class="weui-select" name="prov">
-                  {% for prov_code, prov_name in prov_dict.itmes %}
+                  {% for prov_code, prov_name in prov_dict.items %}
                   <option value="{{prov_code}}">{{prov_name}}</option>
                   {% endfor %}
                 </select>
