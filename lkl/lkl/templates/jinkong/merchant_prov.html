@@ -11,14 +11,14 @@
 <div class="bd mt40 mb40">
 
     <div class="weui-cells">
-    {% for merchant, prov in merchants.items %}
+    {% for merchant in merchants %}
 
         <div class="weui-cell">
           <div class="weui-cell__bd">
-            **{{merchant|slice:"-4:"}}
+            {{merchant.merchant_name}}
           </div>
           <div class="weui-cell__bd">
-            {{prov}}
+            {{merchant.prov}}
           </div>
           <div class="weui-cell__bd">
             <a href="{% url 'jk_home' %}?pos={{pos.code}}">改归属地</a>

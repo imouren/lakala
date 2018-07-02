@@ -63,10 +63,30 @@ def jk_pos_detail(request):
 
 @login_required
 def jk_merchant_prov(request):
-    merchants = dbutils.get_user_merchants(request.user)
-    merchants_dict = utils.get_current_prov(merchants)
-    data = {"merchants": merchants_dict}
+    merchant_objs = dbutils.get_user_merchant_objs(request.user)
+    merchants = {obj.merchant_code for obj in merchant_objs}
+    merchant_prov_dict = utils.get_current_prov(merchants)
+    merchant_list = []
+    for obj in merchant_objs:
+        info = {
+            "merchant_code": obj.merchant_code,
+            "merchant_name": obj.merchant_name,
+            "prov": merchant_prov_dict.get(obj.merchant_code, "")
+        }
+        merchant_list.append(info)
+    data = {"merchants": merchant_list}
     return render(request, "jinkong/merchant_prov.html", data)
+
+
+@login_required
+def jk_change_prov(request):
+    merchant = request.GET.get("merchant")
+    prov = request.GET.get("prov")
+    merchants = dbutils.get_user_merchants(request.user)
+    if merchant not in merchants:
+        return redirect("jk_home")
+    ok = utils.change_prov(merchant, prov)
+    return redirect("jk_merchant_prov")
 
 
 @login_required
