@@ -31,7 +31,7 @@
                 <label class="weui-label">归属地</label>
             </div>
             <div class="weui-cell__bd">
-                <input class="weui-input" id="merchant" name="merchant" type="hidden" value="merchant">
+                <input class="weui-input" id="merchant" name="merchant" type="hidden" value="{{merchant}}">
                 <select class="weui-select" name="prov">
                   {% for prov_code, prov_name in prov_dict.items %}
                   <option value="{{prov_code}}">{{prov_name}}</option>
