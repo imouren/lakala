@@ -4,19 +4,42 @@
 {% block container %}
 
 <div class="weui-topbar">
-    <h1 class="weui-topbar-title">归属地</h1>
+    <h1 class="weui-topbar-title">归属地修改</h1>
     <a href="{% url 'jk_home' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
 </div>
 
 <div class="bd mt40 mb40">
 
-<form method="get" action="{% url 'jk_change_merchant_prov' %}">
+<form method="post" action="{% url 'jk_change_merchant_prov' %}">
+{% csrf_token %}
     <div class="weui-cells weui-cells_form">
-        <div class="weui-cells__title fc-red">分润只能申请提高，但不能大于邀请人的分润。
+        <div class="weui-cells__title">
+        会员福利，请勿频繁调用！
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">商户</label>
+            </div>
+            <div class="weui-cell__bd">
+                <label class="weui-label">{{name}}</label>
+            </div>
+        </div>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">归属地</label>
+            </div>
+            <div class="weui-cell__bd">
+                <select class="weui-select" name="prov">
+                  {% for prov_code, prov_name in prov_dict.itmes %}
+                  <option value="{{prov_code}}">{{prov_name}}</option>
+                </select>
+            </div>
         </div>
 
         <div class="weui-btn-area">
-            <button class="weui-btn weui-btn_primary" id="submit" type="submit">确认申请</button>
+            <button class="weui-btn weui-btn_primary" id="submit" type="submit">确认修改</button>
         </div>
 
     </div>

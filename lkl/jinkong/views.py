@@ -82,7 +82,8 @@ def jk_merchant_prov(request):
 @login_required
 def jk_change_merchant_prov(request):
     merchant = request.GET.get("merchant")
-    data = {"merchant": merchant}
+    name = request.GET.get("name")
+    data = {"merchant": merchant, "name": name, "prov_dict": PROV_CODE}
     if request.method == 'POST':
         merchant = request.POST.get("merchant")
         prov = request.POST.get("prov")
