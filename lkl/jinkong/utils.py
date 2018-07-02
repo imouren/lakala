@@ -47,6 +47,8 @@ def _get_merchant_prov(cookies, merchant):
 
 def get_current_prov(merchants):
     token = get_token_code()
+    if not token:
+        return u"获取失败"
     cookies = get_cookies(token)
     res = {}
     for merchant in merchants:
@@ -57,6 +59,8 @@ def get_current_prov(merchants):
 
 def change_prov(merchant, province):
     token = get_token_code()
+    if not token:
+        return False
     cookies = get_cookies(token)
     data = {
         "province": province,
