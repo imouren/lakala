@@ -15,7 +15,7 @@ from django.contrib.auth import views as django_views
 from django.contrib.auth.decorators import login_required
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
-from . import dbutils, utils
+from . import dbutils, utils, models
 from lkl import wx_utils, config
 
 logger = logging.getLogger('statistics')
@@ -63,8 +63,8 @@ def jk_pos_detail(request):
 
 @login_required
 def jk_merchant_prov(request):
-    merchant_objs = dbutils.get_user_merchant_objs(request.user)
-    merchants = {obj.merchant_code for obj in merchant_objs}
+    merchants = dbutils.get_user_merchants(request.user)
+    merchant_objs = models.JKMerchant.objects.filter(merchant_code__in=merchants)
     merchant_prov_dict = utils.get_current_prov(merchants)
     merchant_list = []
     for obj in merchant_objs:

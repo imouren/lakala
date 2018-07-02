@@ -95,9 +95,3 @@ def get_user_merchants(user):
     terminals = set(models.JKPos.objects.filter(user=user).values_list("terminal", flat=True))
     merchants = list(models.JKTerminal.objects.filter(terminal__in=terminals).values_list("merchant_code", flat=True))
     return merchants
-
-
-def get_user_merchant_objs(user):
-    terminals = set(models.JKPos.objects.filter(user=user).values_list("terminal", flat=True))
-    merchants = models.JKTerminal.objects.filter(terminal__in=terminals)
-    return merchants
