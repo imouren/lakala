@@ -235,3 +235,97 @@ class JKYunFenRun(models.Model):
 
     def __str__(self):
         return self.point
+
+
+@python_2_unicode_compatible
+class JKUserRMB(models.Model):
+    """
+    用户金钱表
+    """
+    user = models.OneToOneField(User)
+    rmb = models.IntegerField(u"金额(分)")
+    is_auto = models.BooleanField(u"自动到账", default=False)
+    child_rmb = models.IntegerField(u"推荐金额(分)", default=0)
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    update_time = models.DateTimeField(u"更新时间", auto_now=True)
+
+    class Meta:
+        db_table = "jk_user_rmb"
+        verbose_name = verbose_name_plural = u"金用户金钱表"
+        ordering = ["-rmb", "-child_rmb"]
+
+    def __str__(self):
+        return str(self.rmb)
+
+
+@python_2_unicode_compatible
+class JKProfit(models.Model):
+    """
+    用户获利表
+    """
+    user = models.ForeignKey(User, verbose_name=u"用户")
+    fenrun_point = models.CharField(u"提点", max_length=50, blank=True)
+    rmb = models.IntegerField(u"利润金额(分)", default=0)
+    # copy
+    merchant_code = models.CharField(u"商户编号", max_length=64)
+    terminal = models.CharField(u"终端号", max_length=64)
+    trade_date = models.CharField(u"交易日期", max_length=64)
+    trade_rmb = models.CharField(u"交易金额（元）", max_length=64)
+    trade_status = models.CharField(u"交易状态", max_length=64)
+    return_code = models.CharField(u"应答码", max_length=64)
+    card_type = models.CharField(u"卡类型", max_length=64)
+    trade_fee = models.CharField(u"交易手续费（元）", max_length=64)
+    qingfen_rmb = models.CharField(u"清分金额", max_length=64)
+    trans_id = models.CharField(u"流水号", max_length=64, unique=True)
+    fenrun = models.CharField(u"分润", max_length=64)
+    trade_category = models.CharField(u"交易类别", max_length=64)
+    product = models.CharField(u"产品标识", max_length=64)
+    # 状态和时间
+    status = models.CharField(u"订单状态", choices=STATUS_CHOICE, max_length=10, default="UP")
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    pay_time = models.DateTimeField(u"分红时间", null=True, blank=True)
+
+    class Meta:
+        db_table = "jk_user_profit"
+        verbose_name = verbose_name_plural = u"金用户获利表"
+        ordering = ["-pay_time"]
+
+    def __str__(self):
+        return self.trans_id
+
+
+@python_2_unicode_compatible
+class JKTiXianOrder(models.Model):
+    ORDER_TYPE_CHOICE = (
+        ('RMB', u'返利余额提现'),
+        ('CHILD_RMB', u'推荐余额提现'),
+    )
+    user = models.ForeignKey(User, verbose_name=u"用户")
+    user_account = models.CharField(u"用户账号", max_length=512, blank=True)
+    rmb = models.IntegerField(u"提现金额(分)")
+    fee = models.IntegerField(u"提现手续费(分)")
+    status = models.CharField(u"订单状态", choices=STATUS_CHOICE, max_length=10, default="UP")
+    order_id = models.CharField(u"订单ID", max_length=64, unique=True)
+    order_type = models.CharField(u"提现类型", choices=ORDER_TYPE_CHOICE, max_length=20, default="RMB")
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    pay_time = models.DateTimeField(u"提现时间", null=True, blank=True)
+    finish_time = models.DateTimeField(u"完结时间", null=True, blank=True)
+
+    def __str__(self):
+        return self.order_id
+
+    def save(self, *args, **kwargs):
+        if not self.order_id:
+            uid = str(uuid.uuid4())
+            self.order_id = hashlib.md5(uid).hexdigest()
+        return super(JKTiXianOrder, self).save(*args, **kwargs)
+
+    def _pay_rmb(self):
+        return self.rmb - self.fee
+    _pay_rmb.short_description = u"到账金额"
+    pay_rmb = property(_pay_rmb)
+
+    class Meta:
+        db_table = "jk_tixian_order"
+        verbose_name = verbose_name_plural = u"金提现表"
+        ordering = ["-pay_time"]
