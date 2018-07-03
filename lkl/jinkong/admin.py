@@ -81,3 +81,40 @@ class JKYunFenRunAdmin(admin.ModelAdmin):
     fields = ["user", "point", "message"]
     search_fields = ["user__username"]
     list_filter = ["point"]
+
+
+@admin.register(models.JKUserRMB)
+class JKUserRMBAdmin(admin.ModelAdmin):
+    form = fms.JKUserRMBAdminForm
+    list_display = ["user", "rmb", "is_auto", "create_time", "update_time"]
+    fields = ["user", "rmb", "is_auto"]
+    search_fields = ["user__username"]
+    actions = ['auto_ok_action', 'auto_no_action']
+
+    def auto_ok_action(self, request, queryset):
+        for obj in queryset:
+            obj.is_auto = True
+            obj.save()
+    auto_ok_action.short_description = u"自动到账"
+
+    def auto_no_action(self, request, queryset):
+        for obj in queryset:
+            obj.is_auto = False
+            obj.save()
+    auto_no_action.short_description = u"不自动到账"
+
+
+@admin.register(models.JKProfit)
+class JKProfitAdmin(admin.ModelAdmin):
+    list_display = ["user", "fenrun_point", "rmb", "merchant_code", "terminal", "trade_date", "trade_rmb", "trade_status", "return_code", "card_type", "trade_fee", "qingfen_rmb", "trans_id", "fenrun", "trade_category", "product", "status", "create_time", "pay_time"]
+    fields = ["user", "merchant_code", "terminal", "trade_date", "trade_rmb", "trade_status", "return_code", "card_type", "trade_fee", "qingfen_rmb", "trans_id", "fenrun", "trade_category", "product", "status", "pay_time"]
+    search_fields = ["user__username", "terminal", "trans_id", "merchant_code"]
+    list_filter = ["status"]
+
+
+@admin.register(models.JKTiXianOrder)
+class JKTiXianOrderAdmin(admin.ModelAdmin):
+    list_display = ["user", "user_account", "rmb", "fee", "status", "order_id", "order_type", "create_time", "pay_time", "finish_time"]
+    fields = ["user", "user_account", "rmb", "fee", "status", "order_id", "order_type", "pay_time", "finish_time"]
+    search_fields = ["user__username", ]
+    list_filter = ["status"]

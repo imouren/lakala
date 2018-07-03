@@ -38,3 +38,15 @@ class JKYunFenRunAdminForm(forms.ModelForm):
         widgets = {
             'user': apply_select2(forms.Select)
         }
+
+
+class JKUserRMBAdminForm(forms.ModelForm):
+    """
+    for admin
+    """
+    class Meta:
+        model = models.JKUserRMB
+        fields = ["user", "rmb", "is_auto"]
+        widgets = {
+            'user': apply_select2(forms.Select)
+        }
