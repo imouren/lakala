@@ -86,7 +86,7 @@ def process_jk_rmb(obj, default_user):
     if diff_point <= 0:
         xrmb = 0
     else:
-        myrmb = Decimal(diff_point) / Decimal(user_point) * Decimal(obj.trade_fee)
+        myrmb = Decimal(diff_point) / Decimal(shua_point) * Decimal(obj.trade_fee)
         myrmb = myrmb.quantize(Decimal('1.00'), ROUND_DOWN)
         if myrmb > system_rmb:
             print "user rmb bigger than system rmb!!!"
