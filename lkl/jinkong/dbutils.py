@@ -95,3 +95,36 @@ def get_user_merchants(user):
     terminals = set(models.JKPos.objects.filter(user=user).values_list("terminal", flat=True))
     merchants = list(models.JKTerminal.objects.filter(terminal__in=terminals).values_list("merchant_code", flat=True))
     return merchants
+
+
+# rmb operation
+def add_jkuserrmb_rmb(user, rmb):
+    with transaction.atomic():
+        obj, created = models.JKUserRMB.objects.select_for_update().get_or_create(user=user, defaults={"rmb": 0})
+        obj.rmb += rmb
+        obj.save()
+
+
+def sub_jkuserrmb_rmb(user, rmb):
+    with transaction.atomic():
+        obj, created = models.JKUserRMB.objects.select_for_update().get_or_create(user=user, defaults={"rmb": 0})
+        obj.rmb -= rmb
+        obj.save()
+
+
+def get_jkuserrmb_num(user):
+    with transaction.atomic():
+        obj, created = models.JKUserRMB.objects.select_for_update().get_or_create(user=user, defaults={"rmb": 0})
+    return obj.rmb
+
+
+def get_user_by_terminal(terminal):
+    """
+    通过终端号获取用户
+    """
+    try:
+        obj = models.JKPos.objects.get(terminal=terminal)
+        user = obj.user
+    except Exception:
+        user = None
+    return user
