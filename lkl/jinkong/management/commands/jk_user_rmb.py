@@ -57,7 +57,7 @@ class Command(BaseCommand):
             if obj.trans_id in used_trans_ids:
                 continue
             if obj.product.strip() == "" and obj.trade_category.strip() == "" and obj.trade_rmb != "220.0" and obj.trade_rmb != "300.0":
-                adatetime = utils.string_to_datetime(obj.trade_date[:8], format_str="%Y%m%d")
+                adatetime = utils.string_to_datetime(obj.trade_date[:10], format_str="%Y-%m-%d")
                 adate = adatetime.date()
                 if start_date <= adate <= end_date:
                     process_jk_rmb(obj, default_user)
