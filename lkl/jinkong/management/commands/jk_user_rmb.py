@@ -107,7 +107,6 @@ def process_jk_rmb(obj, default_user):
         trade_fee=obj.trade_fee,
         card_type=obj.card_type,
         qingfen_rmb=obj.qingfen_rmb,
-        trade_card_type=obj.trade_card_type,
         fenrun=obj.fenrun,
         trade_category=obj.trade_category,
         product=obj.product
