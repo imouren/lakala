@@ -90,6 +90,7 @@ def process_jk_rmb(obj, default_user):
         myrmb = myrmb.quantize(Decimal('1.00'), ROUND_DOWN)
         if myrmb > system_rmb:
             print "user rmb bigger than system rmb!!!"
+            print obj.trans_id
             return
         armb = myrmb * Decimal("0.92")
         xrmb = armb.quantize(Decimal('1.00'), ROUND_DOWN)
