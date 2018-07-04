@@ -33,7 +33,7 @@
             <div class="weui-cell__bd">
                 <input class="weui-input" id="merchant" name="merchant" type="hidden" value="{{merchant}}">
                 <select class="weui-select" name="prov">
-                  {% for prov_code, prov_name in prov_dict.items %}
+                  {% for prov_code, prov_name in prov_tuple %}
                   <option value="{{prov_code}}">{{prov_name}}</option>
                   {% endfor %}
                 </select>
