@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from collections import defaultdict
 from decimal import Decimal
 from django.db import transaction
+from django.db.models import Sum
 from . import models
 from lkl.utils import string_to_datetime
 
@@ -116,6 +117,14 @@ def get_jkuserrmb_num(user):
     with transaction.atomic():
         obj, created = models.JKUserRMB.objects.select_for_update().get_or_create(user=user, defaults={"rmb": 0})
     return obj.rmb
+
+
+def get_jktxrmb_num(user):
+    qs = models.JKTiXianOrder.objects.filter(user=user).filter(status="SU")
+    total_rmb = qs.aggregate(Sum('rmb'))["rmb__sum"]
+    if not total_rmb:
+        total_rmb = 0
+    return total_rmb
 
 
 def get_user_by_terminal(terminal):
