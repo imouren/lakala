@@ -40,6 +40,10 @@
 */15 * * * * /projects/lakala/config/run_command_pro.sh jk_trade >> /data/script/jk_data.log 2>&1
 */21 * * * * /projects/lakala/config/run_command_pro.sh jk_settlement >> /data/script/jk_data.log 2>&1
 
+# jk rmb
+*/30 * * * * /projects/lakala/config/run_command_pro.sh jk_user_rmb >> /data/script/jk_user_rmb.log 2>&1
+
+
 
 # run once
 # /projects/lakala/config/run_command_pro.sh sync_trade01 --start=20180101 --end=20180128
