@@ -42,7 +42,7 @@
 
 # jk rmb
 */30 * * * * /projects/lakala/config/run_command_pro.sh jk_user_rmb >> /data/script/jk_user_rmb.log 2>&1
-30 13 * * * /projects/lakala/config/run_command_pro.sh jk_user_tixian >> /data/script/jk_user_tixian.log 2>&1
+30 13 * * * /projects/lakala/config/run_command_pro.sh jk_user_tixian --phone=all >> /data/script/jk_user_tixian.log 2>&1
 
 
 
