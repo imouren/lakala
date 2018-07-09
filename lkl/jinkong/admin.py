@@ -65,7 +65,7 @@ class JKPosAdmin(admin.ModelAdmin):
     readonly_fields = ["terminal"]
 
     def userx(self, obj):
-        return '<a href="/admin/jinkong/jkpos/?user_id=%s" target="_blank">%s</a>' % (obj.user.user_id, obj.user.phone)
+        return '<a href="/admin/jinkong/jkpos/?user_id=%s" target="_blank">%s</a>' % (obj.user.id, obj.user.username)
     userx.allow_tags = True
     userx.short_description = u'用户'
 
