@@ -285,9 +285,9 @@ SUIT_CONFIG = {
         # {'label': u'去催单', 'icon': 'icon-plane', 'url': 'admin_reminder', 'blank': False},
         # {'label': u'卡拉慧', 'icon': 'icon-flag', 'url': 'user_home', 'blank': True},
         # {'label': u'TOKEN', 'icon': 'icon-check', 'app': 'user', 'models': ('SLKLToken',)},
-        {'label': u'星驿付数据', 'icon': 'icon-check', 'app': 'xyf', 'models': ('SYFTerminal', 'SYFTrade', 'XYFToken', 'XYFPos', 'XYFFenRun', 'XYFUserRMB', 'XYFProfit', 'XYFTiXianOrder')},
-        {'label': u'金控数据', 'icon': 'icon-check', 'app': 'jinkong', 'models': ('JKMerchant', 'JKTerminal', 'JKTrade', 'JKSettlement', 'JKPos', 'JKFenRun', 'JKYunFenRun', 'JKToken')},
-        {'label': u'金控金钱', 'icon': 'icon-check', 'app': 'jinkong', 'models': ('JKUserRMB', 'JKProfit', 'JKTiXianOrder')},
+        {'label': u'星驿付数据', 'icon': 'icon-star', 'app': 'xyf', 'models': ('SYFTerminal', 'SYFTrade', 'XYFToken', 'XYFPos', 'XYFFenRun', 'XYFUserRMB', 'XYFProfit', 'XYFTiXianOrder')},
+        {'label': u'金控数据', 'icon': 'icon-heart', 'app': 'jinkong', 'models': ('JKMerchant', 'JKTerminal', 'JKTrade', 'JKSettlement', 'JKPos', 'JKFenRun', 'JKYunFenRun', 'JKToken')},
+        {'label': u'金控金钱', 'icon': 'icon-heart', 'app': 'jinkong', 'models': ('JKUserRMB', 'JKProfit', 'JKTiXianOrder')},
     ),
 
     # misc
