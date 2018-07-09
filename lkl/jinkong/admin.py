@@ -58,11 +58,16 @@ class JKTokenAdmin(admin.ModelAdmin):
 @admin.register(models.JKPos)
 class JKPosAdmin(admin.ModelAdmin):
     form = fms.JKPosAdminForm
-    list_display = ["user", "sn_code", "terminal", "is_activate", "create_time", "update_time"]
+    list_display = ["id", "userx", "sn_code", "terminal", "is_activate", "create_time", "update_time"]
     fields = ["user", "sn_code", "terminal", "is_activate"]
     search_fields = ["sn_code", "terminal", "user__username"]
     list_filter = ["is_activate"]
     readonly_fields = ["terminal"]
+
+    def userx(self, obj):
+        return '<a href="/admin/jinkong/jkpos/?user_id=%s" target="_blank">%s</a>' % (obj.user.user_id, obj.user.phone)
+    userx.allow_tags = True
+    userx.short_description = u'用户'
 
 
 @admin.register(models.JKFenRun)
