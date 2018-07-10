@@ -91,7 +91,7 @@ class JKYunFenRunAdmin(admin.ModelAdmin):
 @admin.register(models.JKUserRMB)
 class JKUserRMBAdmin(admin.ModelAdmin):
     form = fms.JKUserRMBAdminForm
-    list_display = ["user", "rmb", "is_auto", "create_time", "update_time"]
+    list_display = ["user", "nickname", "rmb", "is_auto", "create_time", "update_time"]
     fields = ["user", "rmb", "is_auto"]
     search_fields = ["user__username"]
     actions = ['auto_ok_action', 'auto_no_action']
@@ -107,6 +107,16 @@ class JKUserRMBAdmin(admin.ModelAdmin):
             obj.is_auto = False
             obj.save()
     auto_no_action.short_description = u"不自动到账"
+
+    def nickname(self, obj):
+        user = obj.user
+        if hasattr(user, "userprofile"):
+            name = user.userprofile.name
+        else:
+            name = u"无"
+        return name
+    nickname.allow_tags = True
+    nickname.short_description = u'昵称'
 
 
 @admin.register(models.JKProfit)
