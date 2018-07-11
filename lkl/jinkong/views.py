@@ -133,8 +133,8 @@ def friend_list(request):
         trans_total = dbutils.get_user_trans_total(obj.user)
         friends_total.append(trans_total)
         poses = dbutils.get_user_poses(obj.user)
-        jihuo, dabiao = dbutils.get_pos_status_num(poses)
-        pos_status_list.append((len(poses), dabiao))
+        pose_num, dabiao_num = dbutils.get_pos_status_num(poses)
+        pos_status_list.append(pose_num, dabiao_num)
     friends = zip(friends, friends_total, pos_status_list)
     data = {"friends": friends}
     return render(request, "jinkong/friend_list.html", data)
