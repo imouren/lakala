@@ -57,7 +57,8 @@ def get_terminal_status(terminal):
 
 
 def get_pos_status_num(poses):
-    objs = models.JKTerminal.objects.filter(terminal__in=poses)
+    terminals = [pos[1] for pos in poses]
+    objs = models.JKTerminal.objects.filter(terminal__in=terminals)
     dabiao = 0
     for obj in objs:
         if obj.fee_receive == u"是":
