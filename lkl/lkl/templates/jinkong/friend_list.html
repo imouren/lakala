@@ -1,0 +1,75 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+
+{% block container %}
+
+<div class="weui-topbar">
+    <h1 class="weui-topbar-title">我的小伙伴</h1>
+    <a href="{% url 'jk_home' %}"  class="weui-topbar-back"><i><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zuojiantou"></use></svg></i></a>
+</div>
+
+<div class="bd mt40 mb40">
+
+<div class="weui-tab">
+<div class="weui-navbar">
+    <a class="weui-navbar__item weui-bar__item--on" href="#tab1">
+          海内存知己
+    </a>
+</div>
+
+<div class="weui-tab__bd">
+    <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+        <div class="weui-cells">
+
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+            姓名
+            </div>
+            <div class="weui-cell__bd">
+            分润
+            </div>
+            <div class="weui-cell__bd">
+            刷卡总额
+            </div>
+            <div class="weui-cell__bd">
+            激活/绑定
+            </div>
+        </div>
+
+        {% for obj, d1, status_num in friends %}
+            <div class="weui-cell">
+              <div class="weui-cell__bd">
+                {{ obj.name }}
+              </div>
+              {% if obj.user.jkfenrun %}
+                  <div class="weui-cell__bd">
+                    {{ obj.user.jkfenrun.point }}
+                  </div>
+              {% else %}
+                  <div class="weui-cell__bd">
+                    --
+                  </div>
+              {% endif %}
+              <div class="weui-cell__bd">
+                {{ d1|floatformat:"0" }}
+              </div>
+              <div class="weui-cell__bd">
+                {{ status_num.1 }}/{{ status_num.0 }}
+              </div>
+            </div>
+
+        {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+
+
+{% endblock %}
+
+{% block footer_js_extra %}
+
+
+{% endblock %}

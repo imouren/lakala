@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^pos_detail/$', views.jk_pos_detail, name="jk_pos_detail"),
     url(r'^merchant_prov/$', views.jk_merchant_prov, name="jk_merchant_prov"),
     url(r'^change_merchant_prov/$', views.jk_change_merchant_prov, name="jk_change_merchant_prov"),
+    url(r'^friend_list/$', views.friend_list, name="jk_friend_list"),
 ]

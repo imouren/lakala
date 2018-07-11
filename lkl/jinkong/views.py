@@ -121,3 +121,20 @@ def info(request):
         "tx_rmb": "%.2f" % (tx_rmb / 100.0)
     }
     return render(request, "jinkong/user_info.html", data)
+
+
+@login_required
+def friend_list(request):
+    friends_total = []
+    pos_status_list = []
+    friends = list(request.user.children.all())
+    friends.sort(key=lambda x: x.create_time)
+    for obj in friends:
+        trans_total = dbutils.get_user_trans_total(obj.user)
+        friends_total.append(trans_total)
+        poses = dbutils.get_user_poses(obj.user)
+        jihuo, dabiao = dbutils.get_pos_status_num(poses)
+        pos_status_list.append((len(poses), dabiao))
+    friends = zip(friends, friends_total, pos_status_list)
+    data = {"friends": friends}
+    return render(request, "jinkong/friend_list.html", data)
