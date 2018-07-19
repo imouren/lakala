@@ -94,6 +94,7 @@ class JKUserRMBAdmin(admin.ModelAdmin):
     list_display = ["user", "nickname", "rmb", "is_auto", "create_time", "update_time"]
     fields = ["user", "rmb", "is_auto"]
     search_fields = ["user__username"]
+    readonly_fields = fields
     actions = ['auto_ok_action', 'auto_no_action']
 
     def auto_ok_action(self, request, queryset):
