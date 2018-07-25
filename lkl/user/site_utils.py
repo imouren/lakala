@@ -156,7 +156,7 @@ def get_jk_boss_pos_info():
     return res_dict
 
 
-def get_boss_trade_info():
+def get_jk_boss_trade_info():
     """
     获取全部用户刷卡总额
     """

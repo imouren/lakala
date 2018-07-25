@@ -63,11 +63,11 @@ def jk_income(request):
     data_str = rclient.get(key)
     if not data_str:
         pos_data = site_utils.get_jk_boss_pos_info()
-        d0_data = site_utils.get_boss_trade_info()
-        urmb, child_urmb = site_utils.get_all_urmb()
-        tx_rmb = site_utils.get_all_txrmb()
+        d1_data = site_utils.get_jk_boss_trade_info()
+        urmb, child_urmb = site_utils.get_jk_all_urmb()
+        tx_rmb = site_utils.get_jk_all_txrmb()
         data = {
-            "d0_data": sorted(d0_data.iteritems()),
+            "d1_data": sorted(d1_data.iteritems()),
             "pos_data": sorted(pos_data.iteritems()),
             "urmb": "%.2f" % (urmb / 100.0),
             "child_urmb": "%.2f" % (child_urmb / 100.0),
