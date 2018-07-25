@@ -170,7 +170,7 @@ def get_jk_boss_trade_info():
         if fee > 0:
             rmb = armb - fee
         else:
-            fee = Decimal("0")
+            rmb = Decimal("0")
         if month not in res_dict:
             res_dict[month] = {
                 "draw": Decimal(obj.trade_rmb),
