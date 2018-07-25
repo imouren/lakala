@@ -164,7 +164,7 @@ def get_jk_boss_trade_info():
     objs = JKTrade.objects.filter(card_type=u"贷记").filter(return_code="00")
     for obj in objs:
         month = obj.trade_date[:7]
-        armb = Decimal("8") / Decimal("1000") * Decimal(obj.trade_rmb)
+        armb = Decimal("8") / Decimal("10000") * Decimal(obj.trade_rmb)
         armb = armb.quantize(Decimal('1.00'), ROUND_DOWN)
         fee = Decimal(obj.trade_fee)
         if fee > 0:
