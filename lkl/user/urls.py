@@ -34,4 +34,5 @@ urlpatterns = [
     # admin
     url(r'^income/$', site.income, name="admin_income"),
     url(r'^reminder/$', site.reminder, name="admin_reminder"),
+    url(r'^jk_income/$', site.jk_income, name="admin_jk_incomee"),
 ]

@@ -51,3 +51,31 @@ def reminder(request):
     data = site_utils.get_reminder_data()
     render_data = {"data": data}
     return render(request, "admin/reminder.html", render_data)
+
+
+@staff_member_required
+def jk_income(request):
+    """
+    金控
+    """
+    # 缓存
+    key = 'jk_income_page'
+    data_str = rclient.get(key)
+    if not data_str:
+        pos_data = site_utils.get_jk_boss_pos_info()
+        d0_data = site_utils.get_boss_trade_info()
+        urmb, child_urmb = site_utils.get_all_urmb()
+        tx_rmb = site_utils.get_all_txrmb()
+        data = {
+            "d0_data": sorted(d0_data.iteritems()),
+            "pos_data": sorted(pos_data.iteritems()),
+            "urmb": "%.2f" % (urmb / 100.0),
+            "child_urmb": "%.2f" % (child_urmb / 100.0),
+            "tx_rmb": "%.2f" % (tx_rmb / 100.0),
+        }
+        data_str = pickle.dumps(data)
+        rclient.set(key, data_str)
+        rclient.expire(key, 3600)
+    else:
+        data = pickle.loads(data_str)
+    return render(request, "admin/jk_income.html", data)

@@ -288,6 +288,7 @@ SUIT_CONFIG = {
         {'label': u'星驿付数据', 'icon': 'icon-star', 'app': 'xyf', 'models': ('SYFTerminal', 'SYFTrade', 'XYFToken', 'XYFPos', 'XYFFenRun', 'XYFUserRMB', 'XYFProfit', 'XYFTiXianOrder')},
         {'label': u'金控数据', 'icon': 'icon-heart', 'app': 'jinkong', 'models': ('JKMerchant', 'JKTerminal', 'JKTrade', 'JKSettlement', 'JKPos', 'JKFenRun', 'JKYunFenRun', 'JKToken')},
         {'label': u'金控金钱', 'icon': 'icon-heart', 'app': 'jinkong', 'models': ('JKUserRMB', 'JKProfit', 'JKTiXianOrder')},
+        {'label': u'金控营收状况', 'icon': 'icon-heart', 'url': 'admin_jk_income', 'blank': False},
     ),
 
     # misc
