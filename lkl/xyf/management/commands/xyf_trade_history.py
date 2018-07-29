@@ -169,12 +169,12 @@ def get_data(start, end, cookies):
 
 
 def write_to_db(data):
-    tids = [tarde[12] for tarde in data]
+    tids = [tarde[14] for tarde in data]
     used_tids = set(SYFTrade.objects.filter(trans_id__in=tids).values_list("trans_id", flat=True))
     # 插入db
     alist = []
     for t in data:
-        if t[12] not in used_tids:
+        if t[14] not in used_tids:
             obj = SYFTrade(
                 merchant_name=t[0],
                 merchant_receipt=t[1],
