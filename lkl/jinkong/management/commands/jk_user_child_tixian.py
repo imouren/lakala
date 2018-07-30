@@ -52,7 +52,7 @@ class Command(BaseCommand):
 
 def tixian(objs):
     for obj in objs:
-        print "start:", obj.user, obj.rmb
+        print "start:", obj.user, obj.child_rmb
         user = obj.user
         user_rmb = obj.child_rmb
         if user_rmb < MIN_RMB:
