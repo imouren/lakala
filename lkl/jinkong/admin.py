@@ -128,6 +128,14 @@ class JKProfitAdmin(admin.ModelAdmin):
     list_filter = ["status"]
 
 
+@admin.register(models.JKChildProfit)
+class JKChildProfitAdmin(admin.ModelAdmin):
+    list_display = ["user", "father", "fenrun_point", "fenrun_father_point", "child_rmb", "rmb", "merchant_code", "terminal", "trade_date", "trade_rmb", "trade_status", "return_code", "card_type", "trade_fee", "qingfen_rmb", "trans_id", "fenrun", "trade_category", "product", "status", "create_time", "pay_time"]
+    fields = ["user", "father", "merchant_code", "terminal", "trade_date", "trade_rmb", "trade_status", "return_code", "card_type", "trade_fee", "qingfen_rmb", "trans_id", "fenrun", "trade_category", "product", "status", "pay_time"]
+    search_fields = ["user__username", "terminal", "trans_id", "merchant_code"]
+    list_filter = ["status"]
+
+
 @admin.register(models.JKTiXianOrder)
 class JKTiXianOrderAdmin(admin.ModelAdmin):
     list_display = ["user", "user_account", "rmb", "fee", "status", "order_id", "order_type", "create_time", "pay_time", "finish_time"]
