@@ -95,6 +95,7 @@ class JKUserRMBAdmin(admin.ModelAdmin):
     fields = ["user", "rmb", "child_rmb", "is_auto"]
     search_fields = ["user__username"]
     readonly_fields = fields
+    list_filter = ["is_auto"]
     actions = ['auto_ok_action', 'auto_no_action']
 
     def get_readonly_fields(self, request, obj=None):
@@ -147,4 +148,4 @@ class JKTiXianOrderAdmin(admin.ModelAdmin):
     list_display = ["user", "user_account", "rmb", "fee", "status", "order_id", "order_type", "create_time", "pay_time", "finish_time"]
     fields = ["user", "user_account", "rmb", "fee", "status", "order_id", "order_type", "pay_time", "finish_time"]
     search_fields = ["user__username", ]
-    list_filter = ["status"]
+    list_filter = ["status", "order_type"]
