@@ -91,8 +91,8 @@ class JKYunFenRunAdmin(admin.ModelAdmin):
 @admin.register(models.JKUserRMB)
 class JKUserRMBAdmin(admin.ModelAdmin):
     form = fms.JKUserRMBAdminForm
-    list_display = ["user", "nickname", "rmb", "is_auto", "create_time", "update_time"]
-    fields = ["user", "rmb", "is_auto"]
+    list_display = ["user", "nickname", "rmb", "child_rmb", "is_auto", "create_time", "update_time"]
+    fields = ["user", "rmb", "child_rmb", "is_auto"]
     search_fields = ["user__username"]
     readonly_fields = fields
     actions = ['auto_ok_action', 'auto_no_action']
