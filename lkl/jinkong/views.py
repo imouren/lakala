@@ -113,11 +113,13 @@ def info(request):
         point = 0.60
     trans_total = dbutils.get_user_trans_total(user)
     rmb = dbutils.get_jkuserrmb_num(user)
+    child_rmb = dbutils.get_jkuserrmb_child_num(user)
     tx_rmb = dbutils.get_jktxrmb_num(user)
     data = {
         "fenrun": fenrun,
         "trans_total": trans_total,
         "rmb": "%.2f" % (rmb / 100.0),
+        "child_rmb": "%.2f" % (child_rmb / 100.0),
         "tx_rmb": "%.2f" % (tx_rmb / 100.0)
     }
     return render(request, "jinkong/user_info.html", data)
