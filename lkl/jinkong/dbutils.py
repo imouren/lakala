@@ -129,6 +129,27 @@ def get_jkuserrmb_num(user):
     return obj.rmb
 
 
+# child rmb operation
+def add_jkuserrmb_child_rmb(user, rmb):
+    with transaction.atomic():
+        obj, created = models.JKUserRMB.objects.select_for_update().get_or_create(user=user, defaults={"rmb": 0})
+        obj.child_rmb += rmb
+        obj.save()
+
+
+def sub_jkuserrmb_child_rmb(user, rmb):
+    with transaction.atomic():
+        obj, created = models.JKUserRMB.objects.select_for_update().get_or_create(user=user, defaults={"rmb": 0})
+        obj.child_rmb -= rmb
+        obj.save()
+
+
+def get_jkuserrmb_child_num(user):
+    with transaction.atomic():
+        obj, created = models.JKUserRMB.objects.select_for_update().get_or_create(user=user, defaults={"rmb": 0})
+    return obj.child_rmb
+
+
 def get_jktxrmb_num(user):
     qs = models.JKTiXianOrder.objects.filter(user=user).filter(status="SU")
     total_rmb = qs.aggregate(Sum('rmb'))["rmb__sum"]

@@ -295,6 +295,45 @@ class JKProfit(models.Model):
 
 
 @python_2_unicode_compatible
+class JKChildProfit(models.Model):
+    """
+    推荐用户获利表
+    """
+    user = models.ForeignKey(User, verbose_name=u"用户")
+    father = models.ForeignKey(User, verbose_name=u"导师", related_name="father", null=True)
+    fenrun_point = models.CharField(u"提点", max_length=50, blank=True)
+    fenrun_father_point = models.CharField(u"导师提点", max_length=50, blank=True)
+    child_rmb = models.IntegerField(u"已经获利金额(分)", default=0)
+    rmb = models.IntegerField(u"推荐金额(分)", default=0)
+    # copy
+    merchant_code = models.CharField(u"商户编号", max_length=64)
+    terminal = models.CharField(u"终端号", max_length=64)
+    trade_date = models.CharField(u"交易日期", max_length=64)
+    trade_rmb = models.CharField(u"交易金额（元）", max_length=64)
+    trade_status = models.CharField(u"交易状态", max_length=64)
+    return_code = models.CharField(u"应答码", max_length=64)
+    card_type = models.CharField(u"卡类型", max_length=64)
+    trade_fee = models.CharField(u"交易手续费（元）", max_length=64)
+    qingfen_rmb = models.CharField(u"清分金额", max_length=64)
+    trans_id = models.CharField(u"流水号", max_length=64, unique=True)
+    fenrun = models.CharField(u"分润", max_length=64)
+    trade_category = models.CharField(u"交易类别", max_length=64)
+    product = models.CharField(u"产品标识", max_length=64)
+    # 状态和时间
+    status = models.CharField(u"订单状态", choices=STATUS_CHOICE, max_length=10, default="UP")
+    create_time = models.DateTimeField(u"创建时间", auto_now_add=True)
+    pay_time = models.DateTimeField(u"分红时间", null=True, blank=True)
+
+    class Meta:
+        db_table = "jk_child_user_profit"
+        verbose_name = verbose_name_plural = u"推荐用户获利表"
+        ordering = ["-pay_time"]
+
+    def __str__(self):
+        return self.trans_id
+
+
+@python_2_unicode_compatible
 class JKTiXianOrder(models.Model):
     ORDER_TYPE_CHOICE = (
         ('RMB', u'返利余额提现'),
