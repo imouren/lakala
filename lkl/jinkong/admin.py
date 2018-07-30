@@ -97,6 +97,12 @@ class JKUserRMBAdmin(admin.ModelAdmin):
     readonly_fields = fields
     actions = ['auto_ok_action', 'auto_no_action']
 
+    def get_readonly_fields(self, request, obj=None):
+        if is_superuser(request):
+            return []
+        else:
+            return super(JKUserRMBAdmin, self).get_readonly_fields(request, obj)
+
     def auto_ok_action(self, request, queryset):
         for obj in queryset:
             obj.is_auto = True
