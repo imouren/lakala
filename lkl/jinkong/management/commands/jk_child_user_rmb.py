@@ -128,4 +128,4 @@ def process_jk_child_rmb(obj, default_user):
     dbutils.add_jkuserrmb_child_rmb(father, profit.rmb)
     profit.status = "SU"
     profit.save()
-    print "give father user jk profile ok", father.username, profit.rmb
+    print "give father user jk profile ok", obj.trans_id, father.username, profit.rmb
