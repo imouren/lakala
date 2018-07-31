@@ -33,6 +33,7 @@
 
 # xyf rmb
 */30 * * * * /projects/lakala/config/run_command_pro.sh xyf_user_rmb >> /data/script/xyf_user_rmb.log 2>&1
+1 * * * * /projects/lakala/config/run_command_pro.sh xyf_child_user_rmb >> /data/script/xyf_child_user_rmb.log 2>&1
 
 # jk data
 */15 * * * * /projects/lakala/config/run_command_pro.sh jk_merchant >> /data/script/jk_data.log 2>&1
