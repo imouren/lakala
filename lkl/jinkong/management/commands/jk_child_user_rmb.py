@@ -54,10 +54,10 @@ class Command(BaseCommand):
         for obj in objs:
             if obj.trans_id in used_trans_ids:
                 continue
-                adatetime = utils.string_to_datetime(obj.trade_date[:10], format_str="%Y-%m-%d")
-                adate = adatetime.date()
-                if start_date <= adate <= end_date:
-                    process_jk_child_rmb(obj, default_user)
+            adatetime = utils.string_to_datetime(obj.trade_date[:10], format_str="%Y-%m-%d")
+            adate = adatetime.date()
+            if start_date <= adate <= end_date:
+                process_jk_child_rmb(obj, default_user)
         print "ok"
 
 
