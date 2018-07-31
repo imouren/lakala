@@ -36,8 +36,8 @@ admin.site.register(User, MyUserAdmin)
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "namex", "fatherx", "phone", "sex", "fenrun", "max_num", "current_num", "create_time"]
-    fields = ["user", "phone", "name", "sex", "is_vip", "father", "max_num"]
+    list_display = ["user", "namex", "fatherx", "phone", "sex", "code", "fenrun", "max_num", "current_num", "create_time"]
+    fields = ["user", "phone", "name", "sex", "code", "is_vip", "father", "max_num"]
     search_fields = ["name", "phone"]
     all_fields = [f.name for f in models.UserProfile._meta.get_fields()]
     all_fields.remove("max_num")
