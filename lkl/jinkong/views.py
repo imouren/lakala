@@ -129,8 +129,11 @@ def info(request):
 def friend_list(request):
     friends_total = []
     pos_status_list = []
-    friends = list(request.user.children.all())
-    friends.sort(key=lambda x: x.create_time)
+    friends = []
+    objs = request.user.children.all().order_by("create_time")
+    for friend in objs:
+        if hasattr(friend, "jkfenrun"):
+            friends.append(friend)
     for obj in friends:
         trans_total = dbutils.get_user_trans_total(obj.user)
         friends_total.append(trans_total)
