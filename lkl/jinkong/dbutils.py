@@ -168,3 +168,27 @@ def get_user_by_terminal(terminal):
     except Exception:
         user = None
     return user
+
+
+def get_terminal_by_sn_code(code):
+    objs = models.JKTerminal.objects.filter(sn_code__endswith=code)
+    if objs:
+        obj = objs[0]
+        return obj
+    return None
+
+
+def exists_pos_sn_code(code):
+    objs = models.JKPos.objects.filter(sn_code=code)
+    if objs:
+        return True
+    else:
+        return False
+
+
+def exists_merchant_phone(phone):
+    objs = models.JKMerchant.objects.filter(phone=phone)
+    if objs:
+        return True
+    else:
+        return False

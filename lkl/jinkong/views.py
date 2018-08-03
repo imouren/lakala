@@ -17,6 +17,7 @@ from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from . import dbutils, utils, models
 from lkl import wx_utils, config
+from .forms import BindPosForm
 from prov_code import PROV_CODE
 
 logger = logging.getLogger('statistics')
@@ -89,6 +90,7 @@ def jk_change_merchant_prov(request):
         prov = request.POST.get("prov", "")
         merchants = dbutils.get_user_merchants(request.user)
         if merchant not in merchants:
+
             return redirect("jk_home")
         prov = prov.isdigit() and int(prov) or 0
         if prov in PROV_CODE:
@@ -143,3 +145,18 @@ def friend_list(request):
     friends = zip(friends, friends_total, pos_status_list)
     data = {"friends": friends}
     return render(request, "jinkong/friend_list.html", data)
+
+
+@login_required
+def bind_pos(request):
+    data = {}
+    if request.method == 'POST':
+        form = BindPosForm(request.POST, request=request)
+        if form.is_valid():
+            code = form.cleaned_data.get('code')
+            models.JKPos.objects.create(user=request.user, sn_code=code, is_activate=True)
+            return redirect("jk_pos_list")
+        else:
+            error = form.errors.get("__all__")
+            data.update({"error": error, "errors": form.errors})
+    return render(request, "jinkong/bind_pos.html", data)

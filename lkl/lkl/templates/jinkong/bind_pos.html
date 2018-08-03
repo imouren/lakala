@@ -1,0 +1,66 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+
+{% block container %}
+<form method="post" action="{% url 'bind_pos' %}">
+    {% csrf_token %}
+    <div class="weui-cells weui-cells_form">
+
+        <div class="weui-cell {%if errors.code %}weui-cell_warn{% endif %}">
+            <div class="weui-cell__hd">
+                <label class="weui-label">序列号</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="code" name="code" type="text" placeholder="序列号最后六位">
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-warn">{{errors.code.0}}</i>
+            </div>
+        </div>
+
+        <div class="weui-cell {%if errors.phone %}weui-cell_warn{% endif %}">
+            <div class="weui-cell__hd">
+                <label class="weui-label">商户手机号</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" id="phone" name="phone" type="text" placeholder="商户手机号">
+            </div>
+            <div class="weui-cell__ft">
+                <i class="weui-icon-warn">{{errors.phone.0}}</i>
+            </div>
+        </div>
+
+        <div class="weui-btn-area">
+            <button class="weui-btn weui-btn_primary" id="submit" type="submit">绑定</button>
+        </div>
+
+    </div>
+
+</form>
+
+{% endblock %}
+
+
+{% block footer_js_extra %}
+
+<script>
+    // 表单提交
+    $("#submit").click(function() {
+        if(!code || code.length != 6) {
+            $.toptip('请输入正确的序列号');
+            return false;
+        }
+        else if(!phone || phone.length != 11) {
+            $.toptip('请输入正确的手机号');
+            return false;
+        }
+        else
+            $.toptip('正在提交...', 'success');
+    });
+
+    // 错误提示
+    {% if error %}
+    $.toptip('{{ error.0 }}', 'error');
+    {% endif %}
+</script>
+{% endblock %}
