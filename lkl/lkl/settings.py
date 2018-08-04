@@ -75,6 +75,7 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     "jinkong.JKYunFenRun",
     "jinkong.JKUserRMB",
     "jinkong.JKProfit",
+    "jinkong.JKChildProfit",
     "jinkong.JKTiXianOrder",
     "jinkong.JKToken"
 ]
