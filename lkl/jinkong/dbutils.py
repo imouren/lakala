@@ -192,3 +192,12 @@ def exists_merchant_phone(phone):
         return True
     else:
         return False
+
+
+def get_merchant(merchant_code):
+    objs = models.JKMerchant.objects.filter(merchant_code=merchant_code)
+    if objs:
+        obj = objs[0]
+    else:
+        obj = None
+    return obj
