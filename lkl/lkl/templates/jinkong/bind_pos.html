@@ -2,7 +2,7 @@
 
 
 {% block container %}
-<form method="post" action="{% url 'bind_pos' %}">
+<form method="post" action="{% url 'jk_bind_pos' %}">
     {% csrf_token %}
     <div class="weui-cells weui-cells_form">
 
@@ -46,6 +46,8 @@
 <script>
     // 表单提交
     $("#submit").click(function() {
+        var code = $('#code').val();
+        var phone = $('#phone').val();
         if(!code || code.length != 6) {
             $.toptip('请输入正确的序列号');
             return false;
