@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'captcha',
     'user',
     "xyf",
-    "jinkong"
+    "jinkong",
+    "shandianbao"
 ]
 
 ADMIN_VIEW_PERMISSION_MODELS = [
@@ -77,7 +78,9 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     "jinkong.JKProfit",
     "jinkong.JKChildProfit",
     "jinkong.JKTiXianOrder",
-    "jinkong.JKToken"
+    "jinkong.JKToken",
+    "shandianbao.SDBTrade",
+    "shandianbao.SDBToken",
 ]
 
 MIDDLEWARE = [
@@ -290,6 +293,7 @@ SUIT_CONFIG = {
         {'label': u'金控数据', 'icon': 'icon-heart', 'app': 'jinkong', 'models': ('JKMerchant', 'JKTerminal', 'JKTrade', 'JKSettlement', 'JKPos', 'JKFenRun', 'JKYunFenRun', 'JKToken')},
         {'label': u'金控金钱', 'icon': 'icon-heart', 'app': 'jinkong', 'models': ('JKUserRMB', 'JKProfit', 'JKChildProfit', 'JKTiXianOrder')},
         {'label': u'金控营收状况', 'icon': 'icon-heart', 'url': 'admin_jk_income', 'blank': False},
+        {'label': u'闪电宝演示', 'icon': 'icon-heart', 'app': 'shandianbao', 'models': ('SDBToken', 'SDBTrade')},
     ),
 
     # misc
