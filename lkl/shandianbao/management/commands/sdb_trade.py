@@ -26,6 +26,7 @@ HEADERS = {
     "Connection": "keep-alive",
     "Pragma": "no-cache",
     'Content-type': 'application/x-www-form-urlencoded',
+    'Host': 'shandianbao.chinapnr.com',
     "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) C,hrome/43.0.2357.124 Safari/537.36",
 }
 token = get_token_code()
@@ -121,7 +122,7 @@ def get_activate_trade(cookies, page, adate):
     soup = BeautifulSoup(html)
     data = []
     total = r1(ur"共(\d+)条记录", html)
-
+    # print html
     print "total", total, "page", page
     if not total or not total.isdigit():
         disable_token(token)
