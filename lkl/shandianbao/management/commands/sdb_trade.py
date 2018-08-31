@@ -29,6 +29,7 @@ HEADERS = {
     'Host': 'shandianbao.chinapnr.com',
     "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) C,hrome/43.0.2357.124 Safari/537.36",
 }
+DAYS = 1
 token = get_token_code()
 
 
@@ -62,7 +63,7 @@ class Command(BaseCommand):
         date_list = []
         if not start or not end:
             end_date = datetime.now()
-            for i in range(3):
+            for i in range(DAYS):
                 adate = end_date - timedelta(i)
                 date_list.append(adate)
         else:
