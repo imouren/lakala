@@ -64,7 +64,7 @@ class Command(BaseCommand):
         if not start or not end:
             end_date = datetime.now()
             days = DAYS
-            if end_date.hour < 10:
+            if end_date.hour < 12:
                 days += 1
             for i in range(DAYS):
                 adate = end_date - timedelta(i)
