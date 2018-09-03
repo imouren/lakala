@@ -20,13 +20,16 @@ warnings.filterwarnings("ignore")
 TIMEOUT = 120  # 超时时间
 HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Accept-Encoding": "gzip, deflate, sdch",
+    "Accept-Encoding": "gzip, deflate, sdch, br",
     "Accept-Language": "zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4",
     "Cache-Control": "no-cache",
     "Connection": "keep-alive",
     "Pragma": "no-cache",
     'Content-type': 'application/x-www-form-urlencoded',
     'Host': 'shandianbao.chinapnr.com',
+    'Origin': 'https://shandianbao.chinapnr.com',
+    'Referer': 'https://shandianbao.chinapnr.com/supm/main/index',
+    'X-Requested-With': 'XMLHttpRequest',
     "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) C,hrome/43.0.2357.124 Safari/537.36",
 }
 DAYS = 1
