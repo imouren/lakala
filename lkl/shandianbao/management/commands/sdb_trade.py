@@ -69,7 +69,7 @@ class Command(BaseCommand):
             days = DAYS
             if end_date.hour < 12:
                 days += 1
-            for i in range(DAYS):
+            for i in range(days):
                 adate = end_date - timedelta(i)
                 date_list.append(adate)
         else:
