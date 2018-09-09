@@ -158,17 +158,17 @@ def write_to_db_terminal(data):
             itmes = SDBTerminal.objects.filter(terminal=t[pk_index])
             if itmes:
                 item = itmes[0]
-                item.terminal = t[1],
-                item.batch = t[2],
-                item.company = t[3],
-                item.pos_type = t[4],
-                item.pos_version = t[5],
-                item.agent = t[6],
-                item.agent_name = t[7],
-                item.bind_status = t[8],
-                item.activate_status = t[9],
-                item.bind_merchant = t[10],
-                item.bind_time = t[11],
+                item.terminal = t[1]
+                item.batch = t[2]
+                item.company = t[3]
+                item.pos_type = t[4]
+                item.pos_version = t[5]
+                item.agent = t[6]
+                item.agent_name = t[7]
+                item.bind_status = t[8]
+                item.activate_status = t[9]
+                item.bind_merchant = t[10]
+                item.bind_time = t[11]
                 item.save()
     if alist:
         SDBTerminal.objects.bulk_create(alist)
