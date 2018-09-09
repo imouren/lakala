@@ -158,7 +158,7 @@ def erase_pointx(aimg, n=3):
     return img
 
 
-def get_code(img):
+def get_code(img, threshold=250):
     no_bga_img = remove_background_rgb2x(img, 55)
     for i in range(10):
         no_bga_img = depointx(no_bga_img)
@@ -167,6 +167,6 @@ def get_code(img):
         no_bga_img = erase_pointx(no_bga_img, 4)
         no_bga_img = erase_pointy(no_bga_img, 4)
     no_bg_img = no_bga_img.convert("L")
-    binary_img = binarizing(no_bg_img, 250)
+    binary_img = binarizing(no_bg_img, threshold)
     res = image_to_string(binary_img, config='-psm 7 chars')
     return res
