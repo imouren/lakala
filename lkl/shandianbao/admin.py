@@ -23,3 +23,10 @@ class SDBTradeAdmin(admin.ModelAdmin):
     list_display = ["id", "trans_id", "merchant", "trade_date", "trade_rmb", "trade_type", "trade_status", "card_code", "card_type", "return_code", "return_desc", "terminal", "agent_level", "agent", "business_type", "update_time"]
     fields = ["trans_id", "merchant", "trade_date", "trade_rmb", "trade_type", "trade_status", "card_code", "card_type", "return_code", "return_desc", "terminal", "agent_level", "agent", "business_type"]
     search_fields = ["trans_id", "terminal", "trade_date", "merchant"]
+
+
+@admin.register(models.SDBTerminal)
+class SDBTerminalAdmin(admin.ModelAdmin):
+    list_display = ["id", "terminal", "batch", "company", "pos_type", "pos_version", "agent", "agent_name", "bind_status", "activate_status", "bind_merchant", "bind_time", "update_time"]
+    fields = ["terminal", "batch", "company", "pos_type", "pos_version", "agent", "agent_name", "bind_status", "activate_status", "bind_merchant", "bind_time"]
+    search_fields = ["terminal", "bind_status", "activate_status", "bind_time"]

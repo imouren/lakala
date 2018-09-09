@@ -80,6 +80,7 @@ ADMIN_VIEW_PERMISSION_MODELS = [
     "jinkong.JKTiXianOrder",
     "jinkong.JKToken",
     "shandianbao.SDBTrade",
+    "shandianbao.SDBTerminal",
     "shandianbao.SDBToken",
 ]
 
@@ -293,7 +294,7 @@ SUIT_CONFIG = {
         {'label': u'金控数据', 'icon': 'icon-heart', 'app': 'jinkong', 'models': ('JKMerchant', 'JKTerminal', 'JKTrade', 'JKSettlement', 'JKPos', 'JKFenRun', 'JKYunFenRun', 'JKToken')},
         {'label': u'金控金钱', 'icon': 'icon-heart', 'app': 'jinkong', 'models': ('JKUserRMB', 'JKProfit', 'JKChildProfit', 'JKTiXianOrder')},
         {'label': u'金控营收状况', 'icon': 'icon-heart', 'url': 'admin_jk_income', 'blank': False},
-        {'label': u'闪电宝演示', 'icon': 'icon-heart', 'app': 'shandianbao', 'models': ('SDBTrade', 'SDBToken')},
+        {'label': u'闪电宝演示', 'icon': 'icon-heart', 'app': 'shandianbao', 'models': ('SDBTrade', 'SDBTerminal', 'SDBToken')},
     ),
 
     # misc
