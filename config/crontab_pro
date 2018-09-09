@@ -48,6 +48,7 @@
 
 # sdb data
 */5 * * * * /projects/lakala/config/run_command_pro.sh sdb_trade >> /data/script/sdb_data.log 2>&1
+*/5 * * * * /projects/lakala/config/run_command_pro.sh sdb_token >> /data/script/sdb_token.log 2>&1
 
 # run once
 # /projects/lakala/config/run_command_pro.sh sync_trade01 --start=20180101 --end=20180128
