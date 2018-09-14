@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^user/', include('user.urls')),
     url(r'^xyf/', include('xyf.urls')),
     url(r'^jinkong/', include('jinkong.urls')),
+    url(r'^hhjk/', include('hhjk.urls')),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
 ]
