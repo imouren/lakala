@@ -52,9 +52,9 @@
 1 */4 * * * /projects/lakala/config/run_command_pro.sh sdb_terminal >> /data/script/sdb_terminal.log 2>&1
 
 # hhjk data
-*/15 * * * * /projects/lakala/config/run_command_pro.sh jk_merchant >> /data/script/hhjk_data.log 2>&1
-*/15 * * * * /projects/lakala/config/run_command_pro.sh jk_terminal >> /data/script/hhjk_data.log 2>&1
-*/15 * * * * /projects/lakala/config/run_command_pro.sh jk_trade >> /data/script/hhjk_data.log 2>&1
+*/15 * * * * /projects/lakala/config/run_command_pro.sh hhjk_merchant >> /data/script/hhjk_data.log 2>&1
+*/15 * * * * /projects/lakala/config/run_command_pro.sh hhjk_terminal >> /data/script/hhjk_data.log 2>&1
+*/15 * * * * /projects/lakala/config/run_command_pro.sh hhjk_trade >> /data/script/hhjk_data.log 2>&1
 
 
 
