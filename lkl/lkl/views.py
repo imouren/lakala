@@ -15,3 +15,10 @@ def wx_js(request):
     JS接口安全域名
     """
     return HttpResponse("kn6YuZIRpnYWeVCO")
+
+
+def hhjk_wx_js(request):
+    """
+    JS接口安全域名
+    """
+    return HttpResponse("1hja9C8HvptXtWzB")
