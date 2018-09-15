@@ -90,7 +90,6 @@ def jk_change_merchant_prov(request):
         prov = request.POST.get("prov", "")
         merchants = dbutils.get_user_merchants(request.user)
         if merchant not in merchants:
-
             return redirect("jk_home")
         prov = prov.isdigit() and int(prov) or 0
         if prov in PROV_CODE:

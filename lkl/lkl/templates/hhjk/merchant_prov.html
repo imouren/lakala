@@ -1,0 +1,42 @@
+{% extends "lkl/base.html" %} {% load staticfiles %}
+
+{% block header_title  %}
+    <title>金控改地址</title>
+{% endblock %}
+
+{% block container %}
+
+<div class="bd mt40 mb40">
+
+    <div class="weui-cells">
+    {% for merchant in merchants %}
+
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            {{merchant.merchant_name}}
+          </div>
+          <div class="weui-cell__bd">
+            {{merchant.prov}}
+          </div>
+          <div class="weui-cell__bd">
+            <a href="{% url 'hhjk_area_change' %}?merchant={{merchant.merchant_code}}&name={{merchant.merchant_name}}&phone={{phone}}">改归属地</a>
+          </div>
+
+        </div>
+
+    {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block menu %}
+
+{% endblock %}
+
+{% block footer_js_extra %}
+
+
+{% endblock %}

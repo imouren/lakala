@@ -60,3 +60,8 @@ def get_merchant(merchant_code):
     else:
         obj = None
     return obj
+
+
+def get_merchants_by_phone(phone):
+    objs = models.HHJKMerchant.objects.filter(phone=phone)
+    return objs
