@@ -8,6 +8,19 @@
 
 <div class="bd mt40 mb40">
 
+    {% if not merchants %}
+    <div class="weui-cells">
+        <div class="weui-cell">
+            无数据
+        </div>
+
+
+        <div class="weui-btn-area">
+            <a type="button" class="weui-btn weui-btn_primary" href="{% url 'hhjk_home' %}">返回</a>
+        </div>
+    </div>
+
+    {% else %}
     <div class="weui-cells">
     {% for merchant in merchants %}
 
@@ -26,6 +39,7 @@
 
     {% endfor %}
     </div>
+    {% endif %}
 
 </div>
 
