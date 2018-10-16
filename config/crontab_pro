@@ -6,30 +6,30 @@
 1 0 * * * /data/mysql_bak/bak.sh > /dev/null 2>&1 &
 
 # db sync data
-5 * * * * /projects/lakala/config/run_command_pro.sh sync_trade01 >> /data/script/mpos.log 2>&1
-5 * * * * /projects/lakala/config/run_command_pro.sh sync_slkl_d0 --table=d0 >> /data/script/slkl.log 2>&1
-25 * * * * /projects/lakala/config/run_command_pro.sh sync_slkl_d1 --table=d1 >> /data/script/slkl.log 2>&1
-45 * * * * /projects/lakala/config/run_command_pro.sh sync_slkl_t --table=terminal >> /data/script/slkl.log 2>&1
-35 0,8,14,20 * * * /projects/lakala/config/run_command_pro.sh sync_slkl --table=terminal_update >> /data/script/slkl.log 2>&1
-0 * * * * /projects/lakala/config/run_command_pro.sh token >> /data/script/token.log 2>&1
+# 5 * * * * /projects/lakala/config/run_command_pro.sh sync_trade01 >> /data/script/mpos.log 2>&1
+# 5 * * * * /projects/lakala/config/run_command_pro.sh sync_slkl_d0 --table=d0 >> /data/script/slkl.log 2>&1
+# 25 * * * * /projects/lakala/config/run_command_pro.sh sync_slkl_d1 --table=d1 >> /data/script/slkl.log 2>&1
+# 45 * * * * /projects/lakala/config/run_command_pro.sh sync_slkl_t --table=terminal >> /data/script/slkl.log 2>&1
+# 35 0,8,14,20 * * * /projects/lakala/config/run_command_pro.sh sync_slkl --table=terminal_update >> /data/script/slkl.log 2>&1
+# 0 * * * * /projects/lakala/config/run_command_pro.sh token >> /data/script/token.log 2>&1
 
 # user rmb
-5 */3 * * * /projects/lakala/config/run_command_pro.sh user_rmb --table=all >> /data/script/user_rmb.log 2>&1
-15 2 * * * /projects/lakala/config/run_command_pro.sh user_rmb --start=2018-02-01 --table=all >> /data/script/user_rmb.log 2>&1
+# 5 */3 * * * /projects/lakala/config/run_command_pro.sh user_rmb --table=all >> /data/script/user_rmb.log 2>&1
+# 15 2 * * * /projects/lakala/config/run_command_pro.sh user_rmb --start=2018-02-01 --table=all >> /data/script/user_rmb.log 2>&1
 
 # child user rmb
-5 */3 * * * /projects/lakala/config/run_command_pro.sh child_user_rmb --table=all >> /data/script/user_rmb.log 2>&1
-15 2 * * * /projects/lakala/config/run_command_pro.sh child_user_rmb --start=2018-02-01 --table=all >> /data/script/user_rmb.log 2>&1
+# 5 */3 * * * /projects/lakala/config/run_command_pro.sh child_user_rmb --table=all >> /data/script/user_rmb.log 2>&1
+# 15 2 * * * /projects/lakala/config/run_command_pro.sh child_user_rmb --start=2018-02-01 --table=all >> /data/script/user_rmb.log 2>&1
 
 # tixian msg
 # 5 */2 * * * /projects/lakala/config/run_command_pro.sh tx_msg >> /data/script/tx_msg.log 2>&1
-15 */2 * * * /projects/lakala/config/run_command_pro.sh fr_msg >> /data/script/fr_msg.log 2>&1
+# 15 */2 * * * /projects/lakala/config/run_command_pro.sh fr_msg >> /data/script/fr_msg.log 2>&1
 
 
 # xyf
-3 * * * * /projects/lakala/config/run_command_pro.sh xyf_terminal >> /data/script/xyf_terminal.log 2>&1
-*/30 * * * * /projects/lakala/config/run_command_pro.sh xyf_trade_today >> /data/script/xyf_trade_today.log 2>&1
-13 */4 * * * /projects/lakala/config/run_command_pro.sh xyf_trade_history >> /data/script/xyf_trade_history.log 2>&1
+# 3 * * * * /projects/lakala/config/run_command_pro.sh xyf_terminal >> /data/script/xyf_terminal.log 2>&1
+# */30 * * * * /projects/lakala/config/run_command_pro.sh xyf_trade_today >> /data/script/xyf_trade_today.log 2>&1
+# 13 */4 * * * /projects/lakala/config/run_command_pro.sh xyf_trade_history >> /data/script/xyf_trade_history.log 2>&1
 
 # xyf rmb
 #*/30 * * * * /projects/lakala/config/run_command_pro.sh xyf_user_rmb >> /data/script/xyf_user_rmb.log 2>&1
@@ -47,9 +47,9 @@
 0 14 * * * /projects/lakala/config/run_command_pro.sh jk_user_child_tixian --phone=all >> /data/script/jk_user_child_tixian.log 2>&1
 
 # sdb data
-#*/5 * * * * /projects/lakala/config/run_command_pro.sh sdb_trade >> /data/script/sdb_data.log 2>&1
-#*/5 * * * * /projects/lakala/config/run_command_pro.sh sdb_token >> /data/script/sdb_token.log 2>&1
-#1 */4 * * * /projects/lakala/config/run_command_pro.sh sdb_terminal >> /data/script/sdb_terminal.log 2>&1
+# */5 * * * * /projects/lakala/config/run_command_pro.sh sdb_trade >> /data/script/sdb_data.log 2>&1
+# */5 * * * * /projects/lakala/config/run_command_pro.sh sdb_token >> /data/script/sdb_token.log 2>&1
+# 1 */4 * * * /projects/lakala/config/run_command_pro.sh sdb_terminal >> /data/script/sdb_terminal.log 2>&1
 
 # hhjk data
 */15 * * * * /projects/lakala/config/run_command_pro.sh hhjk_merchant >> /data/script/hhjk_data.log 2>&1
