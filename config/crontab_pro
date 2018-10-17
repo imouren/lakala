@@ -70,3 +70,17 @@
 # /projects/lakala/config/run_command_pro.sh xyf_trade_history --start=20180329 --end=20180404
 # /projects/lakala/config/run_command_pro.sh jk_trade --start=20180520 --end=20180610
 # /projects/lakala/config/run_command_pro.sh jk_settlement --start=20180520 --end=20180610
+
+
+# zzzt
+# jk data
+*/15 * * * * /projects/zzzt/config/run_command_pro.sh jk_merchant >> /data/script/zzzt/jk_data.log 2>&1
+*/15 * * * * /projects/zzzt/config/run_command_pro.sh jk_terminal >> /data/script/zzzt/jk_data.log 2>&1
+*/15 * * * * /projects/zzzt/config/run_command_pro.sh jk_trade >> /data/script/zzzt/jk_data.log 2>&1
+*/21 * * * * /projects/zzzt/config/run_command_pro.sh jk_settlement >> /data/script/zzzt/jk_data.log 2>&1
+
+# jk rmb
+*/30 * * * * /projects/zzzt/config/run_command_pro.sh jk_user_rmb >> /data/script/zzzt/jk_user_rmb.log 2>&1
+1 * * * * /projects/zzzt/config/run_command_pro.sh jk_child_user_rmb >> /data/script/zzzt/jk_child_user_rmb.log 2>&1
+30 13 * * * /projects/zzzt/config/run_command_pro.sh jk_user_tixian --phone=all >> /data/script/zzzt/jk_user_tixian.log 2>&1
+0 14 * * * /projects/zzzt/config/run_command_pro.sh jk_user_child_tixian --phone=all >> /data/script/zzzt/jk_user_child_tixian.log 2>&1
