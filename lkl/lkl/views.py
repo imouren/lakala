@@ -22,3 +22,10 @@ def hhjk_wx_js(request):
     JS接口安全域名
     """
     return HttpResponse("1hja9C8HvptXtWzB")
+
+
+def zzzt_wx_js(request):
+    """
+    JS接口安全域名
+    """
+    return HttpResponse("NUerhIBr4nth7bhm")

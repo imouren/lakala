@@ -9,3 +9,13 @@
 windows下redis的启动和关闭
 redis-server --service-start
 redis-server --service-stop
+
+
+lkl/utils.py  支付密钥和IP
+
+lkl/config.py  配置
+
+config.py
+settings_pro.py
+wx_utils.py
+wx_pay.py
