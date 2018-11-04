@@ -41,8 +41,8 @@
 */21 * * * * /projects/lakala/config/run_command_pro.sh jk_settlement >> /data/script/jk_data.log 2>&1
 
 # jk rmb
-#*/30 * * * * /projects/lakala/config/run_command_pro.sh jk_user_rmb >> /data/script/jk_user_rmb.log 2>&1
-#1 * * * * /projects/lakala/config/run_command_pro.sh jk_child_user_rmb >> /data/script/jk_child_user_rmb.log 2>&1
+*/30 * * * * /projects/lakala/config/run_command_pro.sh jk_user_rmb >> /data/script/jk_user_rmb.log 2>&1
+1 * * * * /projects/lakala/config/run_command_pro.sh jk_child_user_rmb >> /data/script/jk_child_user_rmb.log 2>&1
 #30 13 * * * /projects/lakala/config/run_command_pro.sh jk_user_tixian --phone=all >> /data/script/jk_user_tixian.log 2>&1
 #0 14 * * * /projects/lakala/config/run_command_pro.sh jk_user_child_tixian --phone=all >> /data/script/jk_user_child_tixian.log 2>&1
 

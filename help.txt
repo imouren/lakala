@@ -13,9 +13,17 @@ redis-server --service-stop
 
 lkl/utils.py  支付密钥和IP
 
-lkl/config.py  配置
+lkl/lkl/config.py  配置 复制
 
-config.py
-settings_pro.py
-wx_utils.py
-wx_pay.py
+lkl/pro.ini  修改
+
+settings_pro.py  复制
+wx_utils.py  复制
+wx_pay.py  复制
+
+lkl\templates\lkl\base.html
+
+admin:m4
+159:m4
+
+./config/run_command_pro.sh collectstatic
