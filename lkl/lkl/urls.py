@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^MP_verify_kn6YuZIRpnYWeVCO.txt$', views.wx_js, name="wx_js"),
     url(r'^MP_verify_1hja9C8HvptXtWzB.txt$', views.hhjk_wx_js, name="hhjk_wx_js"),
     url(r'^MP_verify_NUerhIBr4nth7bhm.txt$', views.zzzt_wx_js, name="zzzt_wx_js"),
+    url(r'^MP_verify_xLVJtEkSzT6g4IRj.txt$', views.fzcj_wx_js, name="fzcj_wx_js"),
     url(r'^admin/', admin.site.urls),
     url(r'^robot/', make_view(robot)),
     url(r'^captcha/', include('captcha.urls')),
