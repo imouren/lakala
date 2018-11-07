@@ -176,6 +176,8 @@ class JKPos(models.Model):
 @python_2_unicode_compatible
 class JKFenRun(models.Model):
     POINT_CHOICE = [
+        ("0.500", u"0.500"),
+        ("0.510", u"0.510"),
         ("0.520", u"0.520"),
         ("0.525", u"0.525"),
         ("0.530", u"0.530"),
