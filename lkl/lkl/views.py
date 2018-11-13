@@ -36,3 +36,10 @@ def fzcj_wx_js(request):
     JS接口安全域名
     """
     return HttpResponse("xLVJtEkSzT6g4IRj")
+
+
+def taobao_root(request):
+    """
+    JS接口安全域名
+    """
+    return HttpResponse("514b3ba2ae3cfa263834d348e1bf48a8")
