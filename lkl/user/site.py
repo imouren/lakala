@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.contrib.admin.views.decorators import staff_member_required
 from . import site_utils
 from .utils import rclient
+from lkl import config
 
 
 # @cache_page(3600)
@@ -21,7 +22,7 @@ def income(request):
     5. 下级分点的提现和未提现
     """
     # 缓存
-    key = 'lkl_income_page'
+    key = '%s_income_page' % config.SITE
     data_str = rclient.get(key)
     if not data_str:
         pos_data = site_utils.get_boss_pos_info()
@@ -59,7 +60,7 @@ def jk_income(request):
     金控
     """
     # 缓存
-    key = 'jk_income_page'
+    key = '%s_jk_income_page' % config.SITE
     data_str = rclient.get(key)
     if not data_str:
         pos_data = site_utils.get_jk_boss_pos_info()

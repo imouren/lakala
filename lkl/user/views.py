@@ -47,7 +47,7 @@ def home(request):
     用户首页
     """
     return redirect("jk_home")
-    key = 'lkl_home'
+    key = '%s_lkl_home' % config.SITE
     data_str = rclient.get(key)
     if not data_str:
         items = dbutils.get_user_pos_top()
