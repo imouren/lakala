@@ -11,6 +11,15 @@ from .utils import rclient
 from lkl import config
 
 
+def template_variable(request):
+    context = {
+        "site_title": config.SITE_TITLE,
+        "site_bottom_name": config.SITE_BOTTOM_NAME,
+        "site_bottom_desc": config.SITE_BOTTOM_DESC
+    }
+    return context
+
+
 # @cache_page(3600)
 @staff_member_required
 def income(request):
