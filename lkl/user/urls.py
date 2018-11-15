@@ -35,4 +35,7 @@ urlpatterns = [
     url(r'^income/$', site.income, name="admin_income"),
     url(r'^reminder/$', site.reminder, name="admin_reminder"),
     url(r'^jk_income/$', site.jk_income, name="admin_jk_income"),
+    url(r'^jk_token_index/$', site.jk_token_index, name="admin_jk_token_index"),
+    url(r'^jk_token/$', site.jk_token, name="admin_jk_token"),
+    url(r'^jk_token_pic/$', site.jk_token_pic, name="admin_jk_token_pic"),
 ]
