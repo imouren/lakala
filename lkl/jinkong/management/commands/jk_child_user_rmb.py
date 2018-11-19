@@ -13,6 +13,8 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 warnings.filterwarnings("ignore")
 
+TAX = "0.91"  # 税点 9
+
 
 class Command(BaseCommand):
     """
@@ -96,7 +98,7 @@ def process_jk_child_rmb(obj, default_user):
             print "user rmb bigger than system rmb!!!"
             print obj.trans_id
             return
-        armb = myrmb * Decimal("0.91")  # 税点 9
+        armb = myrmb * Decimal(TAX)  # 税点 9
         xrmb = armb.quantize(Decimal('1.00'), ROUND_DOWN)
         father_rmb = int(100 * Decimal(xrmb))
         rmb = father_rmb - obj.rmb

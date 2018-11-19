@@ -13,6 +13,8 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 warnings.filterwarnings("ignore")
 
+TAX = "0.91"
+
 
 class Command(BaseCommand):
     """
@@ -92,7 +94,7 @@ def process_jk_rmb(obj, default_user):
             print "user rmb bigger than system rmb!!!"
             print obj.trans_id
             return
-        armb = myrmb * Decimal("0.91")  # 税点
+        armb = myrmb * Decimal(TAX)  # 税点
         xrmb = armb.quantize(Decimal('1.00'), ROUND_DOWN)
     profit = models.JKProfit.objects.create(
         user=user,
