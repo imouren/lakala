@@ -168,7 +168,7 @@ def hhjk_token(request):
         if "changeImg" not in res.content:
             cookies = jk_session.cookies
             cookies_str = ";".join(["=".join(item) for item in cookies.items()])
-            JKToken.objects.create(token=cookies_str)
+            HHJKToken.objects.create(token=cookies_str)
     return redirect("admin_hhjk_token_index")
 
 
