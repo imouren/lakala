@@ -164,9 +164,9 @@ def hhjk_token(request):
             "password": config.HHJK_PASS,
             "confirmationCode": code
         }
-        res = jk_session.post("http://119.18.194.36/toHomePage.do", data=data, headers=HEADERS, verify=False)
+        res = hhjk_session.post("http://119.18.194.36/toHomePage.do", data=data, headers=HEADERS, verify=False)
         if "changeImg" not in res.content:
-            cookies = jk_session.cookies
+            cookies = hhjk_session.cookies
             cookies_str = ";".join(["=".join(item) for item in cookies.items()])
             HHJKToken.objects.create(token=cookies_str)
     return redirect("admin_hhjk_token_index")
