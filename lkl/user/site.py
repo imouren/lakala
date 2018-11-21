@@ -10,6 +10,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from . import site_utils
 from .utils import rclient
 from jinkong.models import JKToken
+from hhjk.models import HHJKToken
 from lkl import config
 
 HEADERS = {
@@ -24,6 +25,7 @@ HEADERS = {
 }
 
 jk_session = requests.Session()
+hhjk_session = requests.Session()
 
 
 def template_variable(request):
@@ -138,4 +140,39 @@ def jk_token(request):
 def jk_token_pic(request):
     url = "http://119.18.194.36/image.do"
     response = jk_session.get(url, headers=HEADERS, verify=False)
+    return HttpResponse(response.content, content_type='image/jpeg')
+
+
+@staff_member_required
+def hhjk_token_index(request):
+
+    objs = HHJKToken.objects.filter(is_disabled=False)
+    if objs:
+        ok = True
+    else:
+        ok = False
+    data = {"ok": ok}
+    return render(request, "admin/hhjk_token_index.html", data)
+
+
+@staff_member_required
+def hhjk_token(request):
+    code = request.POST.get("code")
+    if code:
+        data = {
+            "userName": config.HHJK_NAME,
+            "password": config.HHJK_PASS,
+            "confirmationCode": code
+        }
+        res = jk_session.post("http://119.18.194.36/toHomePage.do", data=data, headers=HEADERS, verify=False)
+        if "changeImg" not in res.content:
+            cookies = jk_session.cookies
+            cookies_str = ";".join(["=".join(item) for item in cookies.items()])
+            JKToken.objects.create(token=cookies_str)
+    return redirect("admin_hhjk_token_index")
+
+
+def hhjk_token_pic(request):
+    url = "http://119.18.194.36/image.do"
+    response = hhjk_session.get(url, headers=HEADERS, verify=False)
     return HttpResponse(response.content, content_type='image/jpeg')

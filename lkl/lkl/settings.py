@@ -300,9 +300,10 @@ SUIT_CONFIG = {
         {'label': u'金控数据', 'icon': 'icon-heart', 'app': 'jinkong', 'models': ('JKMerchant', 'JKTerminal', 'JKTrade', 'JKSettlement', 'JKPos', 'JKFenRun', 'JKYunFenRun', 'JKToken')},
         {'label': u'金控金钱', 'icon': 'icon-heart', 'app': 'jinkong', 'models': ('JKUserRMB', 'JKProfit', 'JKChildProfit', 'JKTiXianOrder')},
         {'label': u'金控营收状况', 'icon': 'icon-heart', 'url': 'admin_jk_income', 'blank': False},
-        {'label': u'金控同步token', 'icon': 'icon-heart', 'url': 'admin_jk_token_index', 'blank': False},
+        {'label': u'金控同步token', 'icon': 'icon-heart', 'permissions': 'jinkong.add_jktoken', 'url': 'admin_jk_token_index', 'blank': False},
         {'label': u'闪电宝演示', 'icon': 'icon-heart', 'app': 'shandianbao', 'models': ('SDBTrade', 'SDBTerminal', 'SDBToken')},
         {'label': u'华辉金控', 'icon': 'icon-heart', 'app': 'hhjk', 'models': ('HHJKMerchant', 'HHJKTerminal', 'HHJKTrade', 'HHJKToken')},
+        {'label': u'华辉金控同步token', 'icon': 'icon-heart', 'permissions': 'hhjk.add_hhjktoken', 'url': 'admin_hhjk_token_index', 'blank': False},
     ),
 
     # misc
