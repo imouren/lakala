@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import time
 import cPickle as pickle
 import requests
 from django.shortcuts import render
@@ -138,7 +139,7 @@ def jk_token(request):
 
 
 def jk_token_pic(request):
-    url = "http://119.18.194.36/image.do"
+    url = "http://119.18.194.36/image.do?timestamp=%s" % int(time.time()*1000)
     response = jk_session.get(url, headers=HEADERS, verify=False)
     return HttpResponse(response.content, content_type='image/jpeg')
 
