@@ -160,13 +160,13 @@ def get_trade_data(cookies, adate):
 
 
 def write_to_db_trade(data):
-    tids = [terminal[17] for terminal in data]
+    tids = [terminal[18] for terminal in data]
     used_tids = set(JKTrade.objects.filter(trans_id__in=tids).values_list("trans_id", flat=True))
     # 插入db
     alist = []
     same_code = set()
     for t in data:
-        trans_id = t[17]
+        trans_id = t[18]
         if trans_id in same_code:
             print "same code", trans_id
             continue
@@ -190,15 +190,16 @@ def write_to_db_trade(data):
                 card_code=t[13],
                 card_bank=t[14],
                 trade_fee=t[15],
-                qingfen_rmb=t[16],
-                trans_id=t[17],
-                fenrun=t[18],
-                trade_category=t[19],
-                product=t[20],
+                trade_fj_fee=t[16],
+                qingfen_rmb=t[17],
+                trans_id=t[18],
+                fenrun=t[19],
+                trade_category=t[20],
+                product=t[21],
             )
             alist.append(obj)
         else:
-            itmes = JKTrade.objects.filter(trans_id=t[17])
+            itmes = JKTrade.objects.filter(trans_id=t[18])
             if itmes:
                 item = itmes[0]
                 item.merchant_code = t[0]
@@ -217,11 +218,12 @@ def write_to_db_trade(data):
                 item.card_code = t[13]
                 item.card_bank = t[14]
                 item.trade_fee = t[15]
-                item.qingfen_rmb = t[16]
-                item.trans_id = t[17]
-                item.fenrun = t[18]
-                item.trade_category = t[19]
-                item.product = t[20]
+                item.trade_fj_fee = t[16]
+                item.qingfen_rmb = t[17]
+                item.trans_id = t[18]
+                item.fenrun = t[19]
+                item.trade_category = t[20]
+                item.product = t[21]
                 item.save()
     if alist:
         JKTrade.objects.bulk_create(alist)

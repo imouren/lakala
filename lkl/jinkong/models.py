@@ -58,6 +58,7 @@ class JKTrade(models.Model):
     card_code = models.CharField(u"卡号", max_length=64)
     card_bank = models.CharField(u"发卡行", max_length=64)
     trade_fee = models.CharField(u"交易手续费（元）", max_length=64)
+    trade_fj_fee = models.CharField(u"交易附加手续费（元）", max_length=64, blank=True)
     qingfen_rmb = models.CharField(u"清分金额", max_length=64)
     trans_id = models.CharField(u"流水号", max_length=64, unique=True)
     fenrun = models.CharField(u"分润", max_length=64)

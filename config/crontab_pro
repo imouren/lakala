@@ -54,7 +54,7 @@
 # hhjk data
 */15 * * * * /projects/lakala/config/run_command_pro.sh hhjk_merchant >> /data/script/hhjk_data.log 2>&1
 */15 * * * * /projects/lakala/config/run_command_pro.sh hhjk_terminal >> /data/script/hhjk_data.log 2>&1
-*/15 * * * * /projects/lakala/config/run_command_pro.sh hhjk_trade >> /data/script/hhjk_data.log 2>&1
+#*/15 * * * * /projects/lakala/config/run_command_pro.sh hhjk_trade >> /data/script/hhjk_data.log 2>&1
 
 
 
