@@ -72,7 +72,7 @@ def get_pos_detail(pos):
     trans_total = Decimal(0)
     fee_total = Decimal(0)
     for obj in objs:
-        if obj.card_type == u"贷记" and obj.return_code == "00" and obj.product.strip() == "" and obj.trade_category.strip() == "" and obj.trade_rmb != "220.0" and obj.trade_rmb != "300.0":
+        if obj.card_type == u"贷记" and obj.return_code == "00" and obj.product.strip() == "" and obj.trade_category.strip() in ("", u"优选") and obj.trade_rmb != "220.0" and obj.trade_rmb != "300.0":
             trans_total += Decimal(obj.trade_rmb)
             fee_total += Decimal(obj.trade_fee)
             tmp = {
@@ -97,7 +97,7 @@ def get_user_trans_total(user):
     objs = models.JKTrade.objects.filter(terminal__in=terminals)
     trans_total = Decimal(0)
     for obj in objs:
-        if obj.card_type == u"贷记" and obj.return_code == "00" and obj.product.strip() == "" and obj.trade_category.strip() == "" and obj.trade_rmb != "220.0" and obj.trade_rmb != "300.0":
+        if obj.card_type == u"贷记" and obj.return_code == "00" and obj.product.strip() == "" and obj.trade_category.strip() in ("", u"优选") and obj.trade_rmb != "220.0" and obj.trade_rmb != "300.0":
             trans_total += Decimal(obj.trade_rmb)
     return trans_total
 
