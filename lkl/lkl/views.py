@@ -42,4 +42,4 @@ def taobao_root(request):
     """
     JS接口安全域名
     """
-    return HttpResponse("514b3ba2ae3cfa263834d348e1bf48a8")
+    return HttpResponse("53c122835dcff61529111eff7b4e04f1")
