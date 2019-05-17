@@ -37,10 +37,9 @@ DATA = [
     (datetime(2019, 5, 24), u"U枕"),
     (datetime(2019, 5, 23), u"蝴蝶枕"),
     (datetime(2019, 5, 21), u"静电遮阳贴"),
-    (datetime(2019, 5, 21), u"静电遮阳贴"),
 ]
 
-TX_MSG = ["13121715957"]
+TX_MSG = ["13121715957", "15001179460"]
 
 
 class Command(BaseCommand):
@@ -50,9 +49,9 @@ class Command(BaseCommand):
     @wrapper_raven
     def handle(self, *args, **options):
         print "__start meizhe_msg..."
-        start = datetime.now() - timedelta(2)
+        start = datetime.now() + timedelta(2)
         for adate, txt in DATA:
-            if adate < start:
+            if adate > start:
                 continue
             template_id = 334492
             params = [txt]
