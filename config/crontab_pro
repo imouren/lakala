@@ -84,3 +84,6 @@
 1 * * * * /projects/zzzt/config/run_command_pro.sh jk_child_user_rmb >> /data/script/zzzt/jk_child_user_rmb.log 2>&1
 0 12 * * * /projects/zzzt/config/run_command_pro.sh jk_user_tixian --phone=all >> /data/script/zzzt/jk_user_tixian.log 2>&1
 0 18 * * * /projects/zzzt/config/run_command_pro.sh jk_user_child_tixian --phone=all >> /data/script/zzzt/jk_user_child_tixian.log 2>&1
+
+# other
+1 11 * * * /projects/lakala/config/run_command_pro.sh meizhe_msg
