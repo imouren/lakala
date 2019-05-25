@@ -87,3 +87,8 @@
 
 # other
 1 11 * * * /projects/lakala/config/run_command_pro.sh meizhe_msg
+
+
+# martina
+1 10 * * * cd /root/martina/baobei/; /usr/local/bin/python37 manage_pro.py taobao_goods_daily
+1 * * * * cd /root/martina/baobei/; /usr/local/bin/python37 manage_pro.py taobao_goods_new
